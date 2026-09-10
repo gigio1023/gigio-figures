@@ -116,8 +116,8 @@ Read only the route needed for the current artifact.
 ## Gotchas
 
 - A successful D2 render does not prove that labels, crossings, or semantic grouping are readable; inspect the SVG or a PNG proof.
-- Horizontal ELK layouts are wide. The bundled four-node example renders 1027px wide at default spacing, which puts 14px labels at about 8px in a 720px column; the validator catches it. `D2_LAYOUT=tala` renders the same source 647px wide and `direction: down` 389px wide.
-- macOS system fonts such as `AppleGothic.ttf` fail D2's font embedding with a checksum error. Re-save the TTF with fontTools or use a distributed TTF such as Pretendard.
+- Horizontal ELK layouts are wide. The bundled four-node example renders 1027px wide at default spacing, which puts its 12px edge labels at about 8.4px and its 14px node labels at 9.8px in a 720px column; the validator catches it. `D2_LAYOUT=tala` renders the same source 647px wide and `direction: down` 389px wide.
+- macOS system fonts such as `AppleGothic.ttf` fail D2's font embedding with a checksum error. Re-save the TTF with fontTools, or use a distributed TTF such as Pretendard, which was not exercised in the verification run.
 - D2 draws shape labels bold and connection labels italic unless told otherwise. The theme sets `bold: false` and `italic: false`; a hand-written class must repeat them.
 - Hangul is not in D2's embedded fonts. Without a supplied TTF the glyphs depend on the viewer and the boxes run wide.
 - The main source must keep `editorial-theme.d2` beside it. A missing relative import loses both portability and the shared style.

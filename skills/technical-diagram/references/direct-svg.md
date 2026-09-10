@@ -16,7 +16,7 @@ Author the SVG by hand when the figure is inlined into an HTML document that sup
 
 Set the `viewBox` width to the delivery width, 720 by default, and let the height follow the content. A figure that is wider than its column is scaled down by the host, so a 14px label in a 1200px canvas arrives at about 8px; the validator's `--target-width` check fails the figure before a reader sees that. When content does not fit, stack rows vertically, shorten role-first labels, or split by abstraction level. Never reduce type below 12px rendered, and never widen the canvas past the delivery width to make an overfull row fit.
 
-Keep `width` and `height` attributes equal to the `viewBox` for a standalone file so hosts without CSS sizing show the figure at its designed scale.
+Keep `width` and `height` attributes equal to the `viewBox` for a standalone file so hosts without CSS sizing show the figure at its designed scale. A `width` smaller than the `viewBox` shrinks every label in such a host, so the validator treats it as the display width.
 
 ## Structure
 
@@ -24,7 +24,7 @@ Start from `assets/direct-svg-template.svg`. It fixes the parts that are easy to
 
 - Root `<svg>` with `xmlns`, a finite `viewBox`, `role="img"`, and `aria-labelledby` pointing at a `<title>` and `<desc>`. These are accessibility metadata, not a visible title; the no-title rule is about visible text.
 - `<defs>` holding two open arrowhead markers (`arrow-ink`, `arrow-muted`) with `markerUnits="userSpaceOnUse"` so arrowheads do not scale with stroke width and `orient="auto-start-reverse"` so a return path can reuse them.
-- One `<style>` block with classes for the two text voices (`entity`, `edge`, `note`, `ko`), the box fills (`box`, `box-accent`, `box-muted`), and the connection strokes (`flow`, `flow-secondary`). Colors and sizes in that block are the token values; change them only by changing the tokens.
+- One `<style>` block with classes for the two text voices (`entity`, `edge`, `note`, `ko`), the box fills (`box`, `box-accent`, `box-muted`), and the connection strokes (`flow`, `flow-secondary`). Colors in that block are the token values and change only when the tokens change; the 14px entity and 12px edge sizes match `editorial-theme.d2`.
 - One `<g id="role">` per semantic node containing its `<rect>` and `<text>`, and one `<g id="source-to-target">` per connection containing its `<path>` and label. Stable ids let the validator, reviewers, and later edits address parts by role.
 - Text as `<text>` and `<tspan>`, never outlined paths. SVG does not wrap text; give every line its own `<tspan>` with an explicit `x`, keep labels to two lines, and use `text-anchor="middle"` on box labels so centering survives label edits.
 
@@ -35,7 +35,7 @@ Keep gradients, filters, shadows, textures, decorative dots, and any title or fo
 Estimate before you place. A monospace Latin glyph advances about 0.6em, a sans-serif glyph about 0.52em, and a Hangul or CJK glyph a full 1em. For a 14px label, `APPLICATION SERVER` is therefore about 151px wide and needs a box at least 176px wide to keep 12px of inner padding.
 
 - Margins: 24px from the canvas edge to the first box.
-- Boxes: 64px tall in a row, corner radius 16, at least 16px of inner padding on each side of the longest label line; inner sub-boxes use radius 4.
+- Boxes: 64px tall in a row, corner radius 16, at least 12px of inner padding on each side of the longest label line; inner sub-boxes use radius 4.
 - Corridors: the gap between two connected boxes is at least the edge label width plus 16px; place the label above the line for a forward path and below it for a return path so neither needs an opaque background.
 - Paths: straight `H` or `V` segments with one bend at most; end the path one pixel before the target border so the marker tip touches the border instead of entering the box.
 - Secondary paths: dashed `2 2`, gray stroke, gray marker, in their own corridor rather than stacked on the dominant path.

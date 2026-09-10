@@ -37,14 +37,14 @@ Copy `assets/editorial-theme.d2` beside the output source before rendering. D2 i
 
 ## Layout engine, direction, and delivery width
 
-D2 bundles three layout engines. ELK is the default here because its strictly layered placement keeps one straight reading path. TALA, D2's own engine and open source since v0.9.0, packs the same content into fewer pixels by placing secondary exchanges beside the main path. Dagre is not used. Measured on the bundled four-node example with 16px padding (viewBox width × height):
+D2 bundles three layout engines. ELK is the default here because its strictly layered placement keeps one straight reading path. TALA, D2's own engine and open source since v0.9.0, packs the same content into fewer pixels by placing secondary exchanges beside the main path. Dagre stays selectable with `D2_LAYOUT=dagre` but offers no advantage over ELK here. Measured on the bundled four-node example with 16px padding (viewBox width × height):
 
 | direction | dagre | ELK | TALA |
 | --- | --- | --- | --- |
 | right | 1019 × 220 | 1027 × 180 | 647 × 344 |
 | down | 439 × 455 | 389 × 555 | 421 × 477 |
 
-At a 720px delivery width the ELK and dagre horizontal renders scale their 14px labels to about 8px and fail the gate; every other cell passes. Tightening ELK spacing alone does not rescue a wide row: `--elk-nodeNodeBetweenLayers 40 --elk-edgeNodeBetweenLayers 24` brings 1027 down to 903, and 30 with 16 to 851.
+At a 720px delivery width the ELK and dagre horizontal renders scale their 12px edge labels to about 8.4px and their 14px node labels to 9.8px, so they fail the gate; every other cell passes. Tightening ELK spacing alone does not rescue a wide row: `--elk-nodeNodeBetweenLayers 40 --elk-edgeNodeBetweenLayers 24` brings 1027 down to 903, and 30 with 16 to 851.
 
 - Keep ELK for a figure whose rows fit. Use `direction: right` for a short pipeline and `direction: down` for a hierarchy or a staged decomposition.
 - When the gate fails, switch the engine first with `D2_LAYOUT=tala` (the wrapper passes it as `--layout`, which overrides the source's `d2-config`), then switch direction, then shorten labels or split. TALA is deterministic (`--tala-seeds 1,2,3` by default) and renders identical output across runs. After switching, confirm that the dominant path is still the obvious one.
@@ -78,7 +78,7 @@ Zero accent or hot elements is valid. Do not alternate classes for variety. Avoi
 
 D2 embeds subsets of its bundled fonts in the SVG: Source Sans Pro for ordinary text and Source Code Pro for `font: mono`, the theme's technical voice. The four-node example carries about 5KB of font data, so file size is not a reason to avoid the route. Because the theme disables bold and italic, only the regular mono face is ever used; to embed a different font, point `D2_FONT_MONO` (or `--font-mono`) at a `.ttf` file. The sans flags (`--font-regular` and siblings) matter only for labels outside the theme classes.
 
-Korean labels render without errors, but the bundled fonts have no Hangul, so the viewer's own fonts draw the glyphs unless a Hangul-capable TTF is embedded. `D2_FONT_MONO=/path/Pretendard-Regular.ttf` embeds a subset (about 9KB more for a three-node figure), and the Latin text in that figure then shares the sans voice, which is the intended look for a Korean figure. macOS system fonts such as `AppleGothic.ttf` fail D2's TTF-to-WOFF step with `checksum error in table: name`; re-saving the file with fontTools (`TTFont(src).save(dst)`) repairs the checksums and the result embeds cleanly. D2 sizes Hangul boxes generously regardless of the font; accept the width or shorten the label. Do not mix a mono Latin word into a sans Korean label.
+Korean labels render without errors, but the bundled fonts have no Hangul, so the viewer's own fonts draw the glyphs unless a Hangul-capable TTF is embedded. Point `D2_FONT_MONO` at a Hangul-capable TTF such as Pretendard and D2 embeds a subset of it; measured with a repaired macOS system font, a three-node figure grew by about 9KB, and the Latin text in that figure then shares the sans voice, which is the intended look for a Korean figure. macOS system fonts such as `AppleGothic.ttf` fail D2's TTF-to-WOFF step with `checksum error in table: name` as shipped; re-saving the file with fontTools (`TTFont(src).save(dst)`) repairs the checksums and the result embeds cleanly. Pretendard itself was not exercised in the verification run. D2 sizes Hangul boxes generously regardless of the font; accept the width or shorten the label. Do not mix a mono Latin word into a sans Korean label.
 
 ## Rendering and limits
 
@@ -92,6 +92,6 @@ It resolves to `d2 fmt --check`, `d2 validate`, `d2 --layout $D2_LAYOUT --pad 16
 
 Known approximations, not reasons to post-process the SVG: D2 accepts integer stroke widths, so the theme uses 1 for the tokens' 1.2; its unfilled triangle is the closest portable match for the open arrowhead; `mono` is the only per-shape font choice. The output nests a second `<svg>` inside the root, carries hashed class names, and starts with an XML declaration; for inlining into HTML pass `--no-xml-tag` or strip the declaration.
 
-Versions: the whole path above, including the wrapper, the theme, the `d2-config` block, TALA, and Hangul embedding, was exercised end to end with D2 v0.9.0 (released 2026-09-07) on 2026-09-10. `d2 fmt --check` and `d2 validate` need v0.7.1 or newer; a PNG proof without a browser needs v0.9.0, and older versions render PNG through Playwright.
+Versions: the whole path above, including the wrapper, the theme, the `d2-config` block, TALA, and Hangul embedding, was exercised end to end with D2 v0.9.0 (released 2026-09-07) on 2026-09-10. `d2 fmt --check` and `d2 validate` need v0.7.0 or newer; a PNG proof without a browser needs v0.9.0, and older versions render PNG through Playwright.
 
 Official references: https://d2lang.com/tour/style/, https://d2lang.com/tour/classes/, https://d2lang.com/tour/imports-use-cases/, https://d2lang.com/tour/layouts/, https://d2lang.com/tour/fonts/, https://d2lang.com/tour/vars/, and https://d2lang.com/tour/exports/.

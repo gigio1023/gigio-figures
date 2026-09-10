@@ -33,7 +33,11 @@ ALWAYS_ALLOWED_COLORS = {"none", "currentcolor", "transparent", "inherit", "whit
 NON_CONTENT_CONTAINERS = {"defs", "mask", "marker", "clippath", "pattern", "symbol", "metadata", "title", "desc"}
 SHAPE_TAGS = {"rect", "path", "line", "polyline", "polygon", "circle", "ellipse"}
 HEX_RE = re.compile(r"#[0-9a-fA-F]{3}(?:[0-9a-fA-F]{3})?\b")
-NUMBER_RE = re.compile(r"^\s*(-?\d+(?:\.\d+)?)\s*(px|pt)?\s*$")
+RGB_RE = re.compile(r"rgba?\(\s*(\d+)\s*[, ]\s*(\d+)\s*[, ]\s*(\d+)\s*(?:[,/]\s*[\d.]+%?\s*)?\)")
+NUMBER_RE = re.compile(r"^\s*(-?(?:\d+\.?\d*|\.\d+))\s*(px|pt|em|rem|%)?\s*$")
+FLOAT_RE = re.compile(r"-?(?:\d+\.?\d*|\.\d+)(?:e-?\d+)?")
+TRANSFORM_RE = re.compile(r"(scale|matrix)\s*\(([^)]*)\)")
+UNSUPPORTED_SELECTOR_RE = re.compile(r"[\[\]:+~]")
 
 
 @dataclass
@@ -48,7 +52,8 @@ class Report:
 
 
 def local_name(tag: str) -> str:
-    return tag.rsplit("}", 1)[-1]
+    """Tag name without namespace, lowercased so camel-case names such as clipPath compare reliably."""
+    return tag.rsplit("}", 1)[-1].lower()
 
 
 def parse_style_attr(style: str | None) -> dict[str, str]:
@@ -56,15 +61,40 @@ def parse_style_attr(style: str | None) -> dict[str, str]:
     for chunk in (style or "").split(";"):
         if ":" in chunk:
             key, value = chunk.split(":", 1)
-            result[key.strip().lower()] = value.strip()
+            result[key.strip().lower()] = re.sub(r"\s*!important\s*$", "", value.strip(), flags=re.I)
     return result
+
+
+def strip_at_rules(css: str) -> str:
+    """Drop @font-face, @media, @import, and other at-rules; conditional rules cannot be judged statically."""
+    out: list[str] = []
+    i = 0
+    while i < len(css):
+        if css[i] != "@":
+            out.append(css[i])
+            i += 1
+            continue
+        depth = 0
+        j = i
+        while j < len(css):
+            if css[j] == "{":
+                depth += 1
+            elif css[j] == "}":
+                depth -= 1
+                if depth <= 0:
+                    break
+            elif css[j] == ";" and depth == 0:
+                break
+            j += 1
+        i = j + 1
+    return "".join(out)
 
 
 def parse_css(css: str) -> list[tuple[list[str], dict[str, str]]]:
     """Return (selectors, declarations) pairs for the simple rules a figure uses."""
     css = css.replace("<![CDATA[", "").replace("]]>", "")
     css = re.sub(r"/\*.*?\*/", "", css, flags=re.S)
-    css = re.sub(r"@font-face\s*\{[^}]*\}", "", css)
+    css = strip_at_rules(css)
     rules: list[tuple[list[str], dict[str, str]]] = []
     for block in css.split("}"):
         if "{" not in block:
@@ -74,14 +104,22 @@ def parse_css(css: str) -> list[tuple[list[str], dict[str, str]]]:
     return rules
 
 
-def length_px(value: str | None) -> float | None:
+def length_px(value: str | None, *, relative_to: float | None = None) -> float | None:
+    """Convert a length to px. Relative units resolve against `relative_to` or are rejected."""
     if value is None:
         return None
     match = NUMBER_RE.match(value)
     if not match:
         return None
     number = float(match.group(1))
-    return number * 4 / 3 if match.group(2) == "pt" else number
+    unit = match.group(2)
+    if unit == "pt":
+        return number * 4 / 3
+    if unit in ("em", "rem", "%"):
+        if relative_to is None:
+            return None
+        return number * relative_to / (100 if unit == "%" else 1)
+    return number
 
 
 def first_number(value: str | None) -> float | None:
@@ -136,16 +174,30 @@ class StyleResolver:
         return set((element.get("class") or "").split())
 
     def _simple_match(self, selector: str, element: ET.Element) -> bool:
-        if selector == "*":
-            return True
-        name, _, rest = selector.partition(".")
-        if name and name != local_name(element.tag):
-            return False
-        wanted = {part for part in rest.split(".") if part} if rest else set()
-        return wanted <= self.classes(element)
+        for token in re.findall(r"[#.]?[^#.]+", selector):
+            if token == "*":
+                continue
+            if token.startswith("#"):
+                if element.get("id") != token[1:]:
+                    return False
+            elif token.startswith("."):
+                if token[1:] not in self.classes(element):
+                    return False
+            elif token != local_name(element.tag):
+                return False
+        return True
+
+    @staticmethod
+    def specificity(selector: str) -> int:
+        types = len([t for t in re.findall(r"[#.]?[^#.\s>]+", selector) if t[0] not in "#." and t != "*"])
+        return selector.count("#") * 100 + selector.count(".") * 10 + types
 
     def matches(self, selector: str, element: ET.Element) -> bool:
-        parts = selector.split()
+        # Attribute, pseudo-class, and sibling selectors are not evaluated; the child combinator is
+        # treated as a descendant combinator, which errs toward applying the rule.
+        if UNSUPPORTED_SELECTOR_RE.search(selector):
+            return False
+        parts = selector.replace(">", " ").split()
         if not parts or not self._simple_match(parts[-1], element):
             return False
         remaining = parts[:-1]
@@ -157,22 +209,42 @@ class StyleResolver:
         return not remaining
 
     def declared(self, element: ET.Element, prop: str) -> str | None:
+        # Cascade order per SVG: inline style, then stylesheet rules, then presentation attributes,
+        # which have zero specificity and lose to any matching rule.
         inline = parse_style_attr(element.get("style"))
         if prop in inline:
             return inline[prop]
-        if element.get(prop) is not None:
-            return element.get(prop)
         best: tuple[int, int, str] | None = None
         for order, (selectors, declarations) in enumerate(self.rules):
             if prop not in declarations:
                 continue
             for selector in selectors:
                 if self.matches(selector, element):
-                    specificity = selector.count(".")
-                    candidate = (specificity, order, declarations[prop])
+                    candidate = (self.specificity(selector), order, declarations[prop])
                     if best is None or candidate[:2] > best[:2]:
                         best = candidate
-        return best[2] if best else None
+        if best:
+            return best[2]
+        return element.get(prop)
+
+    def scale_factor(self, element: ET.Element) -> float:
+        """Smallest axis scale applied by transforms and nested svg viewports above the element."""
+        factor = 1.0
+        for node in (element, *self.ancestors(element)):
+            if local_name(node.tag) == "svg" and self.parent.get(node) is not None:
+                nested_width = length_px(node.get("width"))
+                nested_box = FLOAT_RE.findall(node.get("viewBox") or "")
+                if nested_width and len(nested_box) == 4 and float(nested_box[2]) > 0:
+                    factor *= nested_width / float(nested_box[2])
+            for name, args in TRANSFORM_RE.findall(node.get("transform") or ""):
+                values = [float(v) for v in FLOAT_RE.findall(args)]
+                if name == "scale" and values:
+                    sx, sy = values[0], values[1] if len(values) > 1 else values[0]
+                    factor *= min(abs(sx), abs(sy))
+                elif name == "matrix" and len(values) == 6:
+                    a, b, c, d = values[:4]
+                    factor *= min((a * a + b * b) ** 0.5, (c * c + d * d) ** 0.5)
+        return factor
 
     def resolve(self, element: ET.Element, prop: str) -> str | None:
         value = self.declared(element, prop)
@@ -220,6 +292,9 @@ def normalize_color(value: str) -> str:
     value = value.strip().lower()
     if re.fullmatch(r"#[0-9a-f]{3}", value):
         value = "#" + "".join(ch * 2 for ch in value[1:])
+    rgb = RGB_RE.fullmatch(value)
+    if rgb:
+        value = "#" + "".join(f"{min(int(channel), 255):02x}" for channel in rgb.groups())
     return value
 
 
@@ -283,8 +358,26 @@ def label_lines(element: ET.Element) -> list[str]:
 
 
 def font_size_of(element: ET.Element, resolver: StyleResolver) -> float:
-    size = length_px(resolver.resolve(element, "font-size"))
-    return size if size is not None else SVG_DEFAULT_FONT_PX
+    """Resolve the element's font size in px, following inheritance and relative units."""
+    chain = [element, *resolver.ancestors(element)]
+    size = SVG_DEFAULT_FONT_PX
+    for node in reversed(chain):
+        declared = resolver.declared(node, "font-size")
+        if declared is None:
+            continue
+        resolved = length_px(declared, relative_to=size)
+        if resolved is not None:
+            size = resolved
+    return size
+
+
+def smallest_font_size(element: ET.Element, resolver: StyleResolver) -> float:
+    """Smallest font size used by the label, counting tspans that set their own size."""
+    sizes = [font_size_of(element, resolver)]
+    for span in element.iter():
+        if span is not element and local_name(span.tag) == "tspan" and "".join(span.itertext()).strip():
+            sizes.append(font_size_of(span, resolver))
+    return min(sizes)
 
 
 def check_legibility(
@@ -296,21 +389,28 @@ def check_legibility(
     report: Report,
 ) -> None:
     view_width = view_box[2]
-    scale = 1.0 if target_width <= 0 or view_width <= target_width else target_width / view_width
+    display_width = target_width
+    if target_width > 0:
+        # A root width smaller than the viewBox shrinks the figure in any host that honors intrinsic size.
+        intrinsic = length_px(root.get("width"))
+        if intrinsic is not None and 0 < intrinsic < min(view_width, target_width):
+            display_width = intrinsic
+            report.notes.append(f"root width attribute {intrinsic:g}px is narrower than the {view_width:g}px viewBox")
+    scale = 1.0 if display_width <= 0 or view_width <= display_width else display_width / view_width
     offenders: list[tuple[float, float, str]] = []
     smallest: float | None = None
     for element in text_elements(root, resolver):
         lines = label_lines(element)
         if not lines:
             continue
-        size = font_size_of(element, resolver)
+        size = smallest_font_size(element, resolver) * resolver.scale_factor(element)
         effective = size * scale
         smallest = effective if smallest is None else min(smallest, effective)
         if effective < min_font_px:
             offenders.append((effective, size, lines[0]))
     if scale < 1.0:
         report.notes.append(
-            f"canvas is {view_width:g}px wide and will be scaled to {target_width:g}px (x{scale:.2f})"
+            f"canvas is {view_width:g}px wide and will be scaled to {display_width:g}px (x{scale:.2f})"
         )
     if smallest is not None:
         report.notes.append(f"smallest label renders at {smallest:.1f}px")
@@ -321,8 +421,8 @@ def check_legibility(
         )
         more = f" (+{len(offenders) - 3} more)" if len(offenders) > 3 else ""
         report.errors.append(
-            f"labels below {min_font_px:g}px at {target_width:g}px delivery width: {shown}{more}; "
-            "change direction, shorten labels, or split the figure instead of shrinking type"
+            f"labels below {min_font_px:g}px at {display_width:g}px delivery width: {shown}{more}; "
+            "switch the layout engine or direction, shorten labels, or split the figure instead of shrinking type"
         )
 
 
@@ -400,12 +500,12 @@ def check_tokens(root: ET.Element, resolver: StyleResolver, tokens_path: Path, r
                 color = color_to_check(inline.get(prop, element.get(prop)))
                 if color and color not in allowed:
                     off_palette.add(color)
-        if name in SHAPE_TAGS and not resolver.inside(element, {"marker", "mask", "defs"}):
-            stroke_width = length_px(inline.get("stroke-width", element.get("stroke-width")))
+        if name in SHAPE_TAGS and not resolver.inside(element, {"marker", "mask", "clippath", "defs"}):
+            stroke_width = length_px(resolver.resolve(element, "stroke-width"))
             if stroke_width is not None and stroke_width not in strokes:
                 odd_strokes.add(stroke_width)
-        if name == "rect" and not resolver.inside(element, {"marker", "mask", "defs"}):
-            radius = length_px(element.get("rx"))
+        if name == "rect" and not resolver.inside(element, {"marker", "mask", "clippath", "defs"}):
+            radius = length_px(resolver.declared(element, "rx"))
             if radius is not None and radius not in radii:
                 odd_radii.add(radius)
     if off_palette:
@@ -442,7 +542,10 @@ def validate_svg(
     check_legibility(root, resolver, view_box, target_width, min_font_px, report)
     check_label_fit(root, resolver, view_box[2], report)
     if tokens_path is not None:
-        check_tokens(root, resolver, tokens_path, report)
+        try:
+            check_tokens(root, resolver, tokens_path, report)
+        except (OSError, ValueError) as exc:
+            report.errors.append(f"cannot read tokens {tokens_path}: {exc}")
     return report
 
 
@@ -472,6 +575,8 @@ def main() -> int:
         print(f"ERROR: {error}", file=sys.stderr)
     failed = bool(report.errors) or (args.strict and bool(report.warnings))
     if failed:
+        for note in report.notes:
+            print(f"NOTE: {note}", file=sys.stderr)
         return 1
     summary = "; ".join(report.notes) if report.notes else "structure valid"
     print(f"OK: {args.svg} ({summary})")

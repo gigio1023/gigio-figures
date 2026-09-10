@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
-# Format-check, validate, and render a D2 source with ELK, then check the SVG.
+# Format-check, validate, and render a D2 source with the selected layout engine, then check the SVG.
 #
 # usage: bash scripts/render_d2.sh <input.d2> <output.svg> [extra d2 flags...]
 #
-# Extra flags are passed to every d2 render call, for example
+# Extra flags are passed to every d2 render call after the built-in --layout and --pad, so they override them, for example
 #   --elk-nodeNodeBetweenLayers 40 --elk-edgeNodeBetweenLayers 24   tighten a wide horizontal layout
 #   --font-mono /path/Pretendard-Regular.ttf                         embed a Hangul-capable font
 #

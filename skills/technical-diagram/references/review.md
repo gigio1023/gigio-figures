@@ -39,7 +39,7 @@ When the figure is hard to scan, fix it in this order:
 4. Move versions, provenance, exact endpoints, and field names outside the figure unless they are the subject.
 5. Split by abstraction level.
 
-Change the layout direction or tighten spacing before enlarging the canvas, and do not make type smaller or the canvas wider than the delivery width before exhausting these options.
+This list is for a figure that is hard to scan. When the figure fails the delivery-width gate instead, follow the fix order in SKILL.md under "Delivery size": layout engine, then direction, then labels and splitting, then spacing. In both cases do not make type smaller or the canvas wider than the delivery width before exhausting these options.
 
 ## Negative-space audit
 

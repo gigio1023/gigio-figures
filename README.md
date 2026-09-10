@@ -64,8 +64,8 @@ Two routes share one look. The D2 route writes a small semantic source, imports 
 
 Requirements:
 
-- D2 is optional; the skill does not install it silently and falls back to direct SVG without it.
-- D2 v0.9.0 is the verified baseline; the whole path (wrapper, theme, TALA, Hangul font embedding) was exercised with it. `d2 fmt --check` and `d2 validate` need v0.7.1 or newer, and the PNG proof without a browser needs v0.9.0.
+- D2 is optional; the skill does not install it silently and uses the direct SVG route without it.
+- D2 v0.9.0 is the verified baseline; the whole path (wrapper, theme, TALA, Hangul font embedding) was exercised with it. `d2 fmt --check` and `d2 validate` need v0.7.0 or newer, and the PNG proof without a browser needs v0.9.0.
 
 From `skills/technical-diagram/`:
 
@@ -77,7 +77,7 @@ python3 scripts/validate_svg.py --target-width 720 --tokens assets/editorial-tok
 python3 -m unittest discover -s scripts -p 'test_*.py'
 ```
 
-Extra arguments after the output path go to `d2`, for example `--elk-nodeNodeBetweenLayers 40` to tighten a horizontal layout or `--font-mono /path/Pretendard-Regular.ttf` to embed a Hangul-capable font. The bundled example renders 1027px wide at ELK's defaults, so the first command above fails the 720px gate on purpose; the second passes it at the example's own width, and the third passes at 720px because TALA lays the same source out 647px wide.
+Extra arguments after the output path go to `d2`, for example `--elk-nodeNodeBetweenLayers 40` to tighten a horizontal layout or `--font-mono /path/Pretendard-Regular.ttf` to embed a Hangul-capable font. The bundled example renders 1027px wide at ELK's defaults, so the first command above fails the 720px gate on purpose; the second passes at a delivery width wider than the render, and the third passes at 720px because TALA lays the same source out 647px wide.
 
 ## drawio-diagram
 

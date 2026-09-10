@@ -1,4 +1,5 @@
-import json
+import subprocess
+import sys
 import unittest
 from pathlib import Path
 from tempfile import TemporaryDirectory
@@ -74,6 +75,117 @@ class LegibilityTests(unittest.TestCase):
             self.assertIn("'inline' 11px", report.errors[0])
             self.assertNotIn("'fine'", report.errors[0])
 
+    def test_css_rules_beat_presentation_attributes(self):
+        svg = (
+            '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 100">'
+            "<style>.small{font-size:9px}</style>"
+            '<text x="10" y="20" font-size="14" class="small">attr-vs-css</text>'
+            '<text x="10" y="40" font-size="14" class="small" style="font-size:13px">inline-wins</text></svg>'
+        )
+        with TemporaryDirectory() as directory:
+            report = validate_svg(write(directory, "cascade.svg", svg))
+            self.assertEqual(len(report.errors), 1)
+            self.assertIn("'attr-vs-css' 9px", report.errors[0])
+            self.assertNotIn("inline-wins", report.errors[0])
+
+    def test_root_width_narrower_than_viewbox_counts_as_the_display_width(self):
+        svg = (
+            '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 100" width="360" height="50">'
+            '<text x="10" y="20" font-size="14">shrunk</text></svg>'
+        )
+        with TemporaryDirectory() as directory:
+            report = validate_svg(write(directory, "width.svg", svg))
+            self.assertEqual(len(report.errors), 1)
+            self.assertIn("at 360px delivery width", report.errors[0])
+            self.assertIn("renders at 7.0px", report.errors[0])
+
+    def test_tspan_sizes_relative_units_and_scale_transforms_are_applied(self):
+        svg = (
+            '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 100">'
+            '<text x="10" y="20" font-size="14">big <tspan font-size="8">tiny</tspan></text>'
+            '<g transform="translate(0 30) scale(0.5)"><text x="10" y="20" font-size="14">scaled</text></g>'
+            '<g font-size="10px"><text x="10" y="80" font-size="1.4em">relative</text></g></svg>'
+        )
+        with TemporaryDirectory() as directory:
+            report = validate_svg(write(directory, "sizes.svg", svg))
+            self.assertEqual(len(report.errors), 1)
+            self.assertIn("'big tiny' 8px", report.errors[0])
+            self.assertIn("'scaled' 7px", report.errors[0])
+            self.assertNotIn("relative", report.errors[0])
+            self.assertIn("smallest label renders at 7.0px", report.notes)
+
+    def test_at_rules_important_and_leading_dot_numbers(self):
+        svg = (
+            '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 100">'
+            "<style>@import url(x.css); text{font-size:14px} "
+            "@media (prefers-color-scheme: dark){ .box{fill:#0D0D0D} text{font-size:9px} } "
+            ".tiny{font-size:9px !important}</style>"
+            '<text x="10" y="20">unaffected by media</text>'
+            '<text x="10" y="40" class="tiny">important</text>'
+            '<g transform="scale(.5)"><text x="10" y="60">dot-five</text></g></svg>'
+        )
+        with TemporaryDirectory() as directory:
+            report = validate_svg(write(directory, "atrules.svg", svg))
+            self.assertEqual(len(report.errors), 1)
+            self.assertNotIn("unaffected", report.errors[0])
+            self.assertIn("'important' 9px", report.errors[0])
+            self.assertIn("'dot-five' 7px", report.errors[0])
+
+    def test_id_and_child_selectors_are_honored(self):
+        svg = (
+            '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 100">'
+            "<style>#lbl{font-size:9px} g > text{font-size:10px} text:hover{font-size:5px}</style>"
+            '<text id="lbl" x="10" y="20" class="a">by-id</text>'
+            '<g><text x="10" y="40">by-child</text></g>'
+            '<text x="10" y="60" font-size="14">plain</text></svg>'
+        )
+        with TemporaryDirectory() as directory:
+            report = validate_svg(write(directory, "selectors.svg", svg))
+            self.assertEqual(len(report.errors), 1)
+            self.assertIn("'by-id' 9px", report.errors[0])
+            self.assertIn("'by-child' 10px", report.errors[0])
+            self.assertNotIn("plain", report.errors[0])
+
+    def test_target_width_zero_disables_the_gate_and_clippath_is_ignored(self):
+        svg = (
+            '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 100" width="300">'
+            '<clipPath id="c"><rect fill="#123456" width="600" height="100"/>'
+            '<text x="10" y="20" font-size="6">clip</text></clipPath>'
+            '<text x="10" y="20" font-size="14">shown</text></svg>'
+        )
+        with TemporaryDirectory() as directory:
+            path = write(directory, "zero.svg", svg)
+            self.assertEqual(validate_svg(path, target_width=0, tokens_path=TOKENS).errors, [])
+            self.assertEqual(validate_svg(path, target_width=0, tokens_path=TOKENS).warnings, [])
+            self.assertIn("at 300px delivery width", validate_svg(path, target_width=720).errors[0])
+
+
+class CommandLineTests(unittest.TestCase):
+    SCRIPT = Path(__file__).resolve().parent / "validate_svg.py"
+
+    def run_cli(self, *args: str) -> subprocess.CompletedProcess:
+        return subprocess.run([sys.executable, str(self.SCRIPT), *args], capture_output=True, text=True)
+
+    def test_exit_codes_and_strict_mode(self):
+        crowded = (
+            '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 100">'
+            '<rect x="10" y="10" width="80" height="40"/>'
+            '<text x="50" y="35" font-size="14" text-anchor="middle">APPLICATION SERVER</text></svg>'
+        )
+        with TemporaryDirectory() as directory:
+            path = write(directory, "crowded.svg", crowded)
+            lenient = self.run_cli("--target-width", "720", str(path))
+            self.assertEqual(lenient.returncode, 0)
+            self.assertIn("OK:", lenient.stdout)
+            self.assertIn("WARN: labels may crowd", lenient.stderr)
+            strict = self.run_cli("--target-width", "720", "--strict", str(path))
+            self.assertEqual(strict.returncode, 1)
+            self.assertNotIn("OK:", strict.stdout)
+            failing = self.run_cli("--target-width", "720", str(FIXTURES / "d2-elk-example.svg"))
+            self.assertEqual(failing.returncode, 1)
+            self.assertIn("ERROR: labels below 12px", failing.stderr)
+            self.assertIn("NOTE: canvas is 1027px wide", failing.stderr)
+
 
 class LabelFitTests(unittest.TestCase):
     def test_warns_when_estimated_label_width_crowds_its_box(self):
@@ -134,6 +246,29 @@ class TokenTests(unittest.TestCase):
             self.assertNotIn("#eaf1fe", joined)
             self.assertIn("corner radii outside the tokens: 8", joined)
             self.assertIn("stroke widths outside the tokens: 2", joined)
+
+    def test_geometry_from_style_rules_and_functional_colors(self):
+        svg = (
+            '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 100">'
+            "<style>.box{stroke-width:3; stroke:rgb(13, 13, 13)}</style>"
+            '<rect class="box" x="0" y="0" width="50" height="20" style="rx:8" fill="rgb(234,241,254)"/>'
+            '<rect x="60" y="0" width="50" height="20" fill="rgb(1,2,3)"/></svg>'
+        )
+        with TemporaryDirectory() as directory:
+            report = validate_svg(write(directory, "geometry.svg", svg), tokens_path=TOKENS)
+            joined = "\n".join(report.warnings)
+            self.assertIn("stroke widths outside the tokens: 3", joined)
+            self.assertIn("corner radii outside the tokens: 8", joined)
+            self.assertIn("#010203", joined)
+            self.assertNotIn("#eaf1fe", joined)
+            self.assertNotIn("#0d0d0d", joined)
+
+    def test_missing_tokens_file_is_reported_not_raised(self):
+        with TemporaryDirectory() as directory:
+            path = write(directory, "plain.svg", '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 10"/>')
+            report = validate_svg(path, tokens_path=Path(directory) / "missing.json")
+            self.assertEqual(len(report.errors), 1)
+            self.assertIn("cannot read tokens", report.errors[0])
 
     def test_mask_contents_are_not_treated_as_painted_colors(self):
         svg = (
