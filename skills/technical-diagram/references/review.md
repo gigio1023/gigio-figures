@@ -22,7 +22,8 @@ Review the rendered artifact, not only the source.
 ## Visual audit
 
 - The dominant reading path is obvious without the surrounding conversation.
-- At the intended delivery size, labels are readable without zoom and fit without clipping, awkward wrapping, or touching borders.
+- At the delivery width (720px unless the document says otherwise), every label renders at 12px or more. `scripts/validate_svg.py --target-width` computes the scaled size and is the floor, not the judgment; a label can pass the floor and still be hard to read.
+- Labels fit without clipping, awkward wrapping, or touching borders; the validator's crowding warning marks labels with less than 8px inside their box.
 - Edges do not cross unrelated nodes, labels, or container titles.
 - Parallel and return paths remain distinguishable.
 - One accent family is used consistently and color is not the only distinction.
@@ -38,7 +39,7 @@ When the figure is hard to scan, fix it in this order:
 4. Move versions, provenance, exact endpoints, and field names outside the figure unless they are the subject.
 5. Split by abstraction level.
 
-Do not make type smaller or the canvas larger before exhausting these options.
+This list is for a figure that is hard to scan. When the figure fails the delivery-width gate instead, follow the fix order in SKILL.md under "Delivery size": layout engine, then direction, then labels and splitting, then spacing. In both cases do not make type smaller or the canvas wider than the delivery width before exhausting these options.
 
 ## Negative-space audit
 

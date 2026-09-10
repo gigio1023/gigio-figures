@@ -4,7 +4,7 @@ Portable figure skills for coding agents. They share one restrained editorial de
 
 | Skill | Use it for | Default artifact |
 | --- | --- | --- |
-| [`technical-diagram`](skills/technical-diagram/SKILL.md) | Architecture, system maps, process flows, and box-and-arrow schematics | D2 + ELK → SVG |
+| [`technical-diagram`](skills/technical-diagram/SKILL.md) | Architecture, system maps, process flows, and box-and-arrow schematics | D2 + ELK → SVG, or direct SVG |
 | [`drawio-diagram`](skills/drawio-diagram/SKILL.md) | Explicit native `.drawio` requests and existing draw.io edits | editable mxGraph XML |
 | [`data-chart`](skills/data-chart/SKILL.md) | Real measurements, scales, series, and benchmark plots | matplotlib → SVG + PNG |
 
@@ -60,21 +60,24 @@ The language was measured from 65 post-February-2025 openai.com editorial SVGs, 
 
 ## technical-diagram
 
-The default non-GUI path writes a small semantic D2 source, imports the bundled editorial classes, lets ELK place nodes and routes, and emits SVG. It deliberately avoids built-in decorative themes, icons, legends, and manual spacer nodes.
+Two routes share one look. The D2 route writes a small semantic source, imports the bundled editorial classes, lets a layout engine place nodes and routes (ELK by default, TALA with `D2_LAYOUT=tala`), and emits SVG with subsetted fonts embedded. The direct SVG route starts from `assets/direct-svg-template.svg` and is used for figures inlined into styled HTML documents, for existing SVG edits, for geometry D2 cannot express, and whenever no D2 renderer is installed. Both routes deliberately avoid decorative themes, icons, legends, and spacer nodes, and both are checked for legibility at the delivery width (720px by default): a label that would render below 12px after the host scales the figure fails the check.
 
 Requirements:
 
-- D2 is needed to render; the skill does not install it silently.
-- D2 v0.8.2 is the directly tested baseline.
+- D2 is optional; the skill does not install it silently and uses the direct SVG route without it.
+- D2 v0.9.0 is the verified baseline; the whole path (wrapper, theme, TALA, Hangul font embedding) was exercised with it. `d2 fmt --check` and `d2 validate` need v0.7.0 or newer, and the PNG proof without a browser needs v0.9.0.
 
 From `skills/technical-diagram/`:
 
 ```bash
 bash scripts/render_d2.sh assets/editorial-example.d2 /tmp/editorial-example.svg
+D2_PNG_PROOF=1 DELIVERY_WIDTH=1100 bash scripts/render_d2.sh assets/editorial-example.d2 /tmp/editorial-example.svg
+D2_LAYOUT=tala bash scripts/render_d2.sh assets/editorial-example.d2 /tmp/editorial-example-tala.svg
+python3 scripts/validate_svg.py --target-width 720 --tokens assets/editorial-tokens.json assets/direct-svg-template.svg
 python3 -m unittest discover -s scripts -p 'test_*.py'
 ```
 
-Direct SVG remains a narrow fallback for existing SVG edits, explicit SVG source requests, irregular geometry, or a missing D2 renderer when SVG is still needed.
+Extra arguments after the output path go to `d2`, for example `--elk-nodeNodeBetweenLayers 40` to tighten a horizontal layout or `--font-mono /path/Pretendard-Regular.ttf` to embed a Hangul-capable font. The bundled example renders 1027px wide at ELK's defaults, so the first command above fails the 720px gate on purpose; the second passes at a delivery width wider than the render, and the third passes at 720px because TALA lays the same source out 647px wide.
 
 ## drawio-diagram
 
@@ -106,7 +109,7 @@ SVG keeps text as text (`svg.fonttype: none`); the PNG is the visual proof rende
 ## Repository layout
 
 - `shared/editorial-style/` — canonical style tokens, principles, provenance, and backend adapters
-- `skills/technical-diagram/` — D2 authoring, SVG fallback, renderer, validator
+- `skills/technical-diagram/` — D2 authoring, direct SVG route and template, renderer, validator
 - `skills/drawio-diagram/` — native XML guidance, references, assets, validators
 - `skills/data-chart/` — chart language and matplotlib implementation
 - `scripts/sync_editorial_style.py` — standalone-skill snapshot synchronization
