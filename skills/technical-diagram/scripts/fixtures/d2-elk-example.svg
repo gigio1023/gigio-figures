@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" data-d2-version="v0.9.0" preserveAspectRatio="xMidYMid meet" viewBox="0 0 1027 180"><svg class="d2-244805407 d2-svg" width="1027" height="180" viewBox="-5 -5 1027 180"><rect x="-5" y="-5" width="1027" height="180" rx="0" fill="#FFFFFF" class=" fill-N7" stroke-width="0" /><style type="text/css"><![CDATA[
+.d2-244805407 .text-mono {
+	font-family: "d2-244805407-font-mono";
+}
+@font-face {
+	font-family: d2-244805407-font-mono;
+	src: url("data:application/font-woff;base64,STRIPPED");
+}]]></style><style type="text/css"><![CDATA[.shape {
+  shape-rendering: geometricPrecision;
+  stroke-linejoin: round;
+}
+.connection {
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.blend {
+  mix-blend-mode: multiply;
+  opacity: 0.5;
+}
+
+		.d2-244805407 .fill-N7{fill:#FFFFFF;}
+		.d2-244805407 .stroke-B2{stroke:#0D32B2;}.appendix text.text{fill:#0A0F25}.md{--color-fg-default:#0A0F25;--color-fg-muted:#676C7E;--color-fg-subtle:#9499AB;--color-canvas-default:#FFFFFF;--color-canvas-subtle:#EEF1F8;--color-border-default:#0D32B2;--color-border-muted:#0D32B2;--color-neutral-muted:#EEF1F8;--color-accent-fg:#0D32B2;--color-accent-emphasis:#0D32B2;--color-attention-subtle:#676C7E;--color-danger-fg:red;}.light-code{display: block}.dark-code{display: none}]]></style><g class="dXNlcg== entity"><g class="shape" ><rect x="12" y="81" width="80" height="63" rx="16" stroke="#0D0D0D" fill="#FFFFFF" style="stroke-width:1;" /></g><text x="52" y="117.5" fill="#0D0D0D" class="text-mono" style="text-anchor:middle;font-size:14px">USER</text></g><g class="ZnJvbnRlbmQ= entity"><g class="shape" ><rect x="304" y="73" width="163" height="80" rx="16" stroke="#0D0D0D" fill="#FFFFFF" style="stroke-width:1;" /></g><text x="385.5" y="118" fill="#0D0D0D" class="text-mono" style="text-anchor:middle;font-size:14px">MEDIA FRONTEND</text></g><g class="bW9kZWw= entity"><g class="shape" ><rect x="808" y="12" width="138" height="63" rx="16" stroke="#0D0D0D" fill="#FFFFFF" style="stroke-width:1;" /></g><text x="877" y="48.5" fill="#0D0D0D" class="text-mono" style="text-anchor:middle;font-size:14px">VOICE MODEL</text></g><g class="c2VydmVy entity accent"><g class="shape" ><rect x="808" y="95" width="197" height="63" rx="16" stroke="#2E4780" fill="#EAF1FE" style="stroke-width:1;" /></g><text x="906.5" y="131.5" fill="#0D0D0D" class="text-mono" style="text-anchor:middle;font-size:14px">APPLICATION SERVER</text></g><g class="KHVzZXIgLSZndDsgZnJvbnRlbmQpWzBd flow"><marker id="mk-d2-244805407-3739734839" markerWidth="13" markerHeight="15" refX="11.5" refY="7.5" viewBox="0 0 13 15" orient="auto" markerUnits="userSpaceOnUse"> <polygon points="0.5,0.5 12.5,7.5 0.5,14.5" stroke="#0D0D0D" fill="#FFFFFF" class="connection fill-N7" stroke-width="1" /> </marker><path d="M 93 113 L 302 113" stroke="#0D0D0D" fill="none" class="connection" style="stroke-width:1;" marker-end="url(#mk-d2-244805407-3739734839)" mask="url(#d2-244805407)" /><text x="198" y="117" fill="#0D0D0D" class="text-mono" style="text-anchor:middle;font-size:12px">USER AUDIO</text></g><g class="KGZyb250ZW5kIC0mZ3Q7IG1vZGVsKVswXQ== flow"><path d="M 468 93 L 502 93 S 507 93 507 88 L 507 48.5 S 507 43.5 512 43.5 L 806 43.5" stroke="#0D0D0D" fill="none" class="connection" style="stroke-width:1;" marker-end="url(#mk-d2-244805407-3739734839)" mask="url(#d2-244805407)" /><text x="612.5" y="48" fill="#0D0D0D" class="text-mono" style="text-anchor:middle;font-size:12px">TOKENS</text></g><g class="KGZyb250ZW5kIC0mZ3Q7IHNlcnZlcilbMF0= flow secondary-connection"><marker id="mk-d2-244805407-3574341666" markerWidth="13" markerHeight="15" refX="11.5" refY="7.5" viewBox="0 0 13 15" orient="auto" markerUnits="userSpaceOnUse"> <polygon points="0.5,0.5 12.5,7.5 0.5,14.5" stroke="#929591" fill="#FFFFFF" class="connection fill-N7" stroke-width="1" /> </marker><path d="M 468 113 L 766.5 113 C 769.5 113 766.5 116 769.5 116 L 806 116" stroke="#929591" fill="none" class="connection" style="stroke-width:1;stroke-dasharray:2.000000,2.000000;" marker-end="url(#mk-d2-244805407-3574341666)" mask="url(#d2-244805407)" /><text x="639.5" y="117" fill="#0D0D0D" class="text-mono" style="text-anchor:middle;font-size:12px">DELEGATION REQUEST</text></g><g class="KHNlcnZlciAtJmd0OyBmcm9udGVuZClbMF0= flow secondary-connection"><path d="M 807 140 L 469 140" stroke="#929591" fill="none" class="connection" style="stroke-width:1;stroke-dasharray:2.000000,2.000000;" marker-end="url(#mk-d2-244805407-3574341666)" mask="url(#d2-244805407)" /><text x="637.5" y="144" fill="#0D0D0D" class="text-mono" style="text-anchor:middle;font-size:12px">RESULTS</text></g><mask id="d2-244805407" maskUnits="userSpaceOnUse" x="-5" y="-5" width="1027" height="180">
+<rect x="-5" y="-5" width="1027" height="180" fill="white"></rect>
+<rect x="160" y="105" width="76" height="16" fill="black"></rect>
+<rect x="589" y="36" width="47" height="16" fill="black"></rect>
+<rect x="572" y="105" width="135" height="16" fill="black"></rect>
+<rect x="610" y="132" width="55" height="16" fill="black"></rect>
+</mask></svg></svg>
