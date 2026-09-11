@@ -52,6 +52,8 @@ The brief and inventory need not become separate files. Raw source items are can
 
 Only semantic nodes receive connectors. Supporting text and decorative containers do not. Prefer reader-facing roles and familiar shapes. If an exact internal name matters, label it as `role (exact name)`. Show endpoints, fields, versions, and implementation steps only when the question is about them.
 
+For a scoring or aggregation figure, read the scored unit and its roll-up into the reported metric from the source before drawing, then show that roll-up. Two conditions judged on one item are still one item, not two.
+
 Represent the complexity needed for the answer, not every available fact. Remove details that answer another question, combine repeated peers only when their distinctions are irrelevant, and split different abstraction levels before enlarging the canvas. Never reduce type size to preserve an overfull composition.
 
 ## Native XML baseline
@@ -127,3 +129,4 @@ Read only the rows needed for the current artifact. Vendored files under `refere
 - Edges between different containers normally belong to the root layer or they can clip inside one parent.
 - Empty space does not need a title, legend, footer, rail, icon, or inset.
 - Do not reproduce every term found in source material. A crowded but complete inventory is not a clear explanation.
+- `apply_auto_layout.py` shrinks `container=1` groups while their children keep their size, so a file that passed the layout validator before layout fails containment after it. Restore the child geometry with real padding and aligned stage centers instead of keeping the laid-out boxes.
