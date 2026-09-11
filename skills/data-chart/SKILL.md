@@ -49,7 +49,7 @@ The look is modeled on openai.com editorial figures - geometry, palette, and typ
 3. The SVG contains `<text` elements (fonts preserved), not outlined paths.
 4. Every number in the chart traces to user-provided data.
 
-Once these checks pass at the intended display size, deliver the script, SVG, and PNG. Rerender after a data, label, or layout correction; do not create additional chart types or style variants merely to prolong visual review.
+Once these checks pass at the intended display size, deliver the script, SVG, and PNG. Rerender after a label or layout correction, and after a data fix rerender every chart drawn from those numbers; do not create additional chart types or style variants merely to prolong visual review.
 
 ## Gotchas
 
@@ -58,3 +58,6 @@ Once these checks pass at the intended display size, deliver the script, SVG, an
 - Coral mid (`#FF9365`) fails 3:1 contrast on white - keep coral series dashed or direct-labeled, and set coral value labels in `#804126`.
 - `ed.header()` draws the canvas to measure each legend label, so call it after the figure size and margins are final; late `subplots_adjust` calls shift the plot under a already-placed header.
 - `findfont` warnings for Inter/IBM Plex Mono are expected on machines without those fonts and are not a failure.
+- A log cost or price axis has no zero, so bar length carries no meaning - plot dots instead.
+- When one subject appears in several configurations, label the configuration and state the measurement basis: for model cost, the effort or mode and whether a number covers one attempt or a full run.
+- Compare configurations as small multiples on one shared scale; a gap smaller than the source's own spread is not a result.
