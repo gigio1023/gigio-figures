@@ -1,7 +1,7 @@
 ---
 name: eli5-figure
 description: >
-  Use only when the user explicitly asks for a deliberately simple figure: "ELI5", "쉽게 그려줘", "비전문가용", "경영진용 그림", "explain like I'm five", "one-picture version", or names eli5-figure. Produces one small SVG figure in the shared editorial style that carries a single everyday analogy and at most five concepts, declared as a reduction of the exact figure it stands in for, with the literal mapping and the analogy's limits stated in the surrounding prose rather than inside the figure. NOT the default for any diagram request: architecture, process, and system figures for domain readers use technical-diagram; native .drawio files use drawio-diagram; measured data uses data-chart.
+  Draw one deliberately simple figure, on explicit request only ("ELI5", "쉽게 그려줘", "비전문가용", "explain like I'm five", or the skill named): a single everyday analogy, at most five concepts, reduced from the exact technical-diagram figure, with the literal mapping and the analogy's limits kept in the surrounding prose rather than in the SVG. NOT the default for any diagram request; figures for domain readers use technical-diagram, native .drawio files use drawio-diagram, measured data uses data-chart.
 ---
 
 # ELI5 Figure
@@ -55,7 +55,7 @@ Before finishing, confirm in this order:
 
 1. **Render:** at the delivery width every label is legible, nothing is clipped, no arrow crosses unrelated content, and the geometry is what the source intends.
 2. **Truth:** every relation drawn exists in the exact structure; nothing merged or hidden contradicts the exact figure; the reduction record lists every merge and omission.
-3. **Ten-second test:** a reader with no domain background can say, from the figure alone, what happens and to whom. Give the figure alone to a fresh-context reader or subagent when the stakes justify it.
+3. **Ten-second test:** a reader with no domain background can say, from the figure alone, what happens and to whom. When the stakes justify it, give the figure alone to a reader with none of this context, a person or an isolated worker, and ask what happens and to whom.
 4. **Negative space:** nothing is written above or below the figure, and every element changes the reader's understanding.
 
 ## Output

@@ -10,7 +10,7 @@ This file turns repeated review pain into hard finishing gates.
 - Do not mix implementation choices and external dependencies in one box.
 - Preserve semantic boundaries: callers, runtime/container, internal sections, implementation choices, and external dependencies are separate roles unless the user explicitly wants them merged.
 - If a label is not unambiguously correct, simplify it. Prefer `response` over a narrower word unless the narrower word is exact.
-- Prefer `Agent logic`, `Runtime layer`, `A2A interface` style labels over vague labels like `options and tools`.
+- Prefer a specific label (`A2A interface`, `Runtime layer`) over a vague one (`options and tools`); when the component has a name, the name comes first and the specific role is the second line.
 
 ## Layout
 

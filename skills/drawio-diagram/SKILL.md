@@ -29,32 +29,31 @@ Produce a valid, readable native `.drawio` file. Native XML is the source of tru
 
 ## Reader and content contract
 
-Before authoring, form this small working brief:
+Form this working brief before authoring. It is the comparison set for the finished file, not a questionnaire: infer it from the request and material, ask only when a missing relation or conflicting fact would change the answer, and continue the supported parts meanwhile.
 
 ```text
-reader: <who must understand it; default: a peer in this domain who lacks only this project's context>
+reader: <default: a peer in this domain who lacks only this project's context>
 question: <the one question this figure answers>
 answer: <what the peer should be able to verify from the figure>
 surrounding_context: <what the document or conversation already explains>
-```
-
-If no audience is supplied, write for a peer in the domain who lacks only this project's context. Knowledge is not the bottleneck for that reader; the specific structure is. Assume the field's vocabulary and give the exact names, mechanisms, and relationships the peer could not reconstruct without the figure. A deliberately simplified figure is a separate register that only an explicit request selects. Then derive the semantic inventory:
-
-```text
-required_nodes: [exact names; a role line only where the name does not say what it does]
-required_edges: [{from, to, carries_or_trigger}]
+required_nodes: [exact names; a role on a second line only where the name does not say what it does]
+required_edges: [{from, to, what passes or what triggers it}]
 required_groups: [real boundaries only]
-required_annotations: [{text: ..., purpose: ...}]
-deferred_to_prose: [facts that answer a different question, and every count, timestamp, or qualifier]
+required_annotations: [{text, purpose}]   # empty means no title, legend, caption, callout, footer, badge, icon, or inset
+deferred_to_prose: [facts that answer a different question; every count, timestamp, and qualifier]
 ```
 
-The brief and inventory need not become separate files. Source items are candidates; the test for each is whether the peer needs it to verify or act on the answer. An annotation needs a named purpose: it was requested, or without it the reader cannot recover the answer from the figure and its surrounding context. If `required_annotations` is empty, do not add a title, subtitle, legend, caption, callout, footer, badge, icon, inset, or mini-diagram, and write nothing above or below the figure. Empty canvas is acceptable.
+The reader is a peer: knowledge is not their bottleneck, this project's structure is. Assume the field's vocabulary and supply the exact names, mechanisms, and relationships they could not reconstruct without the figure. A deliberately simplified figure is a separate register that only an explicit request selects.
 
-Only semantic nodes receive connectors. Supporting text and decorative containers do not. Exact names first: label a component by the name it carries in code, configuration, or the running system, and add a role on a second line only when the name does not say what the component does. Never a role in place of a name. Endpoints, paths, fields, hook points, and versions are figure content when the peer needs them to verify or act on the answer, and prose when they answer another question. Label every edge whose meaning the two node names do not make unambiguous with what passes, what triggers it, or its condition, and keep the label to the mechanism. The canvas compresses like a dashboard panel, not like a disclosure: quantities, timestamps, counts, evidence qualifiers, and provenance are prose beside the figure unless the question is about them.
+Three content rules do most of the work; `references/local/editorial-principles.md` holds the full set.
+
+- **Exact names first.** Label a component by the name it carries in code, configuration, or the running system; add a role on a second line only when the name does not say what it does. Never a role in place of a name. Paths, endpoints, fields, and hook points are content when the peer needs them to verify or act on the answer.
+- **Edges carry mechanism.** Only semantic nodes receive connectors. Label a connector with what passes, what triggers it, or its condition whenever the two node names leave the relation ambiguous, and keep the label to the mechanism.
+- **Compress like a dashboard panel, not a disclosure.** Quantities, timestamps, counts, evidence qualifiers, and provenance are prose beside the figure unless the question is about them.
 
 For a scoring or aggregation figure, read the scored unit and its roll-up into the reported metric from the source before drawing, then show that roll-up. Two conditions judged on one item are still one item, not two.
 
-Represent the complexity the question requires. Minimality never authorizes dropping a component, relationship, or mechanism the peer needs. When the page is hard to scan, organize it first (group by real boundary, align peers, order along the reading path), then split it into a series of pages at the same depth, and only then move to prose what answers a different question. Do not abstract nodes into roles, merge components that differ in a relevant way, or delete mechanism to fit. Never reduce type size to preserve an overfull composition.
+When the page is hard to scan: organize (group by real boundary, align peers, order along the reading path), then split into a series of pages at the same depth, then move to prose only what answers a different question. Do not abstract nodes into roles, merge components that differ in a relevant way, or delete mechanism to fit. Never reduce type size to preserve an overfull composition.
 
 ## Native XML baseline
 
