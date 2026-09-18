@@ -18,7 +18,7 @@ Review the rendered artifact, not only the source. Fix render defects before jud
 - Check every visible fact against the question. Remove a fact only when it answers a different question; keep every component, relation, and mechanism the peer needs to verify or act on the answer.
 - Exact names are on the first line; a role appears on a second line only when the name does not say what the component does. No name has been replaced by a role or pushed into parentheses behind one. Project-private acronyms are expanded once; the field's acronyms stay.
 - Every edge whose meaning the two node names do not make unambiguous carries a label: what passes, what triggers it, or its condition.
-- Where evidence status differs within the figure, the weaker status (configured but not observed, inferred) uses the secondary connection style and a short label, and no legend was added.
+- Quantities, timestamps, counts, sample sizes, evidence qualifiers, and provenance are not in the figure unless the question is about them. A hedge on an edge (`receipt not observed`) or a count in a node (`12 rows`) moves to prose; the figure compresses like a dashboard panel, not like a disclosure.
 - Keep one dominant reading path. When the material holds several questions, the fix is a series of figures at the same depth, not one abstracted figure.
 - Remove disconnected cards or mini-panels whose relationship to the answer is only proximity. Use prose or a table when the content is a list rather than a topology.
 - Use a title or other supporting annotation only when the figure is standalone and that context is unavailable elsewhere. It must not restate the diagram or explain a composition that remains unclear.
@@ -29,7 +29,7 @@ Review the rendered artifact, not only the source. Fix render defects before jud
 - Every required relationship exists with the correct direction and, where needed, its mechanism.
 - Containers express real ownership or boundaries; they are not decoration.
 - External systems, implementation choices, and internal components remain distinguishable.
-- No relationship, category, conclusion, evidence status, or provenance was invented.
+- No relationship, category, conclusion, or provenance was invented.
 
 ## Density audit
 

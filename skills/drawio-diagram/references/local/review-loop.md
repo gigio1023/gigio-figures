@@ -11,7 +11,7 @@ The most common failures are not invalid XML. One is treating every fact in the 
 Before adjusting geometry:
 
 1. State the intended reader (a domain peer without this project's context unless told otherwise), the one question, and what the peer must be able to verify. If the figure says no more than its heading, it is not finished.
-2. Remove a visible fact only when it answers a different question. Keep every component, relation, and mechanism the peer needs to verify the answer.
+2. Remove a visible fact only when it answers a different question. Keep every component, relation, and mechanism the peer needs to verify the answer. Counts, timestamps, and qualifiers answer a different question by default; move them to prose.
 3. Keep exact names on the first line and add a role only when the name does not say what the component does. Expand project-private acronyms once; the field's acronyms stay. Label every edge whose meaning the two node names do not make unambiguous.
 4. Keep one abstraction level. Split runtime flow, internal mechanism, alternatives, and deployment detail when they answer different questions.
 5. Remove disconnected cards or mini-panels whose relationship to the answer is only proximity; a list belongs in prose or a table.

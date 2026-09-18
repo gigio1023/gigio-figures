@@ -6,7 +6,7 @@ This file turns repeated review pain into hard finishing gates.
 
 - The figure answers one stated question for one intended reader, a domain peer without this project's context unless told otherwise, in a form that reader can verify. A chain of boxes that restates the heading fails this gate. Do not mix separate questions on one page; draw a series.
 - Exact names first; add a role on a second line only when the name does not say what the component does. Never a role in place of a name. Expand project-private acronyms once; keep the paths, endpoints, and fields the peer needs to verify or act, and move the rest to prose.
-- Every edge whose meaning the two node names do not make unambiguous carries a label: what passes, what triggers it, or its condition.
+- Every edge whose meaning the two node names do not make unambiguous carries a label: what passes, what triggers it, or its condition, and nothing more. A hedge, count, or timestamp in a label is a defect; it belongs in prose.
 - Do not mix implementation choices and external dependencies in one box.
 - Preserve semantic boundaries: callers, runtime/container, internal sections, implementation choices, and external dependencies are separate roles unless the user explicitly wants them merged.
 - If a label is not unambiguously correct, simplify it. Prefer `response` over a narrower word unless the narrower word is exact.

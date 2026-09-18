@@ -16,7 +16,7 @@ The routing rule is content and artifact based:
 - Real numeric data on a meaningful scale uses `data-chart`.
 - An explicit request for a simple, non-expert figure ("ELI5", "쉽게") uses `eli5-figure`, which reduces the exact `technical-diagram` figure and records what it merged and hid.
 
-The default reader of every diagram skill is a peer in the domain who lacks only the project's context: exact names first, mechanism on the edges, the full topology the question needs, and nothing written above or below the figure that the document should carry. Simplification is never the default; it is the user's explicit choice.
+The default reader of every diagram skill is a peer in the domain who lacks only the project's context: exact names first, mechanism on the edges, the full topology the question needs, and nothing written above or below the figure that the document should carry. The figure compresses like a dashboard panel: quantities, timestamps, and evidence qualifiers are prose beside it, not labels in it. Simplification is never the default; it is the user's explicit choice.
 
 ## Install
 

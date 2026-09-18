@@ -46,8 +46,7 @@ required_nodes: [exact names; a role line only where the name does not say what 
 required_edges: [{from, to, carries_or_trigger}]
 required_groups: [real boundaries only]
 required_annotations: [{text: ..., purpose: ...}]
-evidence_status: [{element, observed | configured | inferred}]   # only when statuses differ within the figure
-deferred_to_prose: [facts that answer a different question]
+deferred_to_prose: [facts that answer a different question, and every count, timestamp, or qualifier]
 ```
 
 Infer the brief from the request and supplied material; it is a working aid, not a questionnaire to send before drawing. Ask only when a missing relation or conflicting fact would change the answer, and continue the supported parts.
@@ -56,7 +55,9 @@ The brief and inventory need not become separate files. They are the comparison 
 
 Exact names first. Label a component by the name it carries in code, configuration, or the running system; add a role on a second line only when the name does not say what the component does. Do not replace a name with a role, and do not hide a name in parentheses behind one. Acronyms the field uses stay; project-private acronyms are expanded once. Endpoints, file paths, field names, hook points, and versions are figure content when the peer needs them to verify or act on the answer, and prose when they answer another question.
 
-Edges carry mechanism. Label a connection with what passes, what triggers it, or the condition under which it holds whenever the two node names do not make the relation unambiguous. An unlabeled arrow between a hook and a destination hides exactly what the peer came for. When evidence status differs within a figure, draw the weaker status with the secondary connection style and a short label such as `configured; receipt not observed`; do not add a legend for it.
+Edges carry mechanism. Label a connection with what passes, what triggers it, or the condition under which it holds whenever the two node names do not make the relation unambiguous. An unlabeled arrow between a hook and a destination hides exactly what the peer came for. Keep the label to the mechanism itself: `encrypt, JSON, HTTP` is a mechanism; `configured, receipt not observed` is a caveat and belongs in prose.
+
+Compress like a dashboard panel, not like a disclosure. The figure's space goes to names and mechanism. Quantities, timestamps, counts, sample sizes, evidence qualifiers, and provenance are prose beside the figure unless the question is about them: `plaintext log` is content, `plaintext log, 12 rows` is a disclosure. When an unconfirmed relation would mislead if drawn plainly, draw it in the secondary connection style and let the prose say why, or leave it out; do not write the hedge on the edge. This is the opposite failure of abstracting names into roles, and it costs the reader the same attention.
 
 Represent the complexity the question requires. Minimality never authorizes dropping a component, relationship, or mechanism the peer needs. When the figure is hard to scan, organize it first (group by real boundary, align peers, order along the reading path, make edge meanings consistent), then split it into a series of figures at the same depth, and only then move to prose what answers a different question. Do not abstract nodes into roles, merge components that differ in a relevant way, or delete mechanism to make the figure fit. Grow the canvas downward; never reduce type size.
 
@@ -92,10 +93,10 @@ The render script checks D2 formatting, validates D2 syntax, renders with the se
 Before finishing, confirm all five, in this order:
 
 1. **Render:** at the delivery width every label is legible, nothing is clipped, no edge crosses unrelated content, and the geometry is what the source intends. A figure that says the right thing but renders wrong has failed.
-2. **Meaning:** every required node, edge, direction, group, annotation, and evidence status is present, and no relationship was invented.
+2. **Meaning:** every required node, edge, direction, group, and annotation is present, and no relationship was invented.
 3. **Verifiability:** the peer can check the answer against the system from this figure. If the visible content only restates the caption or section heading, the figure is not finished.
 4. **Communication:** the peer can identify the subject and follow the reading path without the chat context; exact names are present and any project-private acronym is expanded once.
-5. **Minimality:** every visible element changes the reader's understanding, and nothing is written above or below the figure that the document should carry.
+5. **Minimality:** every visible element changes the reader's understanding; no count, timestamp, or qualifier sits in a label that the prose should carry, and nothing is written above or below the figure.
 
 When these checks and any required project checks pass, deliver. Repeat the affected checks after a semantic or layout fix; do not keep rerendering for equally valid aesthetic alternatives.
 
@@ -129,5 +130,5 @@ Read only the route needed for the current artifact.
 - The render script refuses an unformatted source; run `d2 fmt` first.
 - Apply `entity` to technical nodes and `flow` to ordinary connections; the default D2 theme is intentionally not the style contract.
 - Do not turn an awkward automatic layout into an excuse for a title, legend, spacer node, or decorative container. Fix the existing geometry, change direction, or use the direct SVG route.
-- A crowded inventory is not a clear explanation, and a four-box chain that restates its heading is not a figure. Fix crowding by organizing and splitting into a series, not by turning names into roles or deleting the mechanism. Field case: an incident figure reduced to `PAM login -> credential hook -> destination` lost the hook point, the intercepted calls, the plaintext log path, and the evidence status, which were the four things a security peer needed.
+- A crowded inventory is not a clear explanation, and a four-box chain that restates its heading is not a figure. Fix crowding by organizing and splitting into a series, not by turning names into roles or deleting the mechanism. Field case: an incident figure reduced to `PAM login -> credential hook -> destination` lost the hook point, the intercepted calls, and the plaintext log path, the three things a security peer needed. The redraw then overshot with `12 rows` and `receipt not observed` in the labels; those are prose.
 - Text above or below the figure (a takeaway, an analogy, a source line) is the document's job. Inside the SVG it is a defect unless the figure is standalone and the reader cannot recover the meaning otherwise.

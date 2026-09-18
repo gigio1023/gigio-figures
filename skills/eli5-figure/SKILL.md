@@ -44,6 +44,7 @@ The reduction record is provenance, not figure content. It goes in the response 
 - Plain words in the boxes, in the sans voice. Keep an exact name only when the reader will meet it again (a product they use, a file they will be asked to open); it is then the second line.
 - Every arrow says what moves or what happens. No unlabeled arrows; this reader has no schema to fill them.
 - No magic box. A node whose action the reader cannot picture ("processing", "logic", "the system") is not allowed; say what it does in the analogy's terms.
+- No counts, timestamps, or hedges in the figure either. `a copy is mailed out` is the mechanism; `delivery not seen` is a caveat for the prose.
 - Simplify language, never facts. A merged node may hide detail; it may not assert what the exact figure contradicts. Where the analogy would imply a false relation, draw the real relation at that point and state the break in prose.
 - Nothing above or below the figure: no caption, analogy sentence, mapping table, footer, "in reality" panel, or legend inside the SVG. Those belong to the document.
 - The editorial visual language is unchanged: white canvas, near-black ink, one accent, soft corners, thin open arrowheads. No icons, clip art, emoji, or drawings of people; the analogy is carried by words and structure.

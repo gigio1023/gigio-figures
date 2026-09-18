@@ -45,13 +45,12 @@ required_nodes: [exact names; a role line only where the name does not say what 
 required_edges: [{from, to, carries_or_trigger}]
 required_groups: [real boundaries only]
 required_annotations: [{text: ..., purpose: ...}]
-evidence_status: [{element, observed | configured | inferred}]   # only when statuses differ within the figure
-deferred_to_prose: [facts that answer a different question]
+deferred_to_prose: [facts that answer a different question, and every count, timestamp, or qualifier]
 ```
 
 The brief and inventory need not become separate files. Source items are candidates; the test for each is whether the peer needs it to verify or act on the answer. An annotation needs a named purpose: it was requested, or without it the reader cannot recover the answer from the figure and its surrounding context. If `required_annotations` is empty, do not add a title, subtitle, legend, caption, callout, footer, badge, icon, inset, or mini-diagram, and write nothing above or below the figure. Empty canvas is acceptable.
 
-Only semantic nodes receive connectors. Supporting text and decorative containers do not. Exact names first: label a component by the name it carries in code, configuration, or the running system, and add a role on a second line only when the name does not say what the component does. Never a role in place of a name. Endpoints, paths, fields, hook points, and versions are figure content when the peer needs them to verify or act on the answer, and prose when they answer another question. Label every edge whose meaning the two node names do not make unambiguous with what passes, what triggers it, or its condition; draw a weaker evidence status (configured but not observed, inferred) with the secondary connector style and a short label rather than a legend.
+Only semantic nodes receive connectors. Supporting text and decorative containers do not. Exact names first: label a component by the name it carries in code, configuration, or the running system, and add a role on a second line only when the name does not say what the component does. Never a role in place of a name. Endpoints, paths, fields, hook points, and versions are figure content when the peer needs them to verify or act on the answer, and prose when they answer another question. Label every edge whose meaning the two node names do not make unambiguous with what passes, what triggers it, or its condition, and keep the label to the mechanism. The canvas compresses like a dashboard panel, not like a disclosure: quantities, timestamps, counts, evidence qualifiers, and provenance are prose beside the figure unless the question is about them.
 
 For a scoring or aggregation figure, read the scored unit and its roll-up into the reported metric from the source before drawing, then show that roll-up. Two conditions judged on one item are still one item, not two.
 
@@ -86,7 +85,7 @@ XML validation is blocking. Treat layout warnings as evidence to inspect and fix
 Before finishing, confirm:
 
 1. every label is readable at the intended delivery size and no component, label, or unrelated edge overlaps; the render is what the source intends;
-2. the required semantic inventory matches the diagram, exact names are present, and no relationship or evidence status was invented;
+2. the required semantic inventory matches the diagram, exact names are present, no relationship was invented, and no count, timestamp, or qualifier sits on the canvas that the prose should carry;
 3. the peer can verify the answer from the figure; a page that says no more than its heading is not finished;
 4. the dominant path and secondary paths are distinguishable;
 5. every visible element earns its place; and
