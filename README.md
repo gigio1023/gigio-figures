@@ -7,12 +7,16 @@ Portable figure skills for coding agents. They share one restrained editorial de
 | [`technical-diagram`](skills/technical-diagram/SKILL.md) | Architecture, system maps, process flows, and box-and-arrow schematics | D2 + ELK → SVG, or direct SVG |
 | [`drawio-diagram`](skills/drawio-diagram/SKILL.md) | Explicit native `.drawio` requests and existing draw.io edits | editable mxGraph XML |
 | [`data-chart`](skills/data-chart/SKILL.md) | Real measurements, scales, series, and benchmark plots | matplotlib → SVG + PNG |
+| [`eli5-figure`](skills/eli5-figure/SKILL.md) | A deliberately simple one-analogy figure for readers outside the field, on explicit request only | D2 + ELK → SVG, or direct SVG |
 
 The routing rule is content and artifact based:
 
 - Generic technical structure uses `technical-diagram`.
 - Native draw.io format or draw.io-specific metadata uses `drawio-diagram`.
 - Real numeric data on a meaningful scale uses `data-chart`.
+- An explicit request for a simple, non-expert figure ("ELI5", "쉽게") uses `eli5-figure`, which reduces the exact `technical-diagram` figure and records what it merged and hid.
+
+The default reader of every diagram skill is a peer in the domain who lacks only the project's context: exact names first, mechanism on the edges, the full topology the question needs, and nothing written above or below the figure that the document should carry. The figure compresses like a dashboard panel: quantities, timestamps, and evidence qualifiers are prose beside it, not labels in it. Simplification is never the default; it is the user's explicit choice.
 
 ## Install
 
@@ -22,6 +26,7 @@ Install through the Skills CLI. The `--agent` value selects the target harness; 
 npx skills add gigio1023/gigio-figures@technical-diagram --agent claude-code
 npx skills add gigio1023/gigio-figures@drawio-diagram --agent claude-code
 npx skills add gigio1023/gigio-figures@data-chart --agent claude-code
+npx skills add gigio1023/gigio-figures@eli5-figure --agent claude-code
 ```
 
 Swap `--agent` for `codex`, `cursor`, or `gemini-cli`. Each skill is standalone; install only the routes you need.
@@ -49,7 +54,7 @@ The default language is white canvas, near-black ink, one accent family, soft co
 - [`provenance.md`](shared/editorial-style/provenance.md) records the measured source and identity boundary.
 - `adapters/` translates the design system to D2 and draw.io.
 
-Each skill vendors the small subset it needs so individual installation remains self-contained. Synchronize and verify those copies with:
+Each skill vendors the small subset it needs so individual installation remains self-contained; `eli5-figure` also vendors `technical-diagram`'s render wrapper, validator, and SVG template. Synchronize and verify those copies with:
 
 ```bash
 python3 scripts/sync_editorial_style.py
@@ -78,6 +83,16 @@ python3 -m unittest discover -s scripts -p 'test_*.py'
 ```
 
 Extra arguments after the output path go to `d2`, for example `--elk-nodeNodeBetweenLayers 40` to tighten a horizontal layout or `--font-mono /path/Pretendard-Regular.ttf` to embed a Hangul-capable font. The bundled example renders 1027px wide at ELK's defaults, so the first command above fails the 720px gate on purpose; the second passes at a delivery width wider than the render, and the third passes at 720px because TALA lays the same source out 647px wide.
+
+## eli5-figure
+
+The simple register. It starts from the exact `technical-diagram` figure or an equivalent inventory, chooses one everyday analogy, keeps at most five concepts and one branch, and writes a reduction record (kept, merged, hidden, where the analogy breaks) that goes into the prose beside the figure, never into the SVG. It renders on the same D2 and direct SVG routes with `assets/eli5-theme.d2`, the editorial theme in the sans voice, and passes the same delivery-width gate. It activates only on an explicit request such as "ELI5" or "쉽게 그려줘"; for domain readers the simple figure is redundancy, which is why it is not the default.
+
+From `skills/eli5-figure/`:
+
+```bash
+bash scripts/render_d2.sh assets/eli5-example.d2 /tmp/eli5-example.svg
+```
 
 ## drawio-diagram
 
@@ -112,6 +127,7 @@ SVG keeps text as text (`svg.fonttype: none`); the PNG is the visual proof rende
 - `skills/technical-diagram/` — D2 authoring, direct SVG route and template, renderer, validator
 - `skills/drawio-diagram/` — native XML guidance, references, assets, validators
 - `skills/data-chart/` — chart language and matplotlib implementation
+- `skills/eli5-figure/` — simple-register contract, ELI5 principles with sources, sans-voice D2 theme, vendored render tooling
 - `scripts/sync_editorial_style.py` — standalone-skill snapshot synchronization
 - `.claude/`, `.codex/`, `.cursor/`, `.gemini/` — harness installation guides
 

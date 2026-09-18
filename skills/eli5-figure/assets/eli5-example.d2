@@ -1,0 +1,22 @@
+# Simple register of a cache-aside read path. The exact figure and the reduction record are in references/eli5-principles.md.
+vars: {
+  d2-config: {
+    layout-engine: elk
+    pad: 16
+  }
+}
+
+...@eli5-theme
+direction: down
+
+you: "You ask at the counter" {class: entity}
+clerk: "Counter clerk" {class: [entity; accent]}
+note: "Sticky note of answers" {class: entity}
+storeroom: "Storeroom" {class: entity}
+answer: "Your answer" {class: entity}
+
+you -> clerk: "you ask" {class: flow}
+clerk -> note: "checks the note first" {class: flow}
+note -> answer: "already noted: at once" {class: flow}
+clerk -> storeroom: "not noted: walks to fetch it" {class: [flow; secondary-connection]}
+storeroom -> answer: "brought back, and written on the note" {class: [flow; secondary-connection]}

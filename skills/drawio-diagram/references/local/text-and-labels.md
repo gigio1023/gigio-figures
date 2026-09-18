@@ -60,8 +60,8 @@ Set `value` on the edge cell. Position with the edge geometry:
 - `x` in -1..1 slides the label along the edge (-1 source, 0 center, 1 target).
 - `y` offsets perpendicular to the edge in pixels; use it to lift a label off the line.
 - Every edge label needs an opaque `labelBackgroundColor` matching the canvas or containing panel (`#FFFFFF` above). Omitted, `none`, and transparent backgrounds let the connector show through the glyphs. Offset still helps placement, but it does not replace the background.
-- Put labels on a straight segment of the route, never on a bend, and keep them out of other shapes' space. On short edges prefer no label and let a clearer shape label carry the meaning.
-- Keep edge labels to 1-3 words (`ack`, `on failure`, `HTTP 429`).
+- Put labels on a straight segment of the route, never on a bend, and keep them out of other shapes' space. Omit a label only when the two shape labels already make the relation unambiguous; otherwise keep it, even on a short edge.
+- Keep edge labels to a few words that name what passes, what triggers the edge, or its condition (`ack`, `on failure`, `HTTP 429`, `plaintext to init.h`).
 
 ## Context and supporting text
 
@@ -76,10 +76,10 @@ Delete subtitles, keyword garlands, bottom strips, and explanatory footers that 
 
 ## Detail vs compactness: pick a level deliberately
 
-Choose the least detail the reader needs to reach the answer:
+Choose the detail a domain peer needs to verify the answer:
 
-1. **Role only** - one familiar noun phrase. Default for secondary components.
-2. **Role + exact name** - `&lt;b&gt;Policy gateway&lt;/b&gt;&lt;br&gt;(Bastion)` when an unfamiliar identity matters.
+1. **Exact name** - the name the component carries in code, configuration, or the running system. Default for every component a peer would look up.
+2. **Exact name + role** - `&lt;b&gt;Bastion&lt;/b&gt;&lt;br&gt;policy gateway` when the name does not say what the component does. Never the role alone in place of the name.
 3. **Structured label** - an HTML `&lt;table&gt;` or `&lt;hr&gt;`-separated shape only when fields or attributes are the subject of the figure.
 4. **Hover metadata** - use `<object>` attributes for exact detail that helps future editing but is not needed on the canvas.
 5. **Another page** - use a named `<diagram>` page when another required abstraction level deserves its own view.
