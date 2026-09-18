@@ -70,9 +70,9 @@ Zero accent or hot elements is valid. Do not alternate classes for variety. Avoi
 
 ## Labels and fonts
 
-- Prefer a short noun phrase on each node and a 1-3 word label on an edge.
+- Prefer a short noun phrase on each node: the exact name on the first line, a role on a second line only when the name does not say what the component does. Keep an edge label to a few words that name what passes, what triggers the connection, or the condition it holds under.
 - Keep implementation choices and external dependencies in distinct nodes.
-- Use explicit labels only when direction and nearby node names do not already communicate the relationship.
+- Label a connection whenever the two node names do not make the relation unambiguous; an unlabeled arrow between a hook and a destination hides the mechanism the peer came for. Leave it unlabeled only when direction and the node names already say it.
 - Prefer plain text. Since v0.9.0 Markdown labels render as native SVG rather than `foreignObject`, but plain text still keeps labels short and portable; use Markdown only when a label needs real inline formatting.
 - Quote labels that contain reserved D2 characters. Run the formatter and validator instead of guessing whether the source parses.
 

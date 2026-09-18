@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 160" width="720" height="160" role="img" aria-labelledby="title desc">
+  <title id="title">Request path from the user to the application server</title>
+  <desc id="desc">The media frontend receives user audio and delegates a request to the application server, which returns results.</desc>
+  <defs>
+    <marker id="arrow-ink" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto-start-reverse" overflow="visible">
+      <path d="M1 1 L7 4 L1 7" fill="none" stroke="#0D0D0D" stroke-width="1.2"/>
+    </marker>
+    <marker id="arrow-muted" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto-start-reverse" overflow="visible">
+      <path d="M1 1 L7 4 L1 7" fill="none" stroke="#929591" stroke-width="1.2"/>
+    </marker>
+  </defs>
+  <style>
+    .entity { font-family: "IBM Plex Mono", Menlo, monospace; font-size: 14px; fill: #0D0D0D; text-anchor: middle; }
+    .edge { font-family: "IBM Plex Mono", Menlo, monospace; font-size: 12px; fill: #0D0D0D; text-anchor: middle; }
+    .note { font-family: Inter, "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 12px; fill: #0D0D0D; }
+    .ko { font-family: Pretendard, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif; }
+    .box { fill: #FFFFFF; stroke: #0D0D0D; stroke-width: 1.2; }
+    .box-accent { fill: #EAF1FE; stroke: #2E4780; stroke-width: 1.2; }
+    .box-muted { fill: #EEEEEE; stroke: #CCCCCC; stroke-width: 1.2; }
+    .flow { fill: none; stroke: #0D0D0D; stroke-width: 1.2; }
+    .flow-secondary { fill: none; stroke: #929591; stroke-width: 1.2; stroke-dasharray: 2 2; }
+  </style>
+  <rect width="720" height="160" fill="#FFFFFF"/>
+  <g id="user">
+    <rect class="box" x="24" y="48" width="120" height="64" rx="16"/>
+    <text class="entity" x="84" y="85">USER</text>
+  </g>
+  <g id="frontend">
+    <rect class="box" x="244" y="48" width="200" height="64" rx="16"/>
+    <text class="entity" x="344" y="85">MEDIA FRONTEND</text>
+  </g>
+  <g id="server">
+    <rect class="box-accent" x="520" y="48" width="176" height="64" rx="16"/>
+    <text class="entity" x="608" y="85">APPLICATION SERVER</text>
+  </g>
+  <g id="user-to-frontend">
+    <path class="flow" d="M144 80 H243" marker-end="url(#arrow-ink)"/>
+    <text class="edge" x="194" y="72">USER AUDIO</text>
+  </g>
+  <g id="frontend-to-server">
+    <path class="flow" d="M444 68 H519" marker-end="url(#arrow-ink)"/>
+    <text class="edge" x="482" y="60">REQUEST</text>
+  </g>
+  <g id="server-to-frontend">
+    <path class="flow-secondary" d="M520 96 H445" marker-end="url(#arrow-muted)"/>
+    <text class="edge" x="482" y="110">RESULTS</text>
+  </g>
+</svg>

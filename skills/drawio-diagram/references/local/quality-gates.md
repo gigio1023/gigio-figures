@@ -4,8 +4,9 @@ This file turns repeated review pain into hard finishing gates.
 
 ## Meaning
 
-- The figure answers one stated question for one intended reader. Do not mix separate questions or abstraction levels because the source mentions them.
-- Replace private names with roles, or use `role (exact name)` when identity matters. Expand acronyms once and omit code-level strings that are not the subject.
+- The figure answers one stated question for one intended reader, a domain peer without this project's context unless told otherwise, in a form that reader can verify. A chain of boxes that restates the heading fails this gate. Do not mix separate questions on one page; draw a series.
+- Exact names first; add a role on a second line only when the name does not say what the component does. Never a role in place of a name. Expand project-private acronyms once; keep the paths, endpoints, and fields the peer needs to verify or act, and move the rest to prose.
+- Every edge whose meaning the two node names do not make unambiguous carries a label: what passes, what triggers it, or its condition.
 - Do not mix implementation choices and external dependencies in one box.
 - Preserve semantic boundaries: callers, runtime/container, internal sections, implementation choices, and external dependencies are separate roles unless the user explicitly wants them merged.
 - If a label is not unambiguously correct, simplify it. Prefer `response` over a narrower word unless the narrower word is exact.
@@ -19,7 +20,7 @@ This file turns repeated review pain into hard finishing gates.
 - Children must stay fully inside their parent.
 - If a swimlane has a header, children must stay below the header band.
 - Tight layout is acceptable only after arrows have dedicated corridors and labels still breathe.
-- If a layout feels crowded, split the page or shorten labels before widening the canvas.
+- If a layout feels crowded, organize by real boundary, then split the page into a series at the same depth, before widening the canvas. Do not shorten a name into a role.
 - Avoid bottom legends or explanatory footers that restate the diagram. Prefer direct semantic labels, surrounding prose or metadata, or a separate page for another required view.
 - Remove decorative keyword garlands. If a top/bottom band is meaningful, state whether it is a caption, legend, constraint, ownership boundary, or semantic rail and align it to the content it governs.
 

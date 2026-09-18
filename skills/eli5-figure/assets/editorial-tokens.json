@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "colors": {
+    "ink": "#0D0D0D",
+    "canvas": "#FFFFFF",
+    "gray_fill": "#EEEEEE",
+    "gray_line": "#CCCCCC",
+    "gray_text": "#929591",
+    "blue": {
+      "light": "#EAF1FE",
+      "chip": "#A3BEFA",
+      "mid": "#5477C4",
+      "deep": "#2E4780"
+    },
+    "green": {
+      "light": "#D8ECBD",
+      "chip": "#BEEB96",
+      "mid": "#71B436",
+      "deep": "#386411"
+    },
+    "coral": {
+      "light": "#FFEDDE",
+      "chip": "#FFBDA1",
+      "mid": "#FF9365",
+      "deep": "#CC6F47",
+      "text": "#804126"
+    },
+    "dark": {
+      "canvas": "#0D0D0D",
+      "ink": "#FFFFFF",
+      "blue": "#8386EB",
+      "magenta": "#CE55D3"
+    }
+  },
+  "typography": {
+    "sans": ["Inter", "Helvetica Neue", "Helvetica", "Arial", "sans-serif"],
+    "mono": ["IBM Plex Mono", "Menlo", "monospace"],
+    "entity_size_px": 13,
+    "body_size_px": 12,
+    "title_size_px": 30
+  },
+  "geometry": {
+    "node_corner_radius_px": 16,
+    "inner_corner_radius_px": 4,
+    "stroke_width_px": 1.2,
+    "edge_width_px": 1.2,
+    "arrowhead": "open",
+    "shadow": false,
+    "gradient": false
+  }
+}

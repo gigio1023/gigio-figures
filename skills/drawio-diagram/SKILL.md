@@ -14,8 +14,8 @@ Produce a valid, readable native `.drawio` file. Native XML is the source of tru
 
 ## Quick path
 
-1. Form the reader brief in the content contract below. Reduce the source to one question and one answer before choosing cells.
-2. Derive the required nodes, edges, groups, and annotations from that brief. Read `references/local/editorial-principles.md` and `references/local/editorial-default-style.md` unless the user supplied a different style or an existing file already establishes one.
+1. Form the reader brief in the content contract below. Fix the reader and the one question; do not reduce the material to a sentence before you know what the peer must be able to verify.
+2. Derive the required nodes, edges, groups, and annotations from that brief. Every component and relation the peer needs to verify the answer is required; a fact that answers a different question stays outside the figure. Read `references/local/editorial-principles.md` and `references/local/editorial-default-style.md` unless the user supplied a different style or an existing file already establishes one.
 3. Read `references/local/upstream-drawio-rules.md`. Start with uncompressed bare `mxGraphModel` XML unless pages or file metadata require `<mxfile>`.
 4. Read `references/local/auto-layout.md` and apply the simplest suitable automatic layout. Preserve explicit semantic grouping.
 5. Run both validators from the skill root:
@@ -25,36 +25,37 @@ Produce a valid, readable native `.drawio` file. Native XML is the source of tru
    python3 scripts/validate_drawio_layout.py <file>.drawio
    ```
 
-6. For every new diagram or substantial visual edit, export and inspect SVG or PNG when an exporter is available. Apply `references/local/review-loop.md`. If automatic layout leaves a collision or ambiguous route, read `references/local/edge-routing.md`, fix only those routes, and validate again.
+6. For every new diagram or substantial visual edit, export and inspect SVG or PNG when an exporter is available. Apply `references/local/review-loop.md`: fix render defects first, then remove any text the document should carry. If automatic layout leaves a collision or ambiguous route, read `references/local/edge-routing.md`, fix only those routes, and validate again.
 
-## Communication and content contract
+## Reader and content contract
 
 Before authoring, form this small working brief:
 
 ```text
-reader: <who must understand it>
+reader: <who must understand it; default: a peer in this domain who lacks only this project's context>
 question: <the one question this figure answers>
-answer: <one sentence the reader should leave with>
+answer: <what the peer should be able to verify from the figure>
 surrounding_context: <what the document or conversation already explains>
 ```
 
-If no audience is supplied, write for a technically literate reader who has no private project context. Then derive the minimum semantic inventory:
+If no audience is supplied, write for a peer in the domain who lacks only this project's context. Knowledge is not the bottleneck for that reader; the specific structure is. Assume the field's vocabulary and give the exact names, mechanisms, and relationships the peer could not reconstruct without the figure. A deliberately simplified figure is a separate register that only an explicit request selects. Then derive the semantic inventory:
 
 ```text
-required_nodes: [...]
-required_edges: [...]
-required_groups: [...]
+required_nodes: [exact names; a role line only where the name does not say what it does]
+required_edges: [{from, to, carries_or_trigger}]
+required_groups: [real boundaries only]
 required_annotations: [{text: ..., purpose: ...}]
-deferred_to_prose: [...]
+evidence_status: [{element, observed | configured | inferred}]   # only when statuses differ within the figure
+deferred_to_prose: [facts that answer a different question]
 ```
 
-The brief and inventory need not become separate files. Raw source items are candidates, not requirements. An annotation needs a named purpose: it was requested, or without it the reader cannot recover the answer from the figure and its surrounding context. If `required_annotations` is empty, do not add a title, subtitle, legend, caption, callout, footer, badge, icon, inset, or mini-diagram. Empty canvas is acceptable.
+The brief and inventory need not become separate files. Source items are candidates; the test for each is whether the peer needs it to verify or act on the answer. An annotation needs a named purpose: it was requested, or without it the reader cannot recover the answer from the figure and its surrounding context. If `required_annotations` is empty, do not add a title, subtitle, legend, caption, callout, footer, badge, icon, inset, or mini-diagram, and write nothing above or below the figure. Empty canvas is acceptable.
 
-Only semantic nodes receive connectors. Supporting text and decorative containers do not. Prefer reader-facing roles and familiar shapes. If an exact internal name matters, label it as `role (exact name)`. Show endpoints, fields, versions, and implementation steps only when the question is about them.
+Only semantic nodes receive connectors. Supporting text and decorative containers do not. Exact names first: label a component by the name it carries in code, configuration, or the running system, and add a role on a second line only when the name does not say what the component does. Never a role in place of a name. Endpoints, paths, fields, hook points, and versions are figure content when the peer needs them to verify or act on the answer, and prose when they answer another question. Label every edge whose meaning the two node names do not make unambiguous with what passes, what triggers it, or its condition; draw a weaker evidence status (configured but not observed, inferred) with the secondary connector style and a short label rather than a legend.
 
 For a scoring or aggregation figure, read the scored unit and its roll-up into the reported metric from the source before drawing, then show that roll-up. Two conditions judged on one item are still one item, not two.
 
-Represent the complexity needed for the answer, not every available fact. Remove details that answer another question, combine repeated peers only when their distinctions are irrelevant, and split different abstraction levels before enlarging the canvas. Never reduce type size to preserve an overfull composition.
+Represent the complexity the question requires. Minimality never authorizes dropping a component, relationship, or mechanism the peer needs. When the page is hard to scan, organize it first (group by real boundary, align peers, order along the reading path), then split it into a series of pages at the same depth, and only then move to prose what answers a different question. Do not abstract nodes into roles, merge components that differ in a relevant way, or delete mechanism to fit. Never reduce type size to preserve an overfull composition.
 
 ## Native XML baseline
 
@@ -84,9 +85,9 @@ XML validation is blocking. Treat layout warnings as evidence to inspect and fix
 
 Before finishing, confirm:
 
-1. the intended reader can identify the subject and answer without private vocabulary or missing chat context;
-2. the required semantic inventory matches the diagram;
-3. every label is readable at the intended delivery size and no component, label, or unrelated edge overlaps;
+1. every label is readable at the intended delivery size and no component, label, or unrelated edge overlaps; the render is what the source intends;
+2. the required semantic inventory matches the diagram, exact names are present, and no relationship or evidence status was invented;
+3. the peer can verify the answer from the figure; a page that says no more than its heading is not finished;
 4. the dominant path and secondary paths are distinguishable;
 5. every visible element earns its place; and
 6. a render was inspected for every new diagram or substantial visual edit, or the missing exporter was reported.
@@ -116,7 +117,7 @@ Lead with the artifact created or changed. Report both validator results, the la
 | draw.io translation of the editorial tokens | `references/local/editorial-default-style.md` |
 | Required XML structure and export rules | `references/local/upstream-drawio-rules.md` |
 | Automatic layout and current CLI routes | `references/local/auto-layout.md` |
-| Communication, density, and rendered visual audit | `references/local/review-loop.md` |
+| Reader, density, and rendered visual audit | `references/local/review-loop.md` |
 | Manual ports, waypoints, and crossings after auto-layout | `references/local/edge-routing.md` |
 | Multiline, HTML, metadata, or edge labels | `references/local/text-and-labels.md` |
 | Deep official syntax lookup | `references/local/upstream-docs-map.md` |
@@ -128,5 +129,6 @@ Read only the rows needed for the current artifact. Vendored files under `refere
 - Applying `--layout` is an explicit authoring step; reopening a saved file does not perform another obstacle-aware cleanup.
 - Edges between different containers normally belong to the root layer or they can clip inside one parent.
 - Empty space does not need a title, legend, footer, rail, icon, or inset.
-- Do not reproduce every term found in source material. A crowded but complete inventory is not a clear explanation.
+- A crowded inventory is not a clear explanation, and a chain of role-named boxes that restates its heading is not a figure. Fix crowding by organizing and splitting into pages, not by turning names into roles or deleting mechanism.
+- Text above or below the figure (a takeaway, an analogy, a source line) is the document's job. On the canvas it is a defect unless the figure is standalone and the reader cannot recover the meaning otherwise.
 - `apply_auto_layout.py` shrinks `container=1` groups while their children keep their size, so a file that passed the layout validator before layout fails containment after it. Restore the child geometry with real padding and aligned stage centers instead of keeping the laid-out boxes.

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Sync the shared editorial design system into standalone skill packages."""
+"""Sync the shared editorial design system, and the render tooling eli5-figure borrows from technical-diagram, into standalone skill packages."""
 
 from __future__ import annotations
 
@@ -15,16 +15,31 @@ MAPPINGS = {
         ROOT / "skills/technical-diagram/assets/editorial-tokens.json",
         ROOT / "skills/drawio-diagram/assets/editorial-tokens.json",
         ROOT / "skills/data-chart/assets/editorial-tokens.json",
+        ROOT / "skills/eli5-figure/assets/editorial-tokens.json",
     ],
     ROOT / "shared/editorial-style/principles.md": [
         ROOT / "skills/technical-diagram/references/editorial-principles.md",
         ROOT / "skills/drawio-diagram/references/local/editorial-principles.md",
+        ROOT / "skills/eli5-figure/references/editorial-principles.md",
     ],
     ROOT / "shared/editorial-style/adapters/d2-theme.d2": [
         ROOT / "skills/technical-diagram/assets/editorial-theme.d2",
     ],
     ROOT / "shared/editorial-style/adapters/drawio-style.md": [
         ROOT / "skills/drawio-diagram/references/local/editorial-default-style.md",
+    ],
+    ROOT / "shared/editorial-style/adapters/d2-eli5-theme.d2": [
+        ROOT / "skills/eli5-figure/assets/eli5-theme.d2",
+    ],
+    # eli5-figure renders on technical-diagram's routes; vendor the wrapper, validator, and template so it installs standalone.
+    ROOT / "skills/technical-diagram/scripts/render_d2.sh": [
+        ROOT / "skills/eli5-figure/scripts/render_d2.sh",
+    ],
+    ROOT / "skills/technical-diagram/scripts/validate_svg.py": [
+        ROOT / "skills/eli5-figure/scripts/validate_svg.py",
+    ],
+    ROOT / "skills/technical-diagram/assets/direct-svg-template.svg": [
+        ROOT / "skills/eli5-figure/assets/direct-svg-template.svg",
     ],
 }
 
@@ -47,7 +62,7 @@ def main() -> int:
                     stale.append(target)
                 continue
             target.parent.mkdir(parents=True, exist_ok=True)
-            shutil.copyfile(source, target)
+            shutil.copy(source, target)
 
     if stale:
         for path in stale:

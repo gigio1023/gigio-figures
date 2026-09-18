@@ -14,7 +14,7 @@ Author the SVG by hand when the figure is inlined into an HTML document that sup
 
 ## Canvas and delivery size
 
-Set the `viewBox` width to the delivery width, 720 by default, and let the height follow the content. A figure that is wider than its column is scaled down by the host, so a 14px label in a 1200px canvas arrives at about 8px; the validator's `--target-width` check fails the figure before a reader sees that. When content does not fit, stack rows vertically, shorten role-first labels, or split by abstraction level. Never reduce type below 12px rendered, and never widen the canvas past the delivery width to make an overfull row fit.
+Set the `viewBox` width to the delivery width, 720 by default, and let the height follow the content. A figure that is wider than its column is scaled down by the host, so a 14px label in a 1200px canvas arrives at about 8px; the validator's `--target-width` check fails the figure before a reader sees that. When content does not fit, stack rows vertically, shorten labels without dropping names, or split into a series of figures. Never reduce type below 12px rendered, and never widen the canvas past the delivery width to make an overfull row fit.
 
 Keep `width` and `height` attributes equal to the `viewBox` for a standalone file so hosts without CSS sizing show the figure at its designed scale. A `width` smaller than the `viewBox` shrinks every label in such a host, so the validator treats it as the display width.
 
