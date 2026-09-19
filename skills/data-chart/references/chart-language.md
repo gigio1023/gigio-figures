@@ -1,6 +1,6 @@
-# The editorial chart language
+# The editorial chart language (optional preset)
 
-Measured from data charts in post-2025 openai.com editorial figures (line charts, dot plots, and bar charts). The canonical values are vendored in `assets/editorial-tokens.json`; the originals are Figma exports, not library output, so these rules translate the design language for programmatic rendering.
+This language is the optional editorial preset from SKILL.md; the design floor there is the only mandatory style. Measured from data charts in post-2025 openai.com editorial figures (line charts, dot plots, and bar charts). The canonical values are vendored in `assets/editorial-tokens.json`; the originals are Figma exports, not library output, so these rules translate the design language for programmatic rendering.
 
 ## Contents
 
@@ -49,7 +49,7 @@ Series color assignment: lines and dots take the family **mid**; bars take **lig
 | sans (bold) | `Inter, Helvetica Neue, Helvetica, Arial, sans-serif` | title |
 | mono | `IBM Plex Mono, Menlo, monospace` | axis labels (UPPERCASE), tick numerals, legend labels (UPPERCASE), direct value labels |
 
-OpenAI Sans is proprietary; these stacks are the approved substitutes. SVG output must keep text as text (`svg.fonttype: none`) so the stack travels with the file; hosts without Inter/Plex fall back to Helvetica/Menlo and keep the voice.
+OpenAI Sans is proprietary; these stacks are the approved substitutes. The style module sets `svg.fonttype: none` so hosts without Inter/Plex fall back to Helvetica/Menlo and keep the voice; SVG editability is otherwise not a requirement of this skill.
 
 ## Series and marks
 
