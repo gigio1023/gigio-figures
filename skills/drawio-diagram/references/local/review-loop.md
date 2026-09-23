@@ -60,6 +60,9 @@ After export, inspect the actual artifact, not only the XML:
 - no low-resolution or fuzzy text in the PNG fallback
 - no footer text that explains what the diagram failed to communicate visually
 - semantic boundaries are obvious without reading a separate legend
+- no main label set as vertical text
+- a distinction carried by color is also carried by position, a label, or the stroke (solid or dashed), so it survives grayscale printing and color-blind readers
+- under the editorial default style, the export matches its tokens: soft corners, two text voices, thin open arrowheads, one accent family, no shadows
 - SVG opens sharply; PNG matches the intended framing after normalization
 
 Ask whether a domain peer can verify the figure's answer against the system after following the dominant path, and whether the figure says more than its heading. If they would need the private conversation or a footer to decode it, revise the content brief and redraw rather than adding more explanation to the canvas.

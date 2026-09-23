@@ -11,7 +11,7 @@ Choose the simplest preset that matches the topology:
 - `radialTree`: genuinely radial relationships
 - `organic`: small undirected networks where hierarchy would mislead
 
-With draw.io Desktop 31.4.2, the CLI accepts `--layout <name|json>` and applies the layout after opening and before export. Its XML rewrite drops the custom `adaptiveColors` model attribute, so use the bundled wrapper to restore that attribute before validation:
+With draw.io Desktop 31.4.5 (checked 2026-09-23), the CLI accepts `--layout <name|json>` and applies the layout after opening and before export. Its XML rewrite wraps a bare `mxGraphModel` in `<mxfile>` and drops the custom `adaptiveColors` model attribute, so use the bundled wrapper to restore that attribute before validation:
 
 ```bash
 python3 scripts/apply_auto_layout.py input.drawio laid-out.drawio horizontalFlow
@@ -37,7 +37,7 @@ Use explicit JSON for a nested architecture or when the preset leaves poor route
 ]
 ```
 
-Pass the compact JSON array as the wrapper's final argument. `orthogonalEdge` is the documented obstacle-aware route; do not substitute an undocumented shorthand. For containers, a `childLayout` can arrange children before the parent layout is applied. Preserve containment and rerun both validators after layout.
+Pass the compact JSON array as the wrapper's final argument. `orthogonalEdge` is the obstacle-aware route in the [JSON layout specification](https://www.drawio.com/docs/reference/json-layout-specification/): it keeps every vertex in place and reroutes connectors around them. Write it as a JSON entry: the specification and the vendored upstream plugin skill also describe a `--layout libavoid` shorthand, but on draw.io Desktop 31.4.5 that shorthand hangs until killed, as an unknown layout name does, instead of failing. For containers, a `childLayout` can arrange children before the parent layout is applied. Preserve containment and rerun both validators after layout.
 
 ## Fallback gate
 

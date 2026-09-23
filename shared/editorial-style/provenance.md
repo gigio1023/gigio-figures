@@ -12,4 +12,4 @@ The resulting language intentionally keeps only reusable design properties:
 
 The implementation excludes identity assets and proprietary fonts. Inter, Helvetica, IBM Plex Mono, and Menlo are used as substitutes. Figures produced with this repository must not be described as OpenAI-branded or endorsed.
 
-Earlier research notes remain in `skills/drawio-diagram/references/local/reference-set.md`; the canonical runtime tokens now live in `shared/editorial-style/tokens.json`.
+The canonical runtime tokens live in `shared/editorial-style/tokens.json`.

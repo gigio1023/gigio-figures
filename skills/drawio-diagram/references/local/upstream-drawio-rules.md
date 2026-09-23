@@ -4,7 +4,7 @@ This file is the workflow-facing digest the skill enforces. Technical XML and st
 
 For an exact XML/style definition, upstream technical facts win. For workflow, layout judgment, model prompting, and verification, this local overlay and `SKILL.md` win; do not inherit rigid grids, reasoning narration, or skipped verification from older vendored agent instructions.
 
-**Known upstream trap:** the "Automatic edge routing" section of the vendored `references/fetched/xml-reference.md` describes a drawio-mcp viewer pass, not a cleanup that runs whenever a `.drawio` file is opened. New files should use the explicit layout routes in `references/local/auto-layout.md`; the saved result must already be acceptable. Use `references/local/edge-routing.md` only for routes that remain ambiguous after that pass.
+**Known upstream trap:** the "Edge routing & layout passes" section of the vendored `references/fetched/xml-reference.md`, and the "Reasoning budget" and "Edges" sections that tell the model not to add waypoints or fixed ports, assume a drawio-mcp tool call whose `routing: "libavoid"` or `postLayout: "elk"` field runs a pass before anyone sees the result. A `.drawio` file written directly gets neither, and the same section states that draw.io's built-in router has no obstacle avoidance. New files should use the explicit layout routes in `references/local/auto-layout.md`; the saved result must already be acceptable. Use `references/local/edge-routing.md` only for routes that remain ambiguous after that pass. The vendored Claude Code plugin skill also documents a `--layout libavoid` shorthand that hangs on draw.io Desktop 31.4.5; `references/local/auto-layout.md` gives the form that works. The nested-container example in the vendored XML reference still files the `web1` to `web2` edge on the layer although both endpoints sit inside `vpc`; follow the edge-parent rule below, not that example.
 
 ## Required XML structure
 
@@ -21,7 +21,7 @@ For an exact XML/style definition, upstream technical facts win. For workflow, l
 
 - Every edge `mxCell` must contain `<mxGeometry relative="1" as="geometry" />` as a child element - never self-closing
 - Emit all vertices before the edges that reference them
-- Edges whose terminals sit in different containers must use `parent="1"` or they clip inside one container
+- File each edge at the innermost container that holds both endpoints: `parent="<container_id>"` when both ends sit inside the same container at any nesting depth, and `parent="1"` only when an endpoint is outside every container. Auto-layout reads an edge's coordinates in its parent's frame, so an edge filed further out than its endpoints is laid out in the wrong place
 - Connection sides, fixed vs floating terminals, and routing recipes: `references/local/edge-routing.md`
 - Use `edgeStyle=orthogonalEdgeStyle` for complex routing with 2+ bends
 - Use `edgeStyle=elbowEdgeStyle;elbow=vertical;` for simple 0-1 bend connections
@@ -47,7 +47,7 @@ For an exact XML/style definition, upstream technical facts win. For workflow, l
 
 ## Export rules
 
-- Keep `.drawio` as the source of truth - **do NOT** delete the source after export (diverges from upstream skill-cli)
+- Keep `.drawio` as the source of truth - **do NOT** delete the source after export (diverges from the upstream Claude Code plugin skill)
 - Export only when the draw.io desktop CLI is available
 - If export is unavailable, do not fake success; leave the `.drawio` file
 - `.drawio.png`, `.drawio.svg`, and `.drawio.pdf` (with `--embed-diagram` / `-e`) carry the diagram XML embedded in the exported file - any of them can be reopened in draw.io to continue editing

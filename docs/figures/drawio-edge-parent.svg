@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 428" width="720" height="428" role="img" aria-labelledby="title desc">
+  <title id="title">draw.io edge parent before and after</title>
+  <desc id="desc">A draw.io page with layer 1 holding a client node and a vpc container that holds web and db. Before, both edges are filed with parent="1". After, the web to db edge is filed in the vpc container, the innermost container holding both endpoints, and the client to web edge stays on layer 1 because client is outside every container.</desc>
+  <defs>
+    <marker id="arrow-ink" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto-start-reverse" overflow="visible">
+      <path d="M1 1 L7 4 L1 7" fill="none" stroke="#CCCCCC" stroke-width="1.2"/>
+    </marker>
+    <marker id="arrow-accent" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto-start-reverse" overflow="visible">
+      <path d="M1 1 L7 4 L1 7" fill="none" stroke="#8386EB" stroke-width="1.2"/>
+    </marker>
+  </defs>
+  <style>
+    .entity { font-family: "IBM Plex Mono", Menlo, Consolas, monospace; font-size: 14px; fill: #FFFFFF; text-anchor: middle; }
+    .frame-label { font-family: "IBM Plex Mono", Menlo, Consolas, monospace; font-size: 12px; fill: #929591; }
+    .frame-label-accent { font-family: "IBM Plex Mono", Menlo, Consolas, monospace; font-size: 12px; fill: #8386EB; }
+    .edge { font-family: "IBM Plex Mono", Menlo, Consolas, monospace; font-size: 12px; fill: #CCCCCC; text-anchor: middle; }
+    .edge-accent { font-family: "IBM Plex Mono", Menlo, Consolas, monospace; font-size: 12px; fill: #8386EB; text-anchor: middle; }
+    .panel { font-family: Inter, "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 13px; fill: #929591; letter-spacing: 0.04em; }
+    .box { fill: #0D0D0D; stroke: #CCCCCC; stroke-width: 1.2; }
+    .layer { fill: none; stroke: #929591; stroke-width: 1.2; stroke-dasharray: 4 3; }
+    .container { fill: none; stroke: #929591; stroke-width: 1.2; }
+    .container-accent { fill: none; stroke: #8386EB; stroke-width: 1.2; }
+    .flow { fill: none; stroke: #CCCCCC; stroke-width: 1.2; }
+    .flow-accent { fill: none; stroke: #8386EB; stroke-width: 1.2; }
+  </style>
+  <rect width="720" height="428" fill="#0D0D0D"/>
+
+  <text class="panel" x="24" y="36">BEFORE (main)</text>
+  <g id="before-layer-1">
+    <rect class="layer" x="24" y="52" width="672" height="148" rx="16"/>
+    <text class="frame-label" x="40" y="72">layer 1</text>
+  </g>
+  <g id="before-vpc">
+    <rect class="container" x="260" y="84" width="416" height="100" rx="4"/>
+    <text class="frame-label" x="274" y="102">vpc</text>
+  </g>
+  <g id="before-client">
+    <rect class="box" x="48" y="116" width="100" height="52" rx="16"/>
+    <text class="entity" x="98" y="147">client</text>
+  </g>
+  <g id="before-web">
+    <rect class="box" x="292" y="116" width="120" height="52" rx="16"/>
+    <text class="entity" x="352" y="147">web</text>
+  </g>
+  <g id="before-db">
+    <rect class="box" x="540" y="116" width="120" height="52" rx="16"/>
+    <text class="entity" x="600" y="147">db</text>
+  </g>
+  <g id="before-client-to-web">
+    <path class="flow" d="M148 142 H291" marker-end="url(#arrow-ink)"/>
+    <text class="edge" x="204" y="134">parent="1"</text>
+  </g>
+  <g id="before-web-to-db">
+    <path class="flow" d="M412 142 H539" marker-end="url(#arrow-ink)"/>
+    <text class="edge" x="476" y="134">parent="1"</text>
+  </g>
+
+  <text class="panel" x="24" y="240">AFTER</text>
+  <g id="after-layer-1">
+    <rect class="layer" x="24" y="256" width="672" height="148" rx="16"/>
+    <text class="frame-label" x="40" y="276">layer 1</text>
+  </g>
+  <g id="after-vpc">
+    <rect class="container-accent" x="260" y="288" width="416" height="100" rx="4"/>
+    <text class="frame-label-accent" x="274" y="306">vpc</text>
+  </g>
+  <g id="after-client">
+    <rect class="box" x="48" y="320" width="100" height="52" rx="16"/>
+    <text class="entity" x="98" y="351">client</text>
+  </g>
+  <g id="after-web">
+    <rect class="box" x="292" y="320" width="120" height="52" rx="16"/>
+    <text class="entity" x="352" y="351">web</text>
+  </g>
+  <g id="after-db">
+    <rect class="box" x="540" y="320" width="120" height="52" rx="16"/>
+    <text class="entity" x="600" y="351">db</text>
+  </g>
+  <g id="after-client-to-web">
+    <path class="flow" d="M148 346 H291" marker-end="url(#arrow-ink)"/>
+    <text class="edge" x="204" y="338">parent="1"</text>
+  </g>
+  <g id="after-web-to-db">
+    <path class="flow-accent" d="M412 346 H539" marker-end="url(#arrow-accent)"/>
+    <text class="edge-accent" x="476" y="338">parent="vpc"</text>
+  </g>
+</svg>

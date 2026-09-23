@@ -75,7 +75,7 @@ Automatic layout is the default for new files:
 - a hierarchy: `horizontalTree` or `verticalTree`;
 - nested or routed architecture: explicit ELK JSON, optionally followed by `orthogonalEdge`.
 
-Automatic layout is an explicit authoring step, not a viewer cleanup pass. The saved file must already contain an acceptable layout. Use fixed ports and waypoints only for remaining obstacles, parallel lanes, or return corridors. Never add invisible spacer nodes or supporting bands to manipulate geometry.
+Automatic layout is an explicit authoring step, not a viewer cleanup pass. The saved file must already contain an acceptable layout. Use fixed ports and waypoints only for remaining obstacles and for parallel or return corridors. Never add invisible spacer nodes or supporting bands to manipulate geometry.
 
 ## Verification
 
@@ -94,11 +94,12 @@ Deliver after these checks pass. Revalidate for a relevant edit or defect; do no
 
 ## Exports
 
-Use an existing draw.io CLI; do not install one for a source-only request:
+Use an existing draw.io CLI; do not install one for a source-only request. Find it in the order `scripts/apply_auto_layout.py` uses: `$DRAWIO_BIN` when set, then `drawio` on `PATH`, then the macOS app binary, which is not on `PATH` by default:
 
 ```bash
-drawio -x -f svg -e -b 10 -o <name>.drawio.svg <name>.drawio
-drawio -x -f png -e -b 10 --width 3840 -o <name>.drawio.png <name>.drawio
+DRAWIO="${DRAWIO_BIN:-$(command -v drawio || echo /Applications/draw.io.app/Contents/MacOS/draw.io)}"
+"$DRAWIO" -x -f svg -e -b 10 -o <name>.drawio.svg <name>.drawio
+"$DRAWIO" -x -f png -e -b 10 --width 3840 -o <name>.drawio.png <name>.drawio
 ```
 
 Prefer SVG for sharp text. If the exporter is unavailable, deliver the valid `.drawio` source and report that export and visual inspection were unavailable.
@@ -125,7 +126,7 @@ Read only the rows needed for the current artifact. Vendored files under `refere
 ## Gotchas
 
 - Applying `--layout` is an explicit authoring step; reopening a saved file does not perform another obstacle-aware cleanup.
-- Edges between different containers normally belong to the root layer or they can clip inside one parent.
+- File each edge at the innermost container that holds both endpoints, and on the layer (`parent="1"`) only when an endpoint is outside every container. Auto-layout reads an edge in its parent's frame, so an edge filed further out than its endpoints is laid out in the wrong place.
 - Empty space does not need a title, legend, footer, rail, icon, or inset.
 - A crowded inventory is not a clear explanation, and a chain of role-named boxes that restates its heading is not a figure. Fix crowding by organizing and splitting into pages, not by turning names into roles or deleting mechanism.
 - Text above or below the figure (a takeaway, an analogy, a source line) is the document's job. On the canvas it is a defect unless the figure is standalone and the reader cannot recover the meaning otherwise.

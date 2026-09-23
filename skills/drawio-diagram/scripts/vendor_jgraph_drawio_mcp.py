@@ -19,8 +19,8 @@ FILES = {
     "shared/style-reference.md": "style-reference.md",
     "shared/mermaid-reference.md": "mermaid-reference.md",
     "shared/mxfile.xsd": "mxfile.xsd",
-    "skill-cli/README.md": "skill-cli-README.md",
-    "skill-cli/drawio/SKILL.md": "skill-cli-drawio-SKILL.md",
+    "plugins/claude-code/README.md": "claude-code-plugin-README.md",
+    "plugins/claude-code/skills/drawio/SKILL.md": "claude-code-plugin-drawio-SKILL.md",
 }
 
 
