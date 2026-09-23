@@ -4,6 +4,5 @@ exclude:
   code:
     - README.md
     - assets
-    - data
     - references
     - scripts/__pycache__

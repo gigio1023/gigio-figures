@@ -1,38 +1,38 @@
 {
   "repo": "jgraph/drawio-mcp",
-  "requested_ref": "main",
-  "resolved_commit": "b3bcf98f0cfe49e431e4503ad3a8e6c59de9cd12",
-  "fetched_at_utc": "2026-04-20T10:11:40.252135+00:00",
+  "requested_ref": "c094dff49f0cb6fc227030436cf1d5264a58da5a",
+  "resolved_commit": "c094dff49f0cb6fc227030436cf1d5264a58da5a",
+  "fetched_at_utc": "2026-09-23T10:39:01.357379+00:00",
   "files": [
     {
       "upstream_path": "shared/xml-reference.md",
-      "raw_url": "https://raw.githubusercontent.com/jgraph/drawio-mcp/main/shared/xml-reference.md",
+      "raw_url": "https://raw.githubusercontent.com/jgraph/drawio-mcp/c094dff49f0cb6fc227030436cf1d5264a58da5a/shared/xml-reference.md",
       "local_path": "references/fetched/xml-reference.md"
     },
     {
       "upstream_path": "shared/style-reference.md",
-      "raw_url": "https://raw.githubusercontent.com/jgraph/drawio-mcp/main/shared/style-reference.md",
+      "raw_url": "https://raw.githubusercontent.com/jgraph/drawio-mcp/c094dff49f0cb6fc227030436cf1d5264a58da5a/shared/style-reference.md",
       "local_path": "references/fetched/style-reference.md"
     },
     {
       "upstream_path": "shared/mermaid-reference.md",
-      "raw_url": "https://raw.githubusercontent.com/jgraph/drawio-mcp/main/shared/mermaid-reference.md",
+      "raw_url": "https://raw.githubusercontent.com/jgraph/drawio-mcp/c094dff49f0cb6fc227030436cf1d5264a58da5a/shared/mermaid-reference.md",
       "local_path": "references/fetched/mermaid-reference.md"
     },
     {
       "upstream_path": "shared/mxfile.xsd",
-      "raw_url": "https://raw.githubusercontent.com/jgraph/drawio-mcp/main/shared/mxfile.xsd",
+      "raw_url": "https://raw.githubusercontent.com/jgraph/drawio-mcp/c094dff49f0cb6fc227030436cf1d5264a58da5a/shared/mxfile.xsd",
       "local_path": "references/fetched/mxfile.xsd"
     },
     {
-      "upstream_path": "skill-cli/README.md",
-      "raw_url": "https://raw.githubusercontent.com/jgraph/drawio-mcp/main/skill-cli/README.md",
-      "local_path": "references/fetched/skill-cli-README.md"
+      "upstream_path": "plugins/claude-code/README.md",
+      "raw_url": "https://raw.githubusercontent.com/jgraph/drawio-mcp/c094dff49f0cb6fc227030436cf1d5264a58da5a/plugins/claude-code/README.md",
+      "local_path": "references/fetched/claude-code-plugin-README.md"
     },
     {
-      "upstream_path": "skill-cli/drawio/SKILL.md",
-      "raw_url": "https://raw.githubusercontent.com/jgraph/drawio-mcp/main/skill-cli/drawio/SKILL.md",
-      "local_path": "references/fetched/skill-cli-drawio-SKILL.md"
+      "upstream_path": "plugins/claude-code/skills/drawio/SKILL.md",
+      "raw_url": "https://raw.githubusercontent.com/jgraph/drawio-mcp/c094dff49f0cb6fc227030436cf1d5264a58da5a/plugins/claude-code/skills/drawio/SKILL.md",
+      "local_path": "references/fetched/claude-code-plugin-drawio-SKILL.md"
     }
   ]
 }

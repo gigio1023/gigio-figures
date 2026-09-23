@@ -16,9 +16,9 @@ WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 
 ## Vendored upstream files from `jgraph/drawio-mcp` (Apache-2.0)
 
-Requested ref: `main`
-Resolved commit: `b3bcf98f0cfe49e431e4503ad3a8e6c59de9cd12`
-Fetched: 2026-04-20
+Requested ref: `c094dff49f0cb6fc227030436cf1d5264a58da5a` (head of `main` at fetch time)
+Resolved commit: `c094dff49f0cb6fc227030436cf1d5264a58da5a`
+Fetched: 2026-09-23
 
 | Upstream path | Local path | Notes |
 |---|---|---|
@@ -26,10 +26,10 @@ Fetched: 2026-04-20
 | `shared/style-reference.md` | `skills/drawio-diagram/references/fetched/style-reference.md` | Only Markdown prose line wrapping adjusted locally |
 | `shared/mermaid-reference.md` | `skills/drawio-diagram/references/fetched/mermaid-reference.md` | Fetched verbatim |
 | `shared/mxfile.xsd` | `skills/drawio-diagram/references/fetched/mxfile.xsd` | Fetched verbatim |
-| `skill-cli/README.md` | `skills/drawio-diagram/references/fetched/skill-cli-README.md` | Only Markdown prose line wrapping adjusted locally |
-| `skill-cli/drawio/SKILL.md` | `skills/drawio-diagram/references/fetched/skill-cli-drawio-SKILL.md` | Only Markdown prose line wrapping adjusted locally |
+| `plugins/claude-code/README.md` | `skills/drawio-diagram/references/fetched/claude-code-plugin-README.md` | Fetched verbatim |
+| `plugins/claude-code/skills/drawio/SKILL.md` | `skills/drawio-diagram/references/fetched/claude-code-plugin-drawio-SKILL.md` | Only Markdown prose line wrapping adjusted locally |
 
-The three Markdown files marked above are no longer byte-for-byte upstream copies: only prose line wrapping was adjusted locally to keep each paragraph on one source line. Their content, Markdown structure, code examples, attribution, and license remain unchanged. The recorded upstream paths, revision, and fetch metadata identify the original sources.
+The two Markdown files marked above are no longer byte-for-byte upstream copies: only prose line wrapping was adjusted locally to keep each paragraph on one source line. Their content, Markdown structure, code examples, attribution, and license remain unchanged. The recorded upstream paths, revision, and fetch metadata identify the original sources.
 
 The vendored fetch metadata is also recorded in:
 
@@ -39,7 +39,7 @@ The vendored fetch metadata is also recorded in:
 
 This repo adds local files under `skills/drawio-diagram/references/local/` and scripts under `skills/drawio-diagram/scripts/` to improve authoring quality on top of the upstream reference set.
 
-Deliberate differences from upstream `skill-cli`:
+Deliberate differences from the upstream Claude Code plugin skill (`plugins/claude-code`, formerly `skill-cli`):
 
 - Keep `.drawio` as the visible source of truth after export
 - Add layout and quality gate documents derived from real diagram failures

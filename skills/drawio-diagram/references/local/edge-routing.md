@@ -31,7 +31,7 @@ Consequence: the author owns the saved result. Apply `references/local/auto-layo
 - `source` and `target` reference **shape** cell ids (or the `<object>` wrapper id when one exists). Never point at a text/label cell, and never leave a terminal unset when the shape exists - a dangling end drifts when a human drags things later. Emit all vertices before the edges that reference them; that also puts edges later in document order, on top of fills.
 - The `<mxGeometry relative="1" as="geometry" />` child is mandatory; a self-closing edge cell fails silently.
 - One `edgeStyle` family per page (all orthogonal, or all straight, or all curved). draw.io's own editor default is `edgeStyle=orthogonalEdgeStyle;rounded=0;jettySize=auto;orthogonalLoop=1;html=1;`; this skill prefers the same with `rounded=1`.
-- Edges whose terminals live in different containers **must** use `parent="1"`, or they render inside one container and get clipped. Keeping edges on the layer also keeps waypoint coordinates page-absolute; an edge parented to a container interprets waypoints relative to that container.
+- File each edge at the innermost container that holds **both** endpoints: that container's ID when both ends sit inside it at any nesting depth, and `parent="1"` only when an endpoint is outside every container. Auto-layout reads an edge's coordinates in its parent's frame, so an edge filed further out than its endpoints is laid out in the wrong place. The parent also sets the waypoint frame: page-absolute on the layer, relative to the container when the edge is filed inside one.
 
 ## Floating vs fixed terminals
 
@@ -59,7 +59,7 @@ The fixed point must face the other terminal. `exitX=0` (left side) toward a tar
 ## Recipes
 
 - **Left-to-right step:** align the two boxes on the same center-Y, then `exitX=1;exitY=0.5;entryX=0;entryY=0.5`. The edge renders as one straight horizontal line - the most readable connector that exists. Prefer moving a box a few pixels to achieve this over accepting a two-bend elbow.
-- **Request/response pair:** give each direction its own lane so they never overlap: request `exitX=1;exitY=0.25;entryX=0;entryY=0.25`, response `exitX=0;exitY=0.75;entryX=1;entryY=0.75`. Two floating edges between the same shapes render on top of each other (validator warns).
+- **Request/response pair:** give each direction its own corridor so they never overlap: request `exitX=1;exitY=0.25;entryX=0;entryY=0.25`, response `exitX=0;exitY=0.75;entryX=1;entryY=0.75`. Two floating edges between the same shapes render on top of each other (validator warns).
 - **Fan-out (1→N):** exit the source at `Y=0.25/0.5/0.75` (one per branch), or exit once from `X=0.5;Y=1` and branch with waypoints in the corridor below.
 - **Skip-a-neighbor edge:** the corridor is occupied, so route above or below the row: exit top/bottom, two waypoints in the horizontal corridor, enter top/bottom of the target.
 
