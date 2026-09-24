@@ -1,4 +1,4 @@
-"""Editorial chart style for matplotlib.
+"""Optional editorial chart preset for matplotlib.
 
 Implements the chart language measured from post-2025 openai.com editorial
 figures: optional sans title and chip legend, thin ink axes with left/bottom

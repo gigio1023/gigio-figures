@@ -6,7 +6,7 @@ Portable figure skills for coding agents. They share one restrained editorial de
 | --- | --- | --- |
 | [`technical-diagram`](skills/technical-diagram/SKILL.md) | Architecture, system maps, process flows, and box-and-arrow schematics | D2 + ELK → SVG, or direct SVG |
 | [`drawio-diagram`](skills/drawio-diagram/SKILL.md) | Explicit native `.drawio` requests and existing draw.io edits | editable mxGraph XML |
-| [`data-chart`](skills/data-chart/SKILL.md) | Real measurements, scales, series, and benchmark plots | matplotlib → SVG + PNG |
+| [`data-chart`](skills/data-chart/SKILL.md) | Real measurements, scales, series, and benchmark plots; chart-type selection, optional editorial preset | matplotlib → PNG + SVG |
 | [`eli5-figure`](skills/eli5-figure/SKILL.md) | A deliberately simple one-analogy figure for readers outside the field, on explicit request only | D2 + ELK → SVG, or direct SVG |
 
 The routing rule is content and artifact based:
