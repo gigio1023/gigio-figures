@@ -46,7 +46,7 @@ if [[ -z "$d2_bin" ]]; then
   d2_bin=$(command -v d2 || true)
 fi
 if [[ -z "$d2_bin" || ! -x "$d2_bin" ]]; then
-  echo "D2 renderer not found; install d2 or set D2_BIN to an executable. Without D2, use the direct SVG route (references/direct-svg.md)." >&2
+  echo "D2 renderer not found; install d2 or set D2_BIN to an executable. Without D2, author direct SVG as this skill's SKILL.md describes." >&2
   exit 127
 fi
 
