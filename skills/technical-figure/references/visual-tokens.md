@@ -75,7 +75,7 @@ Neutrals carry the structure; three hues carry meaning.
 ## Theme policy
 
 - Always bake the background. A transparent PNG cannot satisfy text contrast on both a white and a near-black page; the best single gray reaches only about 4.2:1 on both, and published transparent figures lose arrows and labels on dark pages.
-- Render light and dark from the same source; deliver the one that matches the host. When the host follows each reader's setting, use the stated default of the user or project, otherwise light.
+- Light is the default. Render light and dark from the same source and check both; deliver dark only when the host surface is dark, the document's existing figures are dark, or the user asks.
 - The portable SVG carries both palettes under `prefers-color-scheme`. Chromium applies the embedding page's color scheme to an SVG in an `<img>`, but a given host may not pass its theme through; check once per host before relying on it.
 
 ## Sources

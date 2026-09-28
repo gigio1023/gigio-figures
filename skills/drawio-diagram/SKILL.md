@@ -104,7 +104,7 @@ DRAWIO="${DRAWIO_BIN:-$(command -v drawio || echo /Applications/draw.io.app/Cont
 "$DRAWIO" -x -f png -e -b 16 -s 2 --theme dark -o <name>.dark.drawio.png <name>.drawio
 ```
 
-Prefer SVG for sharp text. The SVG keeps draw.io's default `--theme auto` and follows the viewer's color scheme; PNG and PDF render one theme. Deliver the theme that matches the host, and read `references/local/figure-style.md` for what draw.io's automatic dark palette keeps and loses. If the exporter is unavailable, deliver the valid `.drawio` source and report that export and visual inspection were unavailable.
+Prefer SVG for sharp text. The SVG keeps draw.io's default `--theme auto` and follows the viewer's color scheme; PNG and PDF render one theme. Deliver the theme that matches the host, light when nothing in the context says otherwise, and read `references/local/figure-style.md` for what draw.io's automatic dark palette keeps and loses. If the exporter is unavailable, deliver the valid `.drawio` source and report that export and visual inspection were unavailable.
 
 ## Output
 

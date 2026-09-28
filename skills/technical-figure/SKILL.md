@@ -56,7 +56,7 @@ Every route ends in `scripts/render.mjs`, so fonts, math, arrowheads, themes, an
 ## Theme and delivery
 
 - Canvas 720u wide for a normal column (1080u for a full-width page), exported at 2x with the background baked in. A transparent PNG with dark lines disappears on a dark page.
-- Render both themes. Deliver the theme that matches the host surface. When the host follows each reader's setting (Notion, GitHub), deliver the user's or project's stated default, otherwise light, and keep the other render beside it. When only some figures of an existing document are redone, deliver the theme the rest of its figures use, so one page does not mix themes, and offer the other theme for the whole set. The portable SVG switches palettes with `prefers-color-scheme`; offer it only after checking once that the host passes its theme to embedded SVG.
+- Light is the default theme. Every figure is rendered in both themes and must hold up in each; the context picks the one delivered. A dark host surface, a document whose existing figures are dark, or an explicit request means dark; otherwise deliver light and keep the dark render beside it. When only some figures of an existing document are redone, deliver the theme the rest of its figures use so one page does not mix themes. The portable SVG switches palettes with `prefers-color-scheme`; offer it only after checking once that the host passes its theme to embedded SVG.
 - Height stays within about 750 CSS px at the delivery width so the figure and its caption fit on one screen. Beyond that, rearrange or split.
 
 ## Verification
