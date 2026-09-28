@@ -79,8 +79,14 @@ export function classRules(tokens) {
     const t = tokens.type[role];
     const tracking = t.tracking_em ? `;letter-spacing:${t.tracking_em}em` : '';
     add(`text.${cls}`, `font-size:${t.size_u}px;font-weight:${t.weight}${tracking}`);
-    add(`text.${cls},g.math.${cls}`, `fill:${cssVar(t.color)};color:${cssVar(t.color)}`);
+    add(`text.${cls}`, `fill:${cssVar(t.color)};color:${cssVar(t.color)}`);
   }
+  // Math glyphs have hairline strokes, so they keep full ink where a sans label of the same
+  // class steps down to ink-2, and a thin outline in the glyph color thickens them slightly.
+  // MathJax paints glyphs from a group with stroke-width 0 in 1000-units-per-em coordinates.
+  const mathColor = cssVar(f.math.color || 'ink');
+  add(Object.keys(TEXT_ROLES).map((cls) => `g.math.${cls}`).join(','), `fill:${mathColor};color:${mathColor}`);
+  add('g.math g[stroke-width]', `stroke-width:${(f.math.stroke_em || 0) * 1000}px;stroke-linejoin:round`);
   add('text.mono', `font-family:${fontStack(f.mono.stack)};font-weight:${tokens.type.node_label.mono_weight};font-feature-settings:normal;letter-spacing:0`);
   // Labels of a ghost box are ink-2 even without the text modifier.
   const ghostLabels = 'g:has(> .box.ghost, > .tensor.ghost) > text,g:has(> .box.ghost, > .tensor.ghost) > g.math';

@@ -45,9 +45,14 @@ export function mathEmPerLabelSize(tokens) {
   return (m.ex_per_label_size / init().xHeight) * m.scale_after_ex_match;
 }
 
+// Math glyphs are thinner than the sans labels, so math never sets below its own minimum size.
+export function mathSize(labelSize, tokens) {
+  return Math.max(labelSize, tokens.fonts.math.min_size_u || 0);
+}
+
 // Width and vertical extent of typeset TeX at a label size, in user units.
 export function mathMetrics(tex, labelSize, tokens) {
   const { vb } = typeset(tex);
-  const k = (labelSize * mathEmPerLabelSize(tokens)) / 1000;
+  const k = (mathSize(labelSize, tokens) * mathEmPerLabelSize(tokens)) / 1000;
   return { width: vb[2] * k, ascent: -vb[1] * k, descent: (vb[3] + vb[1]) * k };
 }

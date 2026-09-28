@@ -72,7 +72,7 @@ Write TeX in a `data-tex` attribute on a `<text>` element. Keep the element's te
 <text class="tl" x="300" y="210" data-tex="\hat r^\top x">r^T x</text>
 ```
 
-The renderer replaces the element with MathJax glyph paths at the same anchor, sized so the math x-height matches the label size and then scaled by 0.92, colored with the element's class color. Unicode combining marks and modifier letters (`r̂`, `ᵀ`, `⁽ˡ⁾`) are lint failures in any text; use `data-tex` instead.
+The renderer replaces the element with MathJax glyph paths at the same anchor, sized so the math x-height matches the label's (scaled by 0.94, never below 13u), in full ink unless the element is `ghost` or hued, with a slight outline that thickens the hairline TeX glyphs. Unicode combining marks and modifier letters (`r̂`, `ᵀ`, `⁽ˡ⁾`) are lint failures in any text; use `data-tex` instead.
 
 ## Arrowheads
 

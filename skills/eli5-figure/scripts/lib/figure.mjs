@@ -22,6 +22,7 @@ export function prepareOptions(tokens, math) {
     stroke: tokens.stroke,
     arrow: arrowParams(tokens),
     mathEmPerLabelSize: mathEmPerLabelSize(tokens),
+    mathMinSize: tokens.fonts.math.min_size_u || 0,
     hues: hueNames(tokens),
     math,
   };

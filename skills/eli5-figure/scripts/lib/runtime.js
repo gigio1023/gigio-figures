@@ -250,7 +250,7 @@
     texts.forEach((t, i) => {
       const m = o.math[i];
       const cs = getComputedStyle(t);
-      const size = parseFloat(cs.fontSize);
+      const size = Math.max(parseFloat(cs.fontSize), o.mathMinSize || 0);
       const anchor = cs.textAnchor || 'start';
       const x = t.x.baseVal.length ? t.x.baseVal[0].value : 0;
       const y = t.y.baseVal.length ? t.y.baseVal[0].value : 0;
