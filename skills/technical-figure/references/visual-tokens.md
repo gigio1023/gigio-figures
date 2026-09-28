@@ -24,7 +24,7 @@ The unit `u` is one SVG user unit in a 720u-wide viewBox. Notion's default colum
 - Never Light or Thin weights, never 700 or heavier, no tracking on sans labels.
 - Two-line nodes use a 19u baseline gap.
 - Estimates for planning: Hangul 0.864 em, Latin sans about 0.55 em, mono 0.6 em. Final widths come from measurement; character-count estimates were off by up to a third on mixed labels.
-- Math x-height is matched to the label (1ex = 0.49 of the label size) and then scaled by 0.92 so capitals in math do not tower over label capitals.
+- Math x-height is matched to Pretendard's (1ex = 0.53 of the label size) and then scaled by 0.94, and math never sets below 13u. TeX glyphs have hairline strokes, so math keeps full ink where a sans label of the same class steps down to ink-2, and the renderer adds a 0.012em outline in the glyph color. Without these, math read thinner and fainter than the labels beside it, especially on a container's surface fill.
 
 What published figures use, for orientation: Anthropic's research figures use its brand sans or Roboto with Roboto Mono; Google DeepMind uses Google Sans; OpenAI uses OpenAI Sans on the web; many lab paper figures fall back to DejaVu Sans (matplotlib default) or Calibri with Cambria Math (PowerPoint). Brand typefaces are not redistributable and are not used here.
 

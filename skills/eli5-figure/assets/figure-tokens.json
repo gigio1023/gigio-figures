@@ -27,8 +27,11 @@
     },
     "math": {
       "engine": "mathjax-full 3.2.2 tex2svg, fontCache none, glyphs as paths",
-      "ex_per_label_size": 0.49,
-      "scale_after_ex_match": 0.92
+      "ex_per_label_size": 0.53,
+      "scale_after_ex_match": 0.94,
+      "min_size_u": 13,
+      "stroke_em": 0.012,
+      "color": "ink"
     }
   },
   "type": {

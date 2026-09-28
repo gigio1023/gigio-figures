@@ -92,6 +92,6 @@
   </g>
 
   <!-- write equations, aligned with their ⊕ -->
-  <text class="t2 blue" data-id="eq-attn" x="524" y="354" dominant-baseline="central" data-tex="x \leftarrow x + W_O\,[h_1;\dots;h_4]">x = x + W_O [h_1..h_4]</text>
-  <text class="t2" data-id="eq-mlp" x="524" y="122" dominant-baseline="central" data-tex="x \leftarrow x + W_{\text{out}}\,\sigma(W_{\text{in}}\,\mathrm{norm}(x))">x = x + W_out s(W_in norm(x))</text>
+  <text class="t2 blue" data-id="eq-attn" x="512" y="354" dominant-baseline="central" data-tex="x \leftarrow x + W_O\,[h_1;\dots;h_4]">x = x + W_O [h_1..h_4]</text>
+  <text class="t2" data-id="eq-mlp" x="512" y="122" dominant-baseline="central" data-tex="x \leftarrow x + W_{\text{out}}\,\sigma(W_{\text{in}}\,\mathrm{norm}(x))">x = x + W_out s(W_in norm(x))</text>
 </svg>
