@@ -42,11 +42,20 @@ Plot these benchmark scores with our model as the focal series.
 Create an editable .drawio version of this service map.
 ```
 
+## Gallery
+
+Every figure below was drawn by following the skills, rendered by the bundled pipeline, and passed its lint. Sources, FigureSpecs, and the figure plan for the six `technical-figure` examples are in [`skills/technical-figure/assets/examples/`](skills/technical-figure/assets/examples/).
+
+| | |
+| --- | --- |
+| ![Residual stream spine with attention and MLP reading and writing back through additions](skills/technical-figure/assets/examples/residual-stream.light.png)<br>**Residual stream.** The stream is the heaviest line; each sublayer reads through a junction and writes back through ⊕, and only the attention output projection carries the hue. | ![Mixture-of-experts block with a router, two selected experts, and ghosted unselected experts](skills/technical-figure/assets/examples/moe-block.light.png)<br>**Mixture of experts.** Router control is dashed and separate from data; the two selected experts stay in ink while the rest are ghosted in place. |
+| ![Multi-head, grouped-query, and multi-query attention on identical coordinates](skills/technical-figure/assets/examples/attention-variants.light.png)<br>**Sibling variants.** MHA, GQA, and MQA on identical coordinates, so only the sharing of key/value heads changes between rows. | ![Projection of a vector onto a unit direction and its orthogonal complement](skills/technical-figure/assets/examples/projection.light.png)<br>**Exact geometry.** Coordinates computed from x = (3, 2) at a 1:1 scale; the direction and everything along it share one hue. |
+| ![Low-rank update drawn as proportional rectangles next to the weight matrix](skills/technical-figure/assets/examples/low-rank-update.light.png)<br>**Tensor shapes.** W and the factors B and A as rectangles proportional to their dimensions, in multiplication order. | ![Training recipe lineage from base checkpoint to released checkpoint](skills/technical-figure/assets/examples/training-recipe.light.png)<br>**Lineage.** Checkpoints as nodes, training steps on the hued main path, data inputs pushed back in gray. |
+| ![Line chart of validation loss with one focal series and three context series](docs/figures/chart-line.png)<br>**Chart, focal series.** One series in the hue with a heavier line, the others in context gray, direct labels at the line ends. | ![Dot plot of final validation loss by schedule](docs/figures/chart-dots.png)<br>**Chart, dot plot.** A hairline value grid only where reading values is the point, with the focal value labeled. |
+| ![Residual stream figure in the light theme](skills/technical-figure/assets/examples/residual-stream.light.png)<br>**Light theme.** The default for figures; the background is baked in. | ![Residual stream figure in the dark theme](skills/technical-figure/assets/examples/residual-stream.dark.png)<br>**Dark theme.** The same source with the dark palette, delivered when the host or the document is dark. |
+| ![ELI5 figure of a cache read explained as a counter clerk with a sticky note](docs/figures/eli5-example.png)<br>**`eli5-figure`.** One everyday analogy on the same pipeline; the mapping and where the analogy breaks go in the prose. | ![draw.io template restyled with the shared figure tokens](skills/drawio-diagram/assets/figure-default-template.drawio.png)<br>**`drawio-diagram`.** A native draw.io template on the same tokens: gray outlines, edges darker than boxes, one focal hue. |
+
 ## technical-figure
-
-![Six example figures drawn with technical-figure: a residual stream spine, a mixture-of-experts block, attention variants, vector projection, a low-rank update, and a training recipe](docs/figures/technical-figure-examples.png)
-
-The examples in `skills/technical-figure/assets/examples/` were drawn by following the skill, with their figure plan, specs, and sources.
 
 The skill works in three layers.
 
