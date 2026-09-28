@@ -1,0 +1,42 @@
+<mxfile host="app.diagrams.net" agent="drawio-diagram-skill" version="26.0.11">
+  <diagram id="figure-default-template" name="Figure Default Template">
+    <mxGraphModel dx="1200" dy="700" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1040" pageHeight="520" math="0" shadow="0" adaptiveColors="auto" background="#FFFFFF">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="user" value="&lt;span style=&quot;font-weight:600&quot;&gt;User&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:12.5px;color:#5F5E5B&quot;&gt;speaks and listens&lt;/span&gt;" style="rounded=1;absoluteArcSize=1;arcSize=16;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#8E8B86;strokeWidth=1.25;fontColor=#2C2C2B;fontFamily=Pretendard, Pretendard Variable, Apple SD Gothic Neo, Noto Sans KR, Helvetica Neue, Arial, sans-serif;fontSize=14;align=center;spacing=0;spacingLeft=12;spacingRight=12;spacingTop=8;spacingBottom=8;shadow=0;" vertex="1" parent="1">
+          <mxGeometry x="40" y="70" width="160" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="frontend" value="&lt;span style=&quot;font-weight:600&quot;&gt;Media frontend&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:12.5px;color:#5F5E5B&quot;&gt;routes audio both ways&lt;/span&gt;" style="rounded=1;absoluteArcSize=1;arcSize=16;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#8E8B86;strokeWidth=1.25;fontColor=#2C2C2B;fontFamily=Pretendard, Pretendard Variable, Apple SD Gothic Neo, Noto Sans KR, Helvetica Neue, Arial, sans-serif;fontSize=14;align=center;spacing=0;spacingLeft=12;spacingRight=12;spacingTop=8;spacingBottom=8;shadow=0;" vertex="1" parent="1">
+          <mxGeometry x="400" y="70" width="190" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="voice" value="&lt;span style=&quot;font-weight:600&quot;&gt;Voice model&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:12.5px;color:#5F5E5B&quot;&gt;streams responses&lt;/span&gt;" style="rounded=1;absoluteArcSize=1;arcSize=16;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#8E8B86;strokeWidth=1.25;fontColor=#2C2C2B;fontFamily=Pretendard, Pretendard Variable, Apple SD Gothic Neo, Noto Sans KR, Helvetica Neue, Arial, sans-serif;fontSize=14;align=center;spacing=0;spacingLeft=12;spacingRight=12;spacingTop=8;spacingBottom=8;shadow=0;" vertex="1" parent="1">
+          <mxGeometry x="790" y="70" width="190" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="appserver" value="&lt;span style=&quot;font-weight:600&quot;&gt;Application server&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:12.5px;color:#5F5E5B&quot;&gt;delegation and business logic&lt;/span&gt;" style="rounded=1;absoluteArcSize=1;arcSize=16;whiteSpace=wrap;html=1;fillColor=#E5F1FF;strokeColor=#2769B7;strokeWidth=2.25;fontColor=#2C2C2B;fontFamily=Pretendard, Pretendard Variable, Apple SD Gothic Neo, Noto Sans KR, Helvetica Neue, Arial, sans-serif;fontSize=14;align=center;spacing=0;spacingLeft=12;spacingRight=12;spacingTop=8;spacingBottom=8;shadow=0;" vertex="1" parent="1">
+          <mxGeometry x="400" y="320" width="190" height="100" as="geometry"/>
+        </mxCell>
+        <mxCell id="e1" value="user audio" style="edgeStyle=orthogonalEdgeStyle;rounded=1;jettySize=auto;orthogonalLoop=1;html=1;strokeColor=#2C2C2B;strokeWidth=1.5;endArrow=open;endFill=0;endSize=9.25;startArrow=none;exitX=1;exitY=0.5;entryX=0;entryY=0.5;fontFamily=Pretendard, Pretendard Variable, Apple SD Gothic Neo, Noto Sans KR, Helvetica Neue, Arial, sans-serif;fontSize=12.5;fontColor=#5F5E5B;labelBackgroundColor=#FFFFFF;verticalAlign=bottom;" edge="1" parent="1" source="user" target="frontend">
+          <mxGeometry x="0" relative="1" as="geometry">
+            <mxPoint y="-6" as="offset"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e2" value="tokens" style="edgeStyle=orthogonalEdgeStyle;rounded=1;jettySize=auto;orthogonalLoop=1;html=1;strokeColor=#2C2C2B;strokeWidth=1.5;endArrow=open;endFill=0;endSize=9.25;startArrow=none;exitX=1;exitY=0.5;entryX=0;entryY=0.5;fontFamily=Pretendard, Pretendard Variable, Apple SD Gothic Neo, Noto Sans KR, Helvetica Neue, Arial, sans-serif;fontSize=12.5;fontColor=#5F5E5B;labelBackgroundColor=#FFFFFF;verticalAlign=bottom;" edge="1" parent="1" source="frontend" target="voice">
+          <mxGeometry x="0" relative="1" as="geometry">
+            <mxPoint y="-6" as="offset"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e3" value="delegation request" style="edgeStyle=orthogonalEdgeStyle;rounded=1;jettySize=auto;orthogonalLoop=1;html=1;strokeColor=#2C2C2B;strokeWidth=1.5;endArrow=open;endFill=0;endSize=9.25;startArrow=none;exitX=0.35;exitY=1;entryX=0.35;entryY=0;fontFamily=Pretendard, Pretendard Variable, Apple SD Gothic Neo, Noto Sans KR, Helvetica Neue, Arial, sans-serif;fontSize=12.5;fontColor=#5F5E5B;labelBackgroundColor=#FFFFFF;" edge="1" parent="1" source="frontend" target="appserver">
+          <mxGeometry x="0" y="0" relative="1" as="geometry">
+            <mxPoint x="-84" as="offset"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e4" value="results / guidance" style="edgeStyle=orthogonalEdgeStyle;rounded=1;jettySize=auto;orthogonalLoop=1;html=1;strokeColor=#2C2C2B;strokeWidth=1.5;endArrow=open;endFill=0;endSize=9.25;startArrow=none;exitX=0.65;exitY=0;entryX=0.65;entryY=1;fontFamily=Pretendard, Pretendard Variable, Apple SD Gothic Neo, Noto Sans KR, Helvetica Neue, Arial, sans-serif;fontSize=12.5;fontColor=#5F5E5B;labelBackgroundColor=#FFFFFF;" edge="1" parent="1" source="appserver" target="frontend">
+          <mxGeometry x="0" y="0" relative="1" as="geometry">
+            <mxPoint x="84" as="offset"/>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

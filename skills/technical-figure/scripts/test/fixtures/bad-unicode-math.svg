@@ -1,0 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 160" data-figure="technical-figure">
+  <!-- Expected: unicode-math. A hat and a superscript T faked with Unicode. -->
+  <text class="t" x="360" y="84" text-anchor="middle">r̂ᵀx</text>
+</svg>

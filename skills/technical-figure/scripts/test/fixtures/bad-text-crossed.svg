@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 160" data-figure="technical-figure">
+  <!-- Expected: text-crossed. An edge runs through an annotation it does not own. -->
+  <g data-id="enc"><rect class="box" x="120" y="62" width="120" height="36"/><text class="t" x="180" y="80" text-anchor="middle" dominant-baseline="central">encoder</text></g>
+  <g data-id="dec"><rect class="box" x="480" y="62" width="120" height="36"/><text class="t" x="540" y="80" text-anchor="middle" dominant-baseline="central">decoder</text></g>
+  <path class="edge" data-id="enc-dec" d="M240 80H480" data-arrow="end"/>
+  <text class="ta" x="360" y="84" text-anchor="middle">cross-attention</text>
+</svg>

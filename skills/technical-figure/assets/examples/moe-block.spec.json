@@ -1,0 +1,235 @@
+{
+  "id": "moe-block",
+  "question": "When the MLP sublayer is a mixture of experts, which experts run for a token, and how does their output reach the stream?",
+  "claim": "The router picks the top 2 routed experts for each token and supplies the gate weights that scale their outputs, the shared expert always runs, and the weighted sum is added back to the residual stream.",
+  "form": "router selects k of N (mixture-of-experts archetype), laid out by scripts/layout.mjs, depth bottom to top",
+  "geometry": "schematic",
+  "nodes": [
+    {
+      "id": "x-in",
+      "label": "x",
+      "tex": "x",
+      "kind": "chip",
+      "role": "frame"
+    },
+    {
+      "id": "add",
+      "label": "+",
+      "kind": "op",
+      "role": "context"
+    },
+    {
+      "id": "x-out",
+      "label": "x'",
+      "tex": "x'",
+      "kind": "chip",
+      "role": "frame"
+    },
+    {
+      "id": "router",
+      "label": "router",
+      "second": "top-2",
+      "role": "context"
+    },
+    {
+      "id": "shared",
+      "label": "E_s",
+      "tex": "E_s",
+      "second": "shared",
+      "role": "context"
+    },
+    {
+      "id": "e1",
+      "label": "E_1",
+      "tex": "E_1",
+      "role": "context",
+      "ghost": true
+    },
+    {
+      "id": "e2",
+      "label": "E_2",
+      "tex": "E_2",
+      "role": "focus",
+      "note": "selected"
+    },
+    {
+      "id": "e3",
+      "label": "E_3",
+      "tex": "E_3",
+      "role": "context",
+      "ghost": true
+    },
+    {
+      "id": "e4",
+      "label": "E_4",
+      "tex": "E_4",
+      "role": "focus",
+      "note": "selected"
+    },
+    {
+      "id": "e5",
+      "label": "E_5",
+      "tex": "E_5",
+      "role": "context",
+      "ghost": true
+    },
+    {
+      "id": "combine",
+      "label": "weighted sum",
+      "tex": "E_s(x) + \\sum_i g_i E_i(x)",
+      "role": "context"
+    }
+  ],
+  "edges": [
+    {
+      "id": "stream-in",
+      "from": "x-in",
+      "to": "add",
+      "kind": "data",
+      "style": "spine"
+    },
+    {
+      "id": "stream-out",
+      "from": "add",
+      "to": "x-out",
+      "kind": "data",
+      "style": "spine"
+    },
+    {
+      "id": "read-router",
+      "from": "x-in",
+      "to": "router",
+      "kind": "data"
+    },
+    {
+      "id": "read-shared",
+      "from": "x-in",
+      "to": "shared",
+      "kind": "data"
+    },
+    {
+      "id": "read-e1",
+      "from": "x-in",
+      "to": "e1",
+      "kind": "data",
+      "ghost": true
+    },
+    {
+      "id": "read-e2",
+      "from": "x-in",
+      "to": "e2",
+      "kind": "data",
+      "ghost": true
+    },
+    {
+      "id": "read-e3",
+      "from": "x-in",
+      "to": "e3",
+      "kind": "data",
+      "ghost": true
+    },
+    {
+      "id": "read-e4",
+      "from": "x-in",
+      "to": "e4",
+      "kind": "data",
+      "ghost": true
+    },
+    {
+      "id": "read-e5",
+      "from": "x-in",
+      "to": "e5",
+      "kind": "data",
+      "ghost": true
+    },
+    {
+      "id": "gates",
+      "from": "router",
+      "to": "combine",
+      "kind": "control",
+      "note": "gate weights g_i; named in the sum's formula"
+    },
+    {
+      "id": "out-e2",
+      "from": "e2",
+      "to": "combine",
+      "kind": "write",
+      "emphasis": "blue"
+    },
+    {
+      "id": "out-e4",
+      "from": "e4",
+      "to": "combine",
+      "kind": "write",
+      "emphasis": "blue"
+    },
+    {
+      "id": "out-shared",
+      "from": "shared",
+      "to": "combine",
+      "kind": "data"
+    },
+    {
+      "id": "write",
+      "from": "combine",
+      "to": "add",
+      "kind": "write",
+      "emphasis": "blue"
+    }
+  ],
+  "groups": [
+    {
+      "id": "routed",
+      "label": "routed experts",
+      "members": [
+        "e1",
+        "e2",
+        "e3",
+        "e4",
+        "e5"
+      ],
+      "meaning": "module scope"
+    }
+  ],
+  "focus": [
+    "out-e2",
+    "out-e4",
+    "write"
+  ],
+  "hue_map": {
+    "blue": "a write into the residual stream"
+  },
+  "forbidden_edges": [
+    {
+      "from": "router",
+      "to": "e2",
+      "why": "experts read the hidden state, not the router's output; the router only controls the weighting"
+    },
+    {
+      "from": "e1",
+      "to": "combine",
+      "why": "unselected experts do not run for this token"
+    },
+    {
+      "from": "shared",
+      "to": "router",
+      "why": "the shared expert is not routed"
+    }
+  ],
+  "canvas_vs_caption": {
+    "canvas": [
+      "expert names",
+      "selected versus unselected by ink versus ghost",
+      "router control as a dashed edge",
+      "the weighted-sum formula",
+      "the write into ⊕ on the stream"
+    ],
+    "caption": [
+      "that five routed experts and top-2 are illustrative",
+      "which experts are selected is per token",
+      "that the gate weights are the router's renormalized softmax scores",
+      "that this block replaces the MLP of the residual-stream figure"
+    ]
+  },
+  "caption": "The router picks the top 2 routed experts for each token and supplies the gate weights g_i that scale their outputs; the shared expert E_s always runs, and the weighted sum is added back to the residual stream. Selected experts are drawn in full ink and unselected ones ghosted; the dashed edge is control, not data, so the selected experts read x directly and only their outputs are scaled. The block replaces the MLP of the residual-stream figure; five routed experts and top-2 routing are illustrative, and the selection shown is for one token."
+}

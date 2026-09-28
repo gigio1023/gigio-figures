@@ -91,6 +91,22 @@ class ValidateDrawioLayoutEdgeTest(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertIn("likely crosses component(s) wrapped-obstacle", result.stderr)
 
+    def test_edge_to_inner_id_of_wrapped_cell_fails(self) -> None:
+        # draw.io takes a wrapped cell's id from its <object>; an inner mxCell id is not addressable.
+        edges = """\
+        <object id="wrapped-c" label="C">
+          <mxCell id="inner-c" style="rounded=1;html=1;" vertex="1" parent="1">
+            <mxGeometry x="40" y="400" width="120" height="60" as="geometry" />
+          </mxCell>
+        </object>
+        <mxCell id="e1" style="edgeStyle=orthogonalEdgeStyle;html=1;" edge="1" parent="1" source="inner-c" target="b">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+"""
+        result = run_validator(edges)
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("edge e1 references unknown source inner-c", result.stderr)
+
     def test_container_and_child_corner_recipes_are_not_compared(self) -> None:
         shapes = """\
         <mxCell id="panel" value="Panel" style="rounded=1;absoluteArcSize=1;arcSize=12;container=1;html=1;" vertex="1" parent="1">
@@ -103,6 +119,38 @@ class ValidateDrawioLayoutEdgeTest(unittest.TestCase):
         result = run_validator(shapes)
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertNotIn("inconsistent rounded-rectangle", result.stderr)
+
+    def test_figure_radius_scale_peers_are_consistent(self) -> None:
+        shapes = """\
+        <mxCell id="layer2" parent="0" />
+        <mxCell id="chip" value="bf16" style="rounded=1;absoluteArcSize=1;arcSize=8;html=1;" vertex="1" parent="layer2">
+          <mxGeometry x="40" y="400" width="60" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="one-line" value="router" style="rounded=1;absoluteArcSize=1;arcSize=12;html=1;" vertex="1" parent="layer2">
+          <mxGeometry x="140" y="400" width="120" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="two-line" value="planner" style="rounded=1;absoluteArcSize=1;arcSize=16;html=1;" vertex="1" parent="layer2">
+          <mxGeometry x="300" y="400" width="120" height="52" as="geometry" />
+        </mxCell>
+"""
+        result = run_validator(shapes)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertNotIn("figure-radius-scale", result.stderr)
+        self.assertNotIn("rounded:absolute", result.stderr)
+
+    def test_off_scale_radius_among_figure_scale_peers_warns(self) -> None:
+        shapes = """\
+        <mxCell id="layer2" parent="0" />
+        <mxCell id="pill" value="pill" style="rounded=1;absoluteArcSize=1;arcSize=24;html=1;" vertex="1" parent="layer2">
+          <mxGeometry x="40" y="400" width="120" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="node" value="node" style="rounded=1;absoluteArcSize=1;arcSize=12;html=1;" vertex="1" parent="layer2">
+          <mxGeometry x="200" y="400" width="120" height="36" as="geometry" />
+        </mxCell>
+"""
+        result = run_validator(shapes)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn("rounded:absolute:24", result.stderr)
 
     def test_ellipse_peer_is_exempt_from_corner_consistency(self) -> None:
         shapes = """\

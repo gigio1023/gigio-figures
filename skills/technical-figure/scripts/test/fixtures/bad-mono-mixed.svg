@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 160" data-figure="technical-figure">
+  <!-- Expected: mono-mixed. A code identifier and a Korean word in one mono string. -->
+  <g data-id="proj"><rect class="box" x="260" y="54" width="200" height="52"/>
+    <text class="t" x="360" y="70.5" text-anchor="middle" dominant-baseline="central">projection</text>
+    <text class="t2 mono" x="360" y="89.5" text-anchor="middle" dominant-baseline="central">q_proj 출력</text></g>
+</svg>

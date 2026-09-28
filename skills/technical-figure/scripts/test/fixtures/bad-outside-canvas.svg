@@ -1,0 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 160" data-figure="technical-figure">
+  <!-- Expected: outside-canvas. A label starts near the right edge and is clipped. -->
+  <text class="ta" x="660" y="84">logits over the vocabulary</text>
+</svg>

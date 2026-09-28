@@ -23,7 +23,7 @@ A literal `\n` inside a `value` attribute is two characters, backslash and n. dr
 Standard two-line label:
 
 ```xml
-<mxCell value="&lt;b&gt;Gateway&lt;/b&gt;&lt;br&gt;routes requests"
+<mxCell value="&lt;span style=&quot;font-weight:600&quot;&gt;Gateway&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:12.5px;color:#5F5E5B&quot;&gt;routes requests&lt;/span&gt;"
         style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
 ```
 
@@ -43,7 +43,7 @@ Text that should *display* angle brackets inside an HTML label needs double esca
 
 - `align` (`left|center|right`) and `verticalAlign` (`top|middle|bottom`) place text inside the shape.
 - `labelPosition` / `verticalLabelPosition` place the whole label block relative to the shape - use for icon-style shapes whose label sits below (`verticalLabelPosition=bottom;verticalAlign=top;`).
-- `spacing`, `spacingLeft/Right/Top/Bottom` add inner padding; give labeled boxes `spacing=8` or more so text never hugs the border.
+- `spacing` pads every side and adds to each of `spacingLeft/Right/Top/Bottom`. The figure style sets `spacing=0` with 12u sides and 8u top and bottom so text never hugs the border.
 
 ## Edge labels
 
@@ -59,7 +59,7 @@ Set `value` on the edge cell. Position with the edge geometry:
 
 - `x` in -1..1 slides the label along the edge (-1 source, 0 center, 1 target).
 - `y` offsets perpendicular to the edge in pixels; use it to lift a label off the line.
-- Every edge label needs an opaque `labelBackgroundColor` matching the canvas or containing panel (`#FFFFFF` above). Omitted, `none`, and transparent backgrounds let the connector show through the glyphs. Offset still helps placement, but it does not replace the background.
+- Every edge label needs an opaque `labelBackgroundColor` matching the canvas or containing panel: `#FFFFFF` on the page as above, `#F4F3F1` inside a surface container. Omitted, `none`, and transparent backgrounds let the connector show through the glyphs. Offset still helps placement, but it does not replace the background.
 - Put labels on a straight segment of the route, never on a bend, and keep them out of other shapes' space. Omit a label only when the two shape labels already make the relation unambiguous; otherwise keep it, even on a short edge.
 - Keep edge labels to a few words that name what passes, what triggers the edge, or its condition (`ack`, `on failure`, `HTTP 429`, `plaintext to init.h`).
 
@@ -67,8 +67,9 @@ Set `value` on the edge cell. Position with the edge geometry:
 
 Free-standing text is exceptional. Give each block a named purpose tied to the reader brief before placing it:
 
-- A short title may identify the question when the figure is standalone. Omit it when the surrounding heading already supplies the same context.
-- A callout may point to one specific feature that is part of the answer and cannot be labeled directly. It must not become a second narrative.
+- No title on the canvas; the caption or the surrounding heading names the figure.
+- An annotation-layer note (12u, ink-2, beside its element, joined by a dotted leader when it cannot sit adjacent) may point to one specific feature that is part of the answer and cannot be labeled directly. It holds names and mechanism, never a second narrative.
+- A legend of at most three items is allowed only for an encoding that cannot be labeled in place; a zoom panel or a small ghosted locator is allowed when it details or places an element the answer needs.
 - A semantic node participates in the model and may receive only relationships the diagram actually asserts.
 - Versions, sources, excluded scope, implementation notes, and decorative text belong in surrounding prose or file metadata unless the question is about them.
 
@@ -78,17 +79,18 @@ Delete subtitles, keyword garlands, bottom strips, and explanatory footers that 
 
 Choose the detail a domain peer needs to verify the answer:
 
-1. **Exact name** - the name the component carries in code, configuration, or the running system. Default for every component a peer would look up.
-2. **Exact name + role** - `&lt;b&gt;Bastion&lt;/b&gt;&lt;br&gt;policy gateway` when the name does not say what the component does. Never the role alone in place of the name.
-3. **Structured label** - an HTML `&lt;table&gt;` or `&lt;hr&gt;`-separated shape only when fields or attributes are the subject of the figure.
-4. **Hover metadata** - use `<object>` attributes for exact detail that helps future editing but is not needed on the canvas.
-5. **Another page** - use a named `<diagram>` page when another required abstraction level deserves its own view.
+1. **Exact name**: the name the component carries in code, configuration, or the running system. Default for every component a peer would look up.
+2. **Exact name + role**: `Bastion` on a 600-weight first line and `policy gateway` on a 12.5u ink-2 second line, as in the two-line label above, when the name does not say what the component does. Never the role alone in place of the name.
+3. **Structured label**: an HTML `&lt;table&gt;` or `&lt;hr&gt;`-separated shape only when fields or attributes are the subject of the figure.
+4. **Hover metadata**: use `<object>` attributes for exact detail that helps future editing but is not needed on the canvas.
+5. **Another page**: use a named `<diagram>` page when another required abstraction level deserves its own view.
 
 Move everything else to surrounding prose. A page where most boxes use structured labels is an implementation inventory, not an explanatory figure.
 
 ## Fonts
 
-- Use one readable `fontSize` for peer components and, only when required, one larger size for a standalone title. Do not create a tiny caption tier.
-- Whole-label bold via `fontStyle=1`; partial bold via `&lt;b&gt;` - never both for the same effect.
+- Use the token sizes: 14 for node labels, 12.5 for second lines and edge labels, 12 for annotations, and 15 for panel labels such as (a). Nothing goes below 12 except an 11u Latin all-caps group label; there is no title size and no tiny caption tier.
+- draw.io bold (`fontStyle=1` or `&lt;b&gt;`) renders weight 700, which the figure style does not use. Set 600 with `&lt;span style=&quot;font-weight:600&quot;&gt;`.
+- One sans family (Pretendard) serves Korean and Latin labels alike. Monospace is only for a literal code identifier, on its own line and never mixed with Hangul in one string.
 - Wide-character scripts (Korean, Japanese, Chinese) run wider than the same letter count in Latin; size boxes for the rendered width, and widen early instead of accepting mid-word breaks.
 - Inspect at the intended delivery size. If text needs zoom, reduce content or split the view instead of lowering the font size.

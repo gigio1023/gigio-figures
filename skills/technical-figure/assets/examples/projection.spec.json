@@ -1,0 +1,33 @@
+{
+  "id": "projection",
+  "question": "What does removing a direction r̂ from an activation x leave behind, geometrically?",
+  "claim": "Projecting x onto a unit direction r̂ splits it into (r̂ᵀx) r̂ along r̂ and a remainder orthogonal to r̂; removing the direction keeps only the remainder.",
+  "form": "annotated geometry at 1:1 with the direction as the horizontal axis",
+  "geometry": "exact",
+  "example": {"x": [3, 2], "r_hat": [1, 0], "scale_u_per_unit": 88, "generator": "projection.py"},
+  "nodes": [
+    {"id": "axes", "label": "span(r̂) and r̂⊥", "tex": "\\mathrm{span}(\\hat r),\\ \\hat r^{\\perp}", "role": "frame"},
+    {"id": "x", "label": "x", "tex": "x", "role": "context"},
+    {"id": "r-hat", "label": "r̂", "tex": "\\hat r", "role": "focus", "note": "drawn 10u below its projection so its tip reads as a vector"},
+    {"id": "proj", "label": "(r̂ᵀx) r̂", "tex": "(\\hat r^\\top x)\\,\\hat r", "role": "focus"},
+    {"id": "rest", "label": "x − (r̂ᵀx) r̂", "tex": "x - (\\hat r^\\top x)\\,\\hat r", "role": "context"},
+    {"id": "right-angle", "label": "right-angle mark", "role": "frame"},
+    {"id": "eq-values", "label": "x = (3, 2), r̂ = (1, 0)", "role": "context"},
+    {"id": "eq-proj", "label": "(r̂ᵀx) r̂ = (3, 0)", "role": "focus"},
+    {"id": "eq-rest", "label": "x − (r̂ᵀx) r̂ = (0, 2) ⊥ r̂", "role": "context"}
+  ],
+  "edges": [
+    {"id": "components", "from": "x", "to": ["proj", "rest"], "kind": "correspondence", "note": "dotted component lines closing the rectangle, no arrowheads"}
+  ],
+  "groups": [],
+  "focus": ["r-hat", "proj", "eq-proj"],
+  "hue_map": {"magenta": "the unit direction r̂ and every vector that lies along it"},
+  "forbidden_edges": [
+    {"from": "rest", "to": "r-hat", "why": "the remainder has no component along r̂; nothing may suggest an angle other than 90 degrees"}
+  ],
+  "canvas_vs_caption": {
+    "canvas": ["vectors at exact coordinates", "unit ticks", "symbol labels", "the example values in the equations"],
+    "caption": ["that the example is 2D and the same decomposition holds in d dimensions", "the removal operation x ← x − (r̂ᵀx) r̂ as used for directional ablation"]
+  },
+  "caption": "Projecting x onto a unit direction r̂ splits it into (r̂ᵀx) r̂ along r̂ and a remainder orthogonal to r̂; removing the direction keeps only the remainder. Magenta marks r̂ and everything that lies along it; dotted lines are the components that close the rectangle. Drawn to scale for x = (3, 2) and r̂ = (1, 0); in d dimensions the remainder lies in the (d − 1)-dimensional complement r̂⊥."
+}

@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 600" data-figure="technical-figure">
+  <!--
+    One pre-norm transformer layer on the residual stream (hand-authored, 4u grid).
+    Columns: spine x=176; sublayer containers x=216..496 (nodes 232..480, center 356); equations from x=524.
+    Rows, bottom to top: attention read y=508, attention write y=354, MLP read y=248, MLP write y=122.
+    The norm is the read branch's operation, so it is the read edge's label, not a node on the spine.
+  -->
+
+  <!-- residual stream -->
+  <path class="spine" data-id="stream" d="M176 556V44" data-arrow="end"/>
+  <text class="t" x="176" y="574" text-anchor="middle" dominant-baseline="central" data-tex="x^{(\ell)}">x(l)</text>
+  <text class="t" x="176" y="24" text-anchor="middle" dominant-baseline="central" data-tex="x^{(\ell+1)}">x(l+1)</text>
+  <text class="ta" x="164" y="536" text-anchor="end">residual stream</text>
+
+  <!-- MLP sublayer (context) -->
+  <g data-id="mlp">
+    <rect class="container" x="216" y="64" width="280" height="200"/>
+    <text class="t" x="232" y="91">MLP</text>
+  </g>
+  <g data-id="w-out">
+    <rect class="box" x="232" y="104" width="248" height="36"/>
+    <text class="t" x="356" y="122" text-anchor="middle" dominant-baseline="central" data-tex="W_{\text{out}}">W_out</text>
+  </g>
+  <g data-id="w-in">
+    <rect class="box" x="232" y="172" width="248" height="36"/>
+    <text class="t" x="356" y="190" text-anchor="middle" dominant-baseline="central" data-tex="W_{\text{in}}">W_in</text>
+  </g>
+  <g data-id="mlp-act">
+    <path class="edge" d="M356 172V140" data-arrow="end"/>
+    <text class="tl" x="364" y="156" dominant-baseline="central" data-tex="\sigma">sigma</text>
+  </g>
+  <g data-id="mlp-read">
+    <circle class="dot spine" cx="176" cy="248"/>
+    <path class="edge" d="M176 248H350Q356 248 356 242V208" data-arrow="end"/>
+    <text class="tl" x="276" y="242" text-anchor="middle">RMSNorm</text>
+  </g>
+  <path class="edge" data-id="mlp-write" d="M232 122H185" data-arrow="end"/>
+  <g data-id="add-mlp">
+    <circle class="op" data-op="plus" cx="176" cy="122" r="9"/>
+  </g>
+
+  <!-- attention sublayer: the W_O write is the focal path -->
+  <g data-id="attn">
+    <rect class="container" x="216" y="296" width="280" height="228"/>
+    <text class="t" x="232" y="323">attention</text>
+  </g>
+  <g data-id="wo">
+    <rect class="box blue focus" x="232" y="336" width="248" height="36"/>
+    <text class="t" x="356" y="354" text-anchor="middle" dominant-baseline="central" data-tex="W_O">W_O</text>
+  </g>
+  <g data-id="heads">
+    <g>
+      <rect class="box" x="232" y="404" width="56" height="36"/>
+      <text class="t" x="260" y="422" text-anchor="middle" dominant-baseline="central" data-tex="h_1">h_1</text>
+    </g>
+    <g>
+      <rect class="box" x="296" y="404" width="56" height="36"/>
+      <text class="t" x="324" y="422" text-anchor="middle" dominant-baseline="central" data-tex="h_2">h_2</text>
+    </g>
+    <g>
+      <rect class="box" x="360" y="404" width="56" height="36"/>
+      <text class="t" x="388" y="422" text-anchor="middle" dominant-baseline="central" data-tex="h_3">h_3</text>
+    </g>
+    <g>
+      <rect class="box" x="424" y="404" width="56" height="36"/>
+      <text class="t" x="452" y="422" text-anchor="middle" dominant-baseline="central" data-tex="h_4">h_4</text>
+    </g>
+  </g>
+  <g data-id="heads-wo">
+    <path class="edge" d="M260 404V372" data-arrow="end"/>
+    <path class="edge" d="M324 404V372" data-arrow="end"/>
+    <path class="edge" d="M388 404V372" data-arrow="end"/>
+    <path class="edge" d="M452 404V372" data-arrow="end"/>
+  </g>
+  <g data-id="attn-read">
+    <circle class="dot spine" cx="176" cy="508"/>
+    <path class="edge" d="M176 508H350Q356 508 356 502V468"/>
+    <text class="tl" x="276" y="502" text-anchor="middle">RMSNorm</text>
+  </g>
+  <g data-id="attn-fanout">
+    <path class="edge" d="M356 468H266Q260 468 260 462V440" data-arrow="end"/>
+    <path class="edge" d="M324 468V440" data-arrow="end"/>
+    <path class="edge" d="M388 468V440" data-arrow="end"/>
+    <path class="edge" d="M356 468H446Q452 468 452 462V440" data-arrow="end"/>
+    <circle class="dot" cx="356" cy="468"/>
+    <circle class="dot" cx="324" cy="468"/>
+    <circle class="dot" cx="388" cy="468"/>
+  </g>
+  <path class="edge emph blue" data-id="attn-write" d="M232 354H185" data-arrow="end"/>
+  <g data-id="add-attn">
+    <circle class="op" data-op="plus" cx="176" cy="354" r="9"/>
+  </g>
+
+  <!-- write equations, aligned with their ⊕ -->
+  <text class="t2 blue" data-id="eq-attn" x="524" y="354" dominant-baseline="central" data-tex="x \leftarrow x + W_O\,[h_1;\dots;h_4]">x = x + W_O [h_1..h_4]</text>
+  <text class="t2" data-id="eq-mlp" x="524" y="122" dominant-baseline="central" data-tex="x \leftarrow x + W_{\text{out}}\,\sigma(W_{\text{in}}\,\mathrm{norm}(x))">x = x + W_out s(W_in norm(x))</text>
+</svg>

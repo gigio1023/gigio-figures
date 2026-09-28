@@ -11,7 +11,7 @@ Choose the simplest preset that matches the topology:
 - `radialTree`: genuinely radial relationships
 - `organic`: small undirected networks where hierarchy would mislead
 
-With draw.io Desktop 31.4.5 (checked 2026-09-23), the CLI accepts `--layout <name|json>` and applies the layout after opening and before export. Its XML rewrite wraps a bare `mxGraphModel` in `<mxfile>` and drops the custom `adaptiveColors` model attribute, so use the bundled wrapper to restore that attribute before validation:
+With draw.io Desktop 31.4.5 (checked 2026-09-23), the CLI accepts `--layout <name|json>` and applies the layout after opening and before export. Its XML rewrite wraps a bare `mxGraphModel` in `<mxfile>` and drops the `adaptiveColors` and `background` model attributes, so use the bundled wrapper to restore them before validation:
 
 ```bash
 python3 scripts/apply_auto_layout.py input.drawio laid-out.drawio horizontalFlow

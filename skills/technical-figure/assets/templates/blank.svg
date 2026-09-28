@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 400" data-figure="technical-figure">
+  <!--
+    Semantic source for scripts/render.mjs; the contract is references/svg-contract.md.
+    Classes and data-* only: no fill, stroke, font, style (except opacity), markers, or background.
+    Width 720u (1080u for a full-width page, rendered with a 1080 width flag); grow the height to fit,
+    within about 670u at the 704 px column so the figure and its caption fit one screen.
+    Keep ink 16u inside the canvas edge. Size labels first with scripts/measure.mjs (see its usage line).
+
+    Shapes   box | box ghost | box blue|vermillion|magenta | box focus | box runtime
+             tensor (matrix drawn to proportion; hue, focus, ghost as box) | chip
+             container | container outline | zoom | op (circle, data-op="plus|times|minus"; hue, runtime)
+             cell | cell on <hue> | cell tint <hue> | band | dot (circle; add spine, emph, ghost, or its hue)
+    Lines    spine | edge | edge control | edge <hue> | edge emph <hue> | edge ghost | leader | guide | mark
+             data-arrow="end|start|both" on edge and spine paths; end the path on the target boundary.
+    Text     t | t2 | tl | ta | tp | micro, plus modifiers mono | ghost | <hue>
+             data-tex="..." for math; text-anchor and dominant-baseline="central" are allowed.
+    Identity data-id on each node's <g> and each edge path, equal to the FigureSpec ids.
+    Group a node's shape with its labels in one <g>; group an edge path with its label the same way.
+  -->
+</svg>

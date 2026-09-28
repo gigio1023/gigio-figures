@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 780" data-figure="technical-figure">
+  <!-- Expected warnings only: height-budget, focus-hues, edge-crossing, relation-styles, edge-bends, label-far, duplicate-id, margin. -->
+  <g data-id="src"><rect class="box blue focus" x="80" y="40" width="120" height="36"/><text class="t" x="140" y="58" text-anchor="middle" dominant-baseline="central">source</text></g>
+  <g data-id="sink"><rect class="box" x="520" y="40" width="120" height="36"/><text class="t" x="580" y="58" text-anchor="middle" dominant-baseline="central">sink</text></g>
+  <path class="edge emph vermillion" data-id="src-sink" d="M200 58H520" data-arrow="end"/>
+
+  <g data-id="e"><rect class="box" x="300" y="136" width="120" height="36"/><text class="t" x="360" y="154" text-anchor="middle" dominant-baseline="central">E</text></g>
+  <g data-id="f"><rect class="box" x="300" y="300" width="120" height="36"/><text class="t" x="360" y="318" text-anchor="middle" dominant-baseline="central">F</text></g>
+  <g data-id="g"><rect class="box" x="100" y="218" width="120" height="36"/><text class="t" x="160" y="236" text-anchor="middle" dominant-baseline="central">G</text></g>
+  <g data-id="h"><rect class="box" x="500" y="218" width="120" height="36"/><text class="t" x="560" y="236" text-anchor="middle" dominant-baseline="central">H</text></g>
+  <path class="edge ghost" data-id="e-f" d="M360 172V300" data-arrow="end"/>
+  <path class="edge control" data-id="g-h" d="M220 236H500" data-arrow="end"/>
+
+  <g data-id="stage"><rect class="box" x="40" y="422" width="80" height="36"/><text class="t" x="80" y="440" text-anchor="middle" dominant-baseline="central">I</text></g>
+  <g data-id="stage"><rect class="box" x="440" y="482" width="120" height="36"/><text class="t" x="500" y="500" text-anchor="middle" dominant-baseline="central">J</text></g>
+  <path class="spine" data-id="bus" d="M660 440V700" data-arrow="end"/>
+  <path class="leader" data-id="note-leader" d="M600 600H640"/>
+  <text class="ta" x="6" y="620">edge note</text>
+  <g data-id="zigzag">
+    <path class="edge" d="M120 440H200V500H280V440H360V500H440" data-arrow="end"/>
+    <text class="tl" x="280" y="548" text-anchor="middle">far label</text>
+  </g>
+</svg>

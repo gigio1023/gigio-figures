@@ -5,17 +5,18 @@ description: >
   existing draw.io file, needs draw.io metadata or pages, or requests draw.io
   export to SVG, PNG, or PDF. Produces editable mxGraph XML with automatic
   layout first, manual routing only when needed, and structural plus rendered
-  quality checks. NOT for generic technical diagrams or measured data charts.
+  quality checks. NOT for generic technical diagrams, geometry, grids, or
+  measured data charts (technical-figure).
 ---
 
 # Draw.io Diagram
 
-Produce a valid, readable native `.drawio` file. Native XML is the source of truth and remains beside any export. This skill exists for draw.io compatibility and editability; a generic technical diagram belongs to `technical-diagram`.
+Produce a valid, readable native `.drawio` file. Native XML is the source of truth and remains beside any export. This skill exists for draw.io compatibility and editability; a generic diagram, geometry, grid, or chart belongs to `technical-figure`.
 
 ## Quick path
 
 1. Form the reader brief in the content contract below. Fix the reader and the one question; do not reduce the material to a sentence before you know what the peer must be able to verify.
-2. Derive the required nodes, edges, groups, and annotations from that brief. Every component and relation the peer needs to verify the answer is required; a fact that answers a different question stays outside the figure. Read `references/local/editorial-principles.md` and `references/local/editorial-default-style.md` unless the user supplied a different style or an existing file already establishes one.
+2. Derive the required nodes, edges, groups, and annotations from that brief. Every component and relation the peer needs to verify the answer is required; a fact that answers a different question stays outside the figure. Read `references/local/figure-principles.md` and `references/local/figure-style.md` unless the user supplied a different style or an existing file already establishes one.
 3. Read `references/local/upstream-drawio-rules.md`. Start with uncompressed bare `mxGraphModel` XML unless pages or file metadata require `<mxfile>`.
 4. Read `references/local/auto-layout.md` and apply the simplest suitable automatic layout. Preserve explicit semantic grouping.
 5. Run both validators from the skill root:
@@ -25,7 +26,7 @@ Produce a valid, readable native `.drawio` file. Native XML is the source of tru
    python3 scripts/validate_drawio_layout.py <file>.drawio
    ```
 
-6. For every new diagram or substantial visual edit, export and inspect SVG or PNG when an exporter is available. Apply `references/local/review-loop.md`: fix render defects first, then remove any text the document should carry. If automatic layout leaves a collision or ambiguous route, read `references/local/edge-routing.md`, fix only those routes, and validate again.
+6. For every new diagram or substantial visual edit, export and inspect SVG or PNG when an exporter is available, in the dark theme as well when readers will see it dark. Apply `references/local/review-loop.md`: fix render defects first, then remove any text the document should carry. If automatic layout leaves a collision or ambiguous route, read `references/local/edge-routing.md`, fix only those routes, and validate again.
 
 ## Reader and content contract
 
@@ -39,13 +40,13 @@ surrounding_context: <what the document or conversation already explains>
 required_nodes: [exact names; a role on a second line only where the name does not say what it does]
 required_edges: [{from, to, what passes or what triggers it}]
 required_groups: [real boundaries only]
-required_annotations: [{text, purpose}]   # empty means no title, legend, caption, callout, footer, badge, icon, or inset
+required_annotations: [{text, purpose}]   # empty is normal; allowed only when meaningful: gray annotation-layer notes, a legend of at most three items, a zoom panel, a locator; never a title, caption, footer, badge, or icon
 deferred_to_prose: [facts that answer a different question; every count, timestamp, and qualifier]
 ```
 
 The reader is a peer: knowledge is not their bottleneck, this project's structure is. Assume the field's vocabulary and supply the exact names, mechanisms, and relationships they could not reconstruct without the figure. A deliberately simplified figure is a separate register that only an explicit request selects.
 
-Three content rules do most of the work; `references/local/editorial-principles.md` holds the full set.
+Three content rules do most of the work; `references/local/figure-principles.md` holds the full set.
 
 - **Exact names first.** Label a component by the name it carries in code, configuration, or the running system; add a role on a second line only when the name does not say what it does. Never a role in place of a name. Paths, endpoints, fields, and hook points are content when the peer needs them to verify or act on the answer.
 - **Edges carry mechanism.** Only semantic nodes receive connectors. Label a connector with what passes, what triggers it, or its condition whenever the two node names leave the relation ambiguous, and keep the label to the mechanism.
@@ -57,7 +58,7 @@ When the page is hard to scan: organize (group by real boundary, align peers, or
 
 ## Native XML baseline
 
-- Include `mxGraphModel` root cells `0` and `1`; use `adaptiveColors="auto"`.
+- Include `mxGraphModel` root cells `0` and `1`; use `adaptiveColors="auto"` and bake the background with `background="#FFFFFF"`.
 - Use uncompressed XML and stable unique IDs. Do not emit XML comments.
 - Emit vertices before edges. Every edge has source and target IDs plus a child `<mxGeometry relative="1" as="geometry" />`.
 - Use `html=1;` and XML-escape label HTML. A literal `\n` is not a line break; use `&lt;br&gt;` or `&#xa;`.
@@ -86,7 +87,7 @@ Before finishing, confirm:
 1. every label is readable at the intended delivery size and no component, label, or unrelated edge overlaps; the render is what the source intends;
 2. the required semantic inventory matches the diagram, exact names are present, no relationship was invented, and no count, timestamp, or qualifier sits on the canvas that the prose should carry;
 3. the peer can verify the answer from the figure; a page that says no more than its heading is not finished;
-4. the dominant path and secondary paths are distinguishable;
+4. the focal element or path reads first, context stays neutral or ghosted, and each line style carries one relation;
 5. every visible element earns its place; and
 6. a render was inspected for every new diagram or substantial visual edit, or the missing exporter was reported.
 
@@ -98,11 +99,12 @@ Use an existing draw.io CLI; do not install one for a source-only request. Find 
 
 ```bash
 DRAWIO="${DRAWIO_BIN:-$(command -v drawio || echo /Applications/draw.io.app/Contents/MacOS/draw.io)}"
-"$DRAWIO" -x -f svg -e -b 10 -o <name>.drawio.svg <name>.drawio
-"$DRAWIO" -x -f png -e -b 10 --width 3840 -o <name>.drawio.png <name>.drawio
+"$DRAWIO" -x -f svg -e -b 16 -o <name>.drawio.svg <name>.drawio
+"$DRAWIO" -x -f png -e -b 16 -s 2 --theme light -o <name>.drawio.png <name>.drawio
+"$DRAWIO" -x -f png -e -b 16 -s 2 --theme dark -o <name>.dark.drawio.png <name>.drawio
 ```
 
-Prefer SVG for sharp text. If the exporter is unavailable, deliver the valid `.drawio` source and report that export and visual inspection were unavailable.
+Prefer SVG for sharp text. The SVG keeps draw.io's default `--theme auto` and follows the viewer's color scheme; PNG and PDF render one theme. Deliver the theme that matches the host, and read `references/local/figure-style.md` for what draw.io's automatic dark palette keeps and loses. If the exporter is unavailable, deliver the valid `.drawio` source and report that export and visual inspection were unavailable.
 
 ## Output
 
@@ -112,8 +114,8 @@ Lead with the artifact created or changed. Report both validator results, the la
 
 | Need | Read |
 | --- | --- |
-| Content and shared appearance invariants | `references/local/editorial-principles.md` |
-| draw.io translation of the editorial tokens | `references/local/editorial-default-style.md` |
+| Content and shared appearance invariants | `references/local/figure-principles.md` |
+| draw.io recipes for the figure tokens, dark rendering, and backend limits | `references/local/figure-style.md` |
 | Required XML structure and export rules | `references/local/upstream-drawio-rules.md` |
 | Automatic layout and current CLI routes | `references/local/auto-layout.md` |
 | Reader, density, and rendered visual audit | `references/local/review-loop.md` |
@@ -127,7 +129,8 @@ Read only the rows needed for the current artifact. Vendored files under `refere
 
 - Applying `--layout` is an explicit authoring step; reopening a saved file does not perform another obstacle-aware cleanup.
 - File each edge at the innermost container that holds both endpoints, and on the layer (`parent="1"`) only when an endpoint is outside every container. Auto-layout reads an edge in its parent's frame, so an edge filed further out than its endpoints is laid out in the wrong place.
-- Empty space does not need a title, legend, footer, rail, icon, or inset.
+- Empty space may stay empty; it does not need a title, footer, rail, icon, or decoration.
+- Three draw.io style traps: with `absoluteArcSize=1`, `arcSize` is the corner diameter; `dashPattern` scales with `strokeWidth` unless `fixDash=1` is set; and `fontStyle=1` or `&lt;b&gt;` renders weight 700, so labels take 600 from an HTML span.
 - A crowded inventory is not a clear explanation, and a chain of role-named boxes that restates its heading is not a figure. Fix crowding by organizing and splitting into pages, not by turning names into roles or deleting mechanism.
-- Text above or below the figure (a takeaway, an analogy, a source line) is the document's job. On the canvas it is a defect unless the figure is standalone and the reader cannot recover the meaning otherwise.
+- Text above or below the figure (a title, a takeaway, an analogy, a source line) is the document's job and a defect on the canvas. The gray annotation layer holds only names and mechanism.
 - `apply_auto_layout.py` shrinks `container=1` groups while their children keep their size, so a file that passed the layout validator before layout fails containment after it. Restore the child geometry with real padding and aligned stage centers instead of keeping the laid-out boxes.

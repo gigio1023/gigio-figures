@@ -1,0 +1,25 @@
+{
+  "direction": "UP",
+  "nodes": [
+    {"id": "h", "title": "h", "tex": "h", "kind": "chip"},
+    {"id": "router", "title": "router", "sub": "top-2 softmax"},
+    {"id": "e1", "title": "E_1", "tex": "E_1", "sub": "FFN", "classes": ["blue"], "group": "experts"},
+    {"id": "e2", "title": "E_2", "tex": "E_2", "sub": "FFN", "classes": ["ghost"], "group": "experts"},
+    {"id": "e3", "title": "E_3", "tex": "E_3", "sub": "FFN", "classes": ["blue"], "group": "experts"},
+    {"id": "e4", "title": "E_4", "tex": "E_4", "sub": "FFN", "classes": ["ghost"], "group": "experts"},
+    {"id": "combine", "title": "sum_i g_i E_i(h)", "tex": "\\textstyle\\sum_i g_i\\,E_i(h)"},
+    {"id": "y", "title": "y", "tex": "y", "kind": "chip"}
+  ],
+  "edges": [
+    {"from": "h", "to": "router"},
+    {"from": "h", "to": "e1"},
+    {"from": "h", "to": "e2"},
+    {"from": "h", "to": "e3"},
+    {"from": "h", "to": "e4"},
+    {"from": "e1", "to": "combine", "classes": ["emph", "blue"]},
+    {"from": "e3", "to": "combine", "classes": ["emph", "blue"]},
+    {"from": "router", "to": "combine", "classes": ["control"], "label": "g_i", "tex": "g_i", "toSide": "W"},
+    {"from": "combine", "to": "y"}
+  ],
+  "groups": [{"id": "experts", "label": "routed experts", "classes": ["container"], "equal": true}]
+}

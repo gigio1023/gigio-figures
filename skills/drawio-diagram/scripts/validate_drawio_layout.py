@@ -10,6 +10,12 @@ from dataclasses import dataclass
 from pathlib import Path
 
 
+# Corner radii of the figure style (tensor, chip, node, tall node, container) and the
+# largest radius-to-height ratio it allows; see references/local/figure-style.md.
+FIGURE_RADII_U = (2.0, 4.0, 6.0, 8.0, 12.0)
+MAX_RADIUS_RATIO = 0.2
+
+
 @dataclass(frozen=True)
 class Box:
     cell_id: str
@@ -97,7 +103,8 @@ def parse_boxes(root: ET.Element) -> dict[str, Box]:
             "object",
             "UserObject",
         }
-        cell_id = cell.get("id") or (wrapper.get("id") if is_object_wrapper else None)
+        # draw.io identifies a wrapped cell by its <object> id; an inner mxCell id is ignored.
+        cell_id = (wrapper.get("id") if is_object_wrapper else None) or cell.get("id")
         if not cell_id:
             continue
         value = cell.get("value", "")
@@ -140,9 +147,7 @@ def parse_edges(root: ET.Element) -> list[Edge]:
             "object",
             "UserObject",
         }
-        cell_id = cell.get("id") or (
-            wrapper.get("id", "") if is_object_wrapper else ""
-        )
+        cell_id = (wrapper.get("id", "") if is_object_wrapper else "") or cell.get("id", "")
         value = cell.get("value", "")
         if is_object_wrapper and not value:
             value = wrapper.get("label", wrapper.get("value", ""))
@@ -515,9 +520,18 @@ def corner_signature(box: Box) -> str | None:
         return None
     if box.style.get("rounded") != "1":
         return "square"
+    arc_size = box.style.get("arcSize", "default")
     if box.style.get("absoluteArcSize") == "1":
-        return f'rounded:absolute:{box.style.get("arcSize", "default")}'
-    return f'rounded:default:{box.style.get("arcSize", "default")}'
+        # Under absoluteArcSize, arcSize is the corner diameter. Radii on the figure
+        # scale differ by kind and height on purpose, so they count as one recipe.
+        try:
+            radius = float(arc_size) / 2
+        except ValueError:
+            radius = None
+        if radius in FIGURE_RADII_U and radius <= MAX_RADIUS_RATIO * box.height:
+            return "rounded:figure-radius-scale"
+        return f"rounded:absolute:{arc_size}"
+    return f"rounded:default:{arc_size}"
 
 
 def main() -> int:

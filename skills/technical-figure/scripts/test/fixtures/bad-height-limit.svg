@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 960" data-figure="technical-figure">
+  <!-- Expected: height-limit. 960 CSS px tall at a 720 px column. -->
+  <g data-id="a"><rect class="box" x="300" y="40" width="120" height="36"/><text class="t" x="360" y="58" text-anchor="middle" dominant-baseline="central">embedding</text></g>
+  <g data-id="b"><rect class="box" x="300" y="880" width="120" height="36"/><text class="t" x="360" y="898" text-anchor="middle" dominant-baseline="central">unembedding</text></g>
+  <path class="edge" data-id="a-b" d="M360 76V880" data-arrow="end"/>
+</svg>

@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 160" data-figure="technical-figure">
+  <!-- Expected: text-too-small. A scaled group shrinks a 12u annotation to under 12 px. -->
+  <g transform="translate(240 60) scale(0.8)">
+    <text class="ta" x="0" y="20">scaled-down caption text</text>
+  </g>
+</svg>

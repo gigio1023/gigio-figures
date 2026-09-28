@@ -15,7 +15,7 @@ Before adjusting geometry:
 3. Keep exact names on the first line and add a role only when the name does not say what the component does. Expand project-private acronyms once; the field's acronyms stay. Label every edge whose meaning the two node names do not make unambiguous.
 4. Keep one abstraction level. Split runtime flow, internal mechanism, alternatives, and deployment detail when they answer different questions.
 5. Remove disconnected cards or mini-panels whose relationship to the answer is only proximity; a list belongs in prose or a table.
-6. Keep a title or annotation only when the figure is standalone and the same context is unavailable in its surrounding document. Nothing else goes above or below the figure.
+6. Never put a title, footer, or source line on the canvas; the caption and the surrounding document carry them. Keep a gray annotation-layer note, a legend of at most three items, a zoom panel, or a locator only when it carries meaning the answer needs.
 
 Do not proceed to spacing while the content still fails this audit. A cleaner layout cannot rescue an unfocused explanation.
 
@@ -36,7 +36,7 @@ If the layout only works because a reader already knows the explanation from cha
 
 - Prefer tighter spacing only after every arrow has a clear route.
 - Keep boxes close enough to show sequence, but not so close that arrowheads touch borders.
-- Avoid bottom legends or explanatory footers inside the diagram. They usually become a second narrative competing with the figure.
+- Avoid explanatory footers inside the diagram; they become a second narrative competing with the figure. A legend stays only for an encoding that cannot be labeled in place, with at most three items.
 - If a note is essential to the answer, prefer a direct semantic label. Put implementation notes, sources, versions, and excluded scope in the surrounding document or file metadata; use a separate page only for another required view.
 - Group with semantic boundaries: external caller, runtime/container, internal sections, implementation choices, and external dependencies should not collapse into one box.
 - One page should have one dominant reading path. If two paths feel equally important, split the page or make one path secondary.
@@ -46,6 +46,7 @@ If the layout only works because a reader already knows the explanation from cha
 
 - Prefer SVG for review when text sharpness and edge clarity matter.
 - Use PNG for README/chat compatibility, but normalize it for review with a high width such as `--width 3840`.
+- Export light and dark from the same source when readers may see either theme, and deliver the one that matches the host.
 - Keep the `.drawio` source beside every export.
 - If exporting both SVG and PNG, inspect SVG first for geometry and PNG second for rasterization issues.
 
@@ -61,8 +62,9 @@ After export, inspect the actual artifact, not only the XML:
 - no footer text that explains what the diagram failed to communicate visually
 - semantic boundaries are obvious without reading a separate legend
 - no main label set as vertical text
-- a distinction carried by color is also carried by position, a label, or the stroke (solid or dashed), so it survives grayscale printing and color-blind readers
-- under the editorial default style, the export matches its tokens: soft corners, two text voices, thin open arrowheads, one accent family, no shadows
+- a distinction carried by color is also carried by position, a label, the stroke weight, or the line style of its relation, so it survives grayscale printing and color-blind readers
+- under the default figure style, the export matches `references/local/figure-style.md`: one sans voice with mono only for code identifiers, ink edges darker than gray outlines, one focal hue carrying the 2.25 emphasis stroke, radii by kind, open arrowheads sized to their stroke, a baked background, no shadows or gradients
+- in a dark export, guide-colored lines (ghost outlines, outline containers, zoom frames, ghost edges) stay visible; pin them with `light-dark()` when they do not
 - SVG opens sharply; PNG matches the intended framing after normalization
 
 Ask whether a domain peer can verify the figure's answer against the system after following the dominant path, and whether the figure says more than its heading. If they would need the private conversation or a footer to decode it, revise the content brief and redraw rather than adding more explanation to the canvas.

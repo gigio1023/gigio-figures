@@ -1,0 +1,17 @@
+{
+  "direction": "RIGHT",
+  "spacing": {"node": 28, "layer": 32},
+  "nodes": [
+    {"id": "query", "title": "query", "kind": "chip"},
+    {"id": "encoder", "title": "encoder", "sub": "질의 임베딩", "group": "retriever"},
+    {"id": "index", "title": "vector index", "sub": "top-k search", "group": "retriever"},
+    {"id": "llm", "title": "LLM", "subTex": "p_\\theta(y \\mid x, D)", "classes": ["blue", "focus"]}
+  ],
+  "edges": [
+    {"from": "query", "to": "encoder"},
+    {"from": "encoder", "to": "index", "label": "q in R^d", "tex": "q \\in \\mathbb{R}^d"},
+    {"from": "index", "to": "llm", "label": "top-k 문서", "classes": ["emph", "blue"], "labelClasses": ["blue"]},
+    {"from": "query", "to": "llm", "fromSide": "S", "toSide": "S"}
+  ],
+  "groups": [{"id": "retriever", "label": "retriever", "classes": ["container"]}]
+}

@@ -1,0 +1,14 @@
+{
+  "direction": "UP",
+  "nodes": [
+    {"id": "a", "title": "attention", "sub": "self_attn"},
+    {"id": "m", "title": "MLP", "sub": "parallel"},
+    {"id": "sum", "title": "+", "kind": "op"},
+    {"id": "out", "title": "h'", "tex": "h'", "kind": "chip"}
+  ],
+  "edges": [
+    {"from": "a", "to": "sum"},
+    {"from": "m", "to": "sum", "classes": ["emph", "blue"]},
+    {"from": "sum", "to": "out"}
+  ]
+}

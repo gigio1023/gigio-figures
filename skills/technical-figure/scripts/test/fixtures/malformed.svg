@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 160" data-figure="technical-figure">
+  <!-- Expected: a one-line parse error from lint.mjs and exit 2. The <g> is never closed. -->
+  <g data-id="a">
+    <rect class="box" x="300" y="62" width="120" height="36"/>
+</svg>

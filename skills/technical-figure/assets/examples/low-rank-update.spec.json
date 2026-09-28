@@ -1,0 +1,28 @@
+{
+  "id": "low-rank-update",
+  "question": "Why is a low-rank update ΔW = BA cheap to train while still changing a full d × k weight?",
+  "claim": "A low-rank update ΔW = BA has the shape of W but rank at most r, and B and A together hold far fewer entries than W.",
+  "form": "proportional rectangles in multiplication order (B left of the product, A above it), beside W",
+  "geometry": "exact",
+  "example": {"d": 512, "k": 512, "r": 32, "scale_u_per_index": 0.375, "generator": "low-rank-update.py"},
+  "nodes": [
+    {"id": "w", "label": "W", "tex": "W", "role": "context", "dims": "d × k"},
+    {"id": "plus", "label": "+", "kind": "op", "role": "context"},
+    {"id": "delta-w", "label": "ΔW = BA", "tex": "\\Delta W = BA", "second": "rank ≤ r", "role": "context", "ghost": true, "note": "never stored; its outline shows that the product has W's shape"},
+    {"id": "b", "label": "B", "tex": "B", "role": "focus", "dims": "d × r"},
+    {"id": "a", "label": "A", "tex": "A", "role": "focus", "dims": "r × k"},
+    {"id": "rank", "label": "r", "tex": "r", "role": "frame", "note": "the shared inner dimension, placed where B's width meets A's height"}
+  ],
+  "edges": [],
+  "groups": [],
+  "focus": ["b", "a"],
+  "hue_map": {"vermillion": "weights changed by training"},
+  "forbidden_edges": [
+    {"from": "w", "to": "b", "why": "W is frozen and does not feed the factors; the two terms are only summed"}
+  ],
+  "canvas_vs_caption": {
+    "canvas": ["matrix names", "proportional sides", "dimension symbols d, k, r", "rank bound"],
+    "caption": ["the example shape d = k = 512, r = 32", "entry counts r(d + k) = 32,768 versus dk = 262,144", "that W stays frozen and only B and A are trained", "the usual scaling factor α/r and zero initialization of B"]
+  },
+  "caption": "A low-rank update ΔW = BA has the shape of W but rank at most r, and B and A together hold far fewer entries than W. Vermillion marks weights changed by training; W stays frozen, and ΔW is drawn as an outline because it is never stored. Sides are to scale for d = k = 512 and r = 32, where B and A hold r(d + k) = 32,768 entries against dk = 262,144 in W."
+}

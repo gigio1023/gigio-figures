@@ -1,0 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 160" data-figure="technical-figure">
+  <!-- Expected: contrast. A context element faded with opacity until its label is unreadable. -->
+  <g data-id="old" style="opacity:0.35"><rect class="box ghost" x="300" y="62" width="120" height="36"/><text class="t ghost" x="360" y="80" text-anchor="middle" dominant-baseline="central">old head</text></g>
+</svg>

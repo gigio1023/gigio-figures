@@ -1,0 +1,19 @@
+{
+  "question": "Where do attention and the MLP read and write in one block?",
+  "claim": "Both sublayers read the residual stream and add their output back to it through a sum.",
+  "nodes": [
+    {"id": "stream", "label": "residual stream", "role": "frame"},
+    {"id": "attn", "label": "Attention", "role": "focus"},
+    {"id": "mlp", "label": "MLP", "role": "context"},
+    {"id": "add-attn", "label": "+", "role": "context"},
+    {"id": "add-mlp", "label": "+", "role": "context"},
+    {"id": "next", "label": "next block", "role": "context"},
+    {"id": "ln-final", "label": "final norm", "role": "context"}
+  ],
+  "edges": [
+    {"id": "attn-read", "from": "stream", "to": "attn", "kind": "data"},
+    {"id": "attn-write", "from": "attn", "to": "add-attn", "kind": "data"},
+    {"id": "mlp-read", "from": "stream", "to": "mlp", "kind": "data"},
+    {"id": "mlp-write", "from": "mlp", "to": "add-mlp", "kind": "data"}
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "direction": "UP",
+  "nodes": [
+    {"id": "add", "title": "+", "kind": "op"},
+    {"id": "x-out", "title": "x'", "tex": "x'", "kind": "chip"},
+    {"id": "x-in", "title": "x", "tex": "x", "kind": "chip"},
+    {"id": "shared", "title": "E_s", "tex": "E_s", "sub": "shared"},
+    {"id": "router", "title": "router", "sub": "top-2"},
+    {"id": "e1", "title": "E_1", "tex": "E_1", "classes": ["ghost"], "group": "routed"},
+    {"id": "e2", "title": "E_2", "tex": "E_2", "group": "routed"},
+    {"id": "e3", "title": "E_3", "tex": "E_3", "classes": ["ghost"], "group": "routed"},
+    {"id": "e4", "title": "E_4", "tex": "E_4", "group": "routed"},
+    {"id": "e5", "title": "E_5", "tex": "E_5", "classes": ["ghost"], "group": "routed"},
+    {"id": "combine", "title": "weighted sum", "tex": "E_s(x) + \\textstyle\\sum_i g_i\\,E_i(x)"}
+  ],
+  "edges": [
+    {"id": "stream-in", "from": "x-in", "to": "add", "classes": ["spine"], "fromSide": "N", "toSide": "S", "arrow": "none"},
+    {"id": "stream-out", "from": "add", "to": "x-out", "classes": ["spine"], "fromSide": "N", "toSide": "S"},
+    {"id": "read-shared", "from": "x-in", "to": "shared", "fromSide": "E"},
+    {"id": "read-router", "from": "x-in", "to": "router", "fromSide": "E"},
+    {"id": "read-e1", "from": "x-in", "to": "e1", "classes": ["ghost"], "fromSide": "E"},
+    {"id": "read-e2", "from": "x-in", "to": "e2", "classes": ["ghost"], "fromSide": "E"},
+    {"id": "read-e3", "from": "x-in", "to": "e3", "classes": ["ghost"], "fromSide": "E"},
+    {"id": "read-e4", "from": "x-in", "to": "e4", "classes": ["ghost"], "fromSide": "E"},
+    {"id": "read-e5", "from": "x-in", "to": "e5", "classes": ["ghost"], "fromSide": "E"},
+    {"id": "out-shared", "from": "shared", "to": "combine"},
+    {"id": "gates", "from": "router", "to": "combine", "classes": ["control"]},
+    {"id": "out-e2", "from": "e2", "to": "combine", "classes": ["emph", "blue"]},
+    {"id": "out-e4", "from": "e4", "to": "combine", "classes": ["emph", "blue"]},
+    {"id": "write", "from": "combine", "to": "add", "classes": ["emph", "blue"], "toSide": "E"}
+  ],
+  "groups": [{"id": "routed", "label": "routed experts", "classes": ["container"]}]
+}

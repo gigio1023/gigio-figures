@@ -1,0 +1,16 @@
+{
+  "direction": "RIGHT",
+  "nodes": [
+    {"id": "base", "title": "base", "sub": "checkpoint"},
+    {"id": "sft", "title": "SFT", "sub": "checkpoint"},
+    {"id": "released", "title": "released", "sub": "checkpoint"},
+    {"id": "demos", "title": "demonstrations", "kind": "chip"},
+    {"id": "pairs", "title": "preference pairs", "kind": "chip"}
+  ],
+  "edges": [
+    {"id": "op-sft", "from": "base", "to": "sft", "classes": ["emph", "vermillion"], "label": "supervised fine-tuning"},
+    {"id": "op-pref", "from": "sft", "to": "released", "classes": ["emph", "vermillion"], "label": "preference optimization"},
+    {"id": "data-sft", "from": "demos", "to": "sft", "classes": ["ghost"], "toSide": "S"},
+    {"id": "data-pref", "from": "pairs", "to": "released", "classes": ["ghost"], "toSide": "S"}
+  ]
+}

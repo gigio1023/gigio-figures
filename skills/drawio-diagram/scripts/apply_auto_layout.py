@@ -28,9 +28,7 @@ def find_drawio() -> str | None:
     return None
 
 
-def restore_adaptive_colors(path: Path) -> int:
-    tree = ET.parse(path)
-    root = tree.getroot()
+def graph_models(root: ET.Element) -> list[ET.Element]:
     models = []
     if root.tag.rsplit("}", 1)[-1] == "mxGraphModel":
         models.append(root)
@@ -39,10 +37,25 @@ def restore_adaptive_colors(path: Path) -> int:
         for element in root.iter()
         if element is not root and element.tag.rsplit("}", 1)[-1] == "mxGraphModel"
     )
+    return models
+
+
+def read_backgrounds(path: Path) -> list[str | None]:
+    """Return each page's model background in page order; the layout rewrite drops it."""
+    return [model.get("background") for model in graph_models(ET.parse(path).getroot())]
+
+
+def restore_adaptive_colors(path: Path, backgrounds: list[str | None] | None = None) -> int:
+    """Set adaptiveColors on every model and put back any background the rewrite dropped."""
+    tree = ET.parse(path)
+    models = graph_models(tree.getroot())
     if not models:
         raise ValueError("draw.io output contains no mxGraphModel")
-    for model in models:
+    for index, model in enumerate(models):
         model.set("adaptiveColors", "auto")
+        background = backgrounds[index] if backgrounds and index < len(backgrounds) else None
+        if background and not model.get("background"):
+            model.set("background", background)
     tree.write(path, encoding="unicode")
     return len(models)
 
@@ -60,6 +73,11 @@ def main() -> int:
         parser.error("input and output must differ during layout iteration")
     if not args.output.parent.is_dir():
         parser.error(f"output directory not found: {args.output.parent}")
+
+    try:
+        backgrounds = read_backgrounds(args.input)
+    except ET.ParseError as exc:
+        parser.error(f"input is not uncompressed draw.io XML: {exc}")
 
     drawio = find_drawio()
     if not drawio:
@@ -94,14 +112,17 @@ def main() -> int:
             ],
             check=True,
         )
-        count = restore_adaptive_colors(temporary_path)
+        count = restore_adaptive_colors(temporary_path, backgrounds)
         os.replace(temporary_path, args.output)
     except (OSError, ValueError, ET.ParseError, subprocess.CalledProcessError) as exc:
         temporary_path.unlink(missing_ok=True)
         print(f"layout failed: {exc}", file=sys.stderr)
         return 1
 
-    print(f"OK: applied {args.layout} and restored adaptiveColors on {count} model(s)")
+    print(
+        f"OK: applied {args.layout} and restored adaptiveColors and background"
+        f" on {count} model(s)"
+    )
     return 0
 
 

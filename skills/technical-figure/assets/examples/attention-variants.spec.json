@@ -1,0 +1,44 @@
+{
+  "id": "attention-variants",
+  "question": "What exactly changes between multi-head, grouped-query, and multi-query attention?",
+  "claim": "Multi-head, grouped-query, and multi-query attention differ only in how many key/value heads the query heads share: one each, one per group, or one for all.",
+  "form": "sibling variants on identical coordinates; target: the key/value heads, action: count them and trace which query heads read each; juxtaposition, because the structure below the query row differs",
+  "geometry": "schematic",
+  "nodes": [
+    {"id": "mha", "label": "(a) multi-head", "second": "MHA", "role": "frame", "kind": "panel label"},
+    {"id": "mha-query", "label": "Q_1 ... Q_4", "tex": "Q_i", "role": "context", "ghost": true, "note": "shared scaffold, same x in every panel"},
+    {"id": "mha-kv1", "label": "K_1, V_1", "tex": "K_1,V_1", "role": "focus"},
+    {"id": "mha-kv2", "label": "K_2, V_2", "tex": "K_2,V_2", "role": "focus"},
+    {"id": "mha-kv3", "label": "K_3, V_3", "tex": "K_3,V_3", "role": "focus"},
+    {"id": "mha-kv4", "label": "K_4, V_4", "tex": "K_4,V_4", "role": "focus"},
+    {"id": "gqa", "label": "(b) grouped-query", "second": "GQA", "role": "frame", "kind": "panel label"},
+    {"id": "gqa-query", "label": "Q_1 ... Q_4", "tex": "Q_i", "role": "context", "ghost": true},
+    {"id": "gqa-kv1", "label": "K_1, V_1", "tex": "K_1,V_1", "role": "focus"},
+    {"id": "gqa-kv2", "label": "K_2, V_2", "tex": "K_2,V_2", "role": "focus"},
+    {"id": "mqa", "label": "(c) multi-query", "second": "MQA", "role": "frame", "kind": "panel label"},
+    {"id": "mqa-query", "label": "Q_1 ... Q_4", "tex": "Q_i", "role": "context", "ghost": true},
+    {"id": "mqa-kv1", "label": "K_1, V_1", "tex": "K_1,V_1", "role": "focus"}
+  ],
+  "edges": [
+    {"id": "mha-share1", "from": "mha-kv1", "to": "Q_1", "kind": "data"},
+    {"id": "mha-share2", "from": "mha-kv2", "to": "Q_2", "kind": "data"},
+    {"id": "mha-share3", "from": "mha-kv3", "to": "Q_3", "kind": "data"},
+    {"id": "mha-share4", "from": "mha-kv4", "to": "Q_4", "kind": "data"},
+    {"id": "gqa-share1", "from": "gqa-kv1", "to": ["Q_1", "Q_2"], "kind": "data", "note": "fan-out from one junction dot"},
+    {"id": "gqa-share2", "from": "gqa-kv2", "to": ["Q_3", "Q_4"], "kind": "data", "note": "fan-out from one junction dot"},
+    {"id": "mqa-share1", "from": "mqa-kv1", "to": ["Q_1", "Q_2", "Q_3", "Q_4"], "kind": "data", "note": "fan-out; inner branches as T-junctions"}
+  ],
+  "groups": [],
+  "focus": ["key/value heads and their fan-outs in every panel"],
+  "hue_map": {},
+  "hue_note": "No hue: the semantic map has no meaning for key/value sharing, so ink versus ghost and the fan-out structure carry the difference.",
+  "forbidden_edges": [
+    {"from": "Q_1", "to": "Q_2", "why": "query heads never exchange values; sharing is only through a key/value head"},
+    {"from": "gqa-kv1", "to": "Q_3", "why": "a group's key/value head serves only that group"}
+  ],
+  "canvas_vs_caption": {
+    "canvas": ["query and key/value head names", "which query heads read each key/value head", "variant names and abbreviations"],
+    "caption": ["four query heads and a group size of 2 are illustrative", "the key/value cache per token scales with the number of key/value heads", "query head count is unchanged across variants"]
+  },
+  "caption": "Multi-head, grouped-query, and multi-query attention differ only in how many key/value heads the query heads share: one each, one per group, or one for all. Query heads (gray) sit at the same positions in every panel; each arrow is a key/value head read by a query head. Four query heads and groups of two are illustrative; the key/value cache stored per token shrinks in proportion to the number of key/value heads, here 4, 2, and 1."
+}

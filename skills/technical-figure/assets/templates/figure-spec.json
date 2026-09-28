@@ -1,0 +1,35 @@
+{
+  "id": "residual-read-write",
+  "question": "Where does each sublayer of a transformer block read its input and write its output?",
+  "claim": "Attention and the MLP both read the residual stream and add their outputs back to it, so the stream is the only path between them.",
+  "form": "spine with side branches",
+  "comparison": null,
+  "geometry": "schematic",
+  "example": null,
+  "nodes": [
+    {"id": "stream", "label": "residual stream", "tex": "x^{(\\ell)}", "role": "frame"},
+    {"id": "attn", "label": "Attention", "sub": "self_attn", "role": "focus"},
+    {"id": "mlp", "label": "MLP", "role": "context"},
+    {"id": "add-attn", "label": "+", "kind": "op", "role": "context"},
+    {"id": "add-mlp", "label": "+", "kind": "op", "role": "context"},
+    {"id": "next", "label": "next block", "role": "ghost"}
+  ],
+  "edges": [
+    {"id": "attn-read", "from": "stream", "to": "attn", "relation": "data", "label": "read"},
+    {"id": "attn-write", "from": "attn", "to": "add-attn", "relation": "write", "label": "write"},
+    {"id": "mlp-read", "from": "stream", "to": "mlp", "relation": "data"},
+    {"id": "mlp-write", "from": "mlp", "to": "add-mlp", "relation": "write"}
+  ],
+  "groups": [],
+  "focus": ["attn", "attn-write"],
+  "hues": {"blue": "writes to the residual stream"},
+  "forbidden_edges": [
+    {"from": "attn", "to": "mlp", "why": "the sublayers communicate only through the stream"}
+  ],
+  "canvas": ["component names", "read and write paths", "the sum on the stream"],
+  "caption": {
+    "claim": "Attention and the MLP both read the residual stream and add their outputs back to it, so the stream is the only path between them.",
+    "reading_key": "Blue marks a write into the residual stream.",
+    "deferred": ["number of layers", "hidden size", "which norm precedes each sublayer"]
+  }
+}

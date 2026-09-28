@@ -1,0 +1,187 @@
+{
+  "id": "residual-stream",
+  "question": "Where do the two sublayers of one transformer layer read their input and write their output?",
+  "claim": "Attention and the MLP each read the residual stream through a norm and add their output back through ⊕, and attention writes only through its output projection W_O.",
+  "form": "spine with side branches (residual stream spine archetype)",
+  "geometry": "schematic",
+  "nodes": [
+    {
+      "id": "stream",
+      "label": "residual stream",
+      "tex": "x^{(\\ell)} \\to x^{(\\ell+1)}",
+      "role": "frame"
+    },
+    {
+      "id": "attn",
+      "label": "attention",
+      "role": "context",
+      "kind": "container"
+    },
+    {
+      "id": "heads",
+      "label": "h_1 ... h_4",
+      "tex": "h_1, h_2, h_3, h_4",
+      "role": "context"
+    },
+    {
+      "id": "wo",
+      "label": "W_O",
+      "tex": "W_O",
+      "role": "focus"
+    },
+    {
+      "id": "add-attn",
+      "label": "+",
+      "kind": "op",
+      "role": "context"
+    },
+    {
+      "id": "mlp",
+      "label": "MLP",
+      "role": "context",
+      "kind": "container"
+    },
+    {
+      "id": "w-in",
+      "label": "W_in",
+      "tex": "W_{\\text{in}}",
+      "role": "context"
+    },
+    {
+      "id": "w-out",
+      "label": "W_out",
+      "tex": "W_{\\text{out}}",
+      "role": "context"
+    },
+    {
+      "id": "add-mlp",
+      "label": "+",
+      "kind": "op",
+      "role": "context"
+    },
+    {
+      "id": "eq-attn",
+      "label": "attention write equation",
+      "tex": "x \\leftarrow x + W_O\\,[h_1;\\dots;h_4]",
+      "role": "focus"
+    },
+    {
+      "id": "eq-mlp",
+      "label": "MLP write equation",
+      "tex": "x \\leftarrow x + W_{\\text{out}}\\,\\sigma(W_{\\text{in}}\\,\\mathrm{norm}(x))",
+      "role": "context"
+    }
+  ],
+  "edges": [
+    {
+      "id": "attn-read",
+      "from": "stream",
+      "to": "heads",
+      "kind": "data",
+      "label": "RMSNorm",
+      "note": "the norm is the read branch operation; the branch ends at a junction dot"
+    },
+    {
+      "id": "attn-fanout",
+      "from": "stream",
+      "to": "heads",
+      "kind": "data",
+      "note": "from the read branch junction dot to every head; inner heads branch as T-junctions"
+    },
+    {
+      "id": "heads-wo",
+      "from": "heads",
+      "to": "wo",
+      "kind": "data"
+    },
+    {
+      "id": "attn-write",
+      "from": "wo",
+      "to": "add-attn",
+      "kind": "write",
+      "emphasis": "blue"
+    },
+    {
+      "id": "mlp-read",
+      "from": "stream",
+      "to": "w-in",
+      "kind": "data",
+      "label": "RMSNorm"
+    },
+    {
+      "id": "mlp-act",
+      "from": "w-in",
+      "to": "w-out",
+      "kind": "data",
+      "label": "sigma",
+      "tex": "\\sigma"
+    },
+    {
+      "id": "mlp-write",
+      "from": "w-out",
+      "to": "add-mlp",
+      "kind": "write"
+    }
+  ],
+  "groups": [
+    {
+      "id": "attn",
+      "label": "attention",
+      "members": [
+        "heads",
+        "wo"
+      ],
+      "meaning": "module scope"
+    },
+    {
+      "id": "mlp",
+      "label": "MLP",
+      "members": [
+        "w-in",
+        "w-out"
+      ],
+      "meaning": "module scope"
+    }
+  ],
+  "focus": [
+    "wo",
+    "attn-write",
+    "eq-attn"
+  ],
+  "hue_map": {
+    "blue": "a write into the residual stream"
+  },
+  "forbidden_edges": [
+    {
+      "from": "attn",
+      "to": "mlp",
+      "why": "the sublayers communicate only through the stream"
+    },
+    {
+      "from": "heads",
+      "to": "add-attn",
+      "why": "heads never write directly; W_O mixes them first"
+    },
+    {
+      "from": "stream",
+      "to": "stream",
+      "why": "no norm or other operation sits on the spine itself"
+    }
+  ],
+  "canvas_vs_caption": {
+    "canvas": [
+      "component and matrix names",
+      "read branches and write edges",
+      "the ⊕ on the spine",
+      "write equations aligned with their ⊕"
+    ],
+    "caption": [
+      "number of layers",
+      "hidden size",
+      "that four heads are drawn",
+      "pre-norm placement and the norm variant",
+      "reading key: dot on the spine = read, ⊕ = write"
+    ]
+  },
+  "caption": "Attention and the MLP each read the residual stream through a norm and add their output back through ⊕; attention writes only through its output projection W_O, shown in blue. A dot on the stream marks a read and ⊕ marks a write, and blue marks a write throughout this document. One pre-norm layer ℓ is drawn with four heads; stacking L such layers maps x^(0) to x^(L)."
+}
