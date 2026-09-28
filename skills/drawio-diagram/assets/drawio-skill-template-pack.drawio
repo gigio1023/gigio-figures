@@ -1,102 +1,102 @@
 <mxfile host="app.diagrams.net" agent="Codex" version="26.0.11">
   <diagram id="product-canvas-template" name="Product Canvas Template">
-    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1000" math="0" shadow="0" adaptiveColors="auto">
+    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1000" math="0" shadow="0" adaptiveColors="auto" background="#FFFFFF">
       <root>
         <mxCell id="0"/>
         <mxCell id="1" parent="0"/>
         <mxCell id="2" value="Annotations" parent="0" visible="0"/>
-        <UserObject id="ptitle" label="&lt;font style=&quot;font-size:30px;font-weight:700&quot;&gt;%title%&lt;/font&gt;&lt;br&gt;&lt;font style=&quot;font-size:15px;color:#5F6675&quot;&gt;%thesis%&lt;/font&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px;color:#7A746A&quot;&gt;%meta%&lt;/font&gt;" placeholders="1" title="Agent Workbench" thesis="A builder-like workflow with a dominant execution lane, isolated guardrails, and a compact evidence band." meta="brand-safe template  |  product-canvas  |  edit placeholders">
-          <mxCell style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;" vertex="1" parent="1">
+        <UserObject id="ptitle" label="&lt;span style=&quot;font-size:15px;font-weight:600&quot;&gt;%title%&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:12.5px;color:#5F5E5B&quot;&gt;%thesis%&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:12px;color:#5F5E5B&quot;&gt;%meta%&lt;/span&gt;" placeholders="1" title="Agent Workbench" thesis="A builder-like workflow with a dominant execution lane, isolated guardrails, and a compact evidence band." meta="brand-safe template  |  product-canvas  |  edit placeholders">
+          <mxCell style="text;html=1;align=left;verticalAlign=top;strokeColor=none;fillColor=none;whiteSpace=wrap;fontFamily=Pretendard, Pretendard Variable, Apple SD Gothic Neo, Noto Sans KR, Helvetica Neue, Arial, sans-serif;fontSize=12;fontColor=#2C2C2B;" vertex="1" parent="1">
             <mxGeometry x="90" y="70" width="930" height="120" as="geometry"/>
           </mxCell>
         </UserObject>
-        <mxCell id="hero" value="Core Flow" style="swimlane;startSize=34;rounded=1;absoluteArcSize=1;arcSize=12;html=1;whiteSpace=wrap;spacing=10;fillColor=#FFFFFF;strokeColor=#D5DBE8;swimlaneFillColor=#F8FAFD;fontColor=#3853A4;fontStyle=1;container=1;collapsible=0;" vertex="1" parent="1">
+        <mxCell id="hero" value="&lt;span style=&quot;font-weight:600&quot;&gt;Core Flow&lt;/span&gt;" style="swimlane;startSize=34;rounded=1;absoluteArcSize=1;arcSize=24;html=1;whiteSpace=wrap;container=1;collapsible=0;fillColor=#F4F3F1;swimlaneFillColor=#F4F3F1;strokeColor=none;swimlaneLine=0;fontColor=#5F5E5B;fontFamily=Pretendard, Pretendard Variable, Apple SD Gothic Neo, Noto Sans KR, Helvetica Neue, Arial, sans-serif;fontSize=12;align=left;spacing=0;spacingLeft=16;spacingRight=16;spacingTop=8;spacingBottom=8;shadow=0;" vertex="1" parent="1">
           <mxGeometry x="80" y="230" width="980" height="500" as="geometry"/>
         </mxCell>
-        <mxCell id="rail" value="Guardrail Rail" style="swimlane;startSize=34;rounded=1;absoluteArcSize=1;arcSize=12;html=1;whiteSpace=wrap;spacing=10;fillColor=#EAEEF6;strokeColor=#D5DBE8;swimlaneFillColor=#E3EAF9;fontColor=#3853A4;fontStyle=1;container=1;collapsible=0;" vertex="1" parent="1">
+        <mxCell id="rail" value="&lt;span style=&quot;font-weight:600&quot;&gt;Guardrail Rail&lt;/span&gt;" style="swimlane;startSize=34;rounded=1;absoluteArcSize=1;arcSize=24;html=1;whiteSpace=wrap;container=1;collapsible=0;fillColor=#F4F3F1;swimlaneFillColor=#F4F3F1;strokeColor=none;swimlaneLine=0;fontColor=#5F5E5B;fontFamily=Pretendard, Pretendard Variable, Apple SD Gothic Neo, Noto Sans KR, Helvetica Neue, Arial, sans-serif;fontSize=12;align=left;spacing=0;spacingLeft=16;spacingRight=16;spacingTop=8;spacingBottom=8;shadow=0;" vertex="1" parent="1">
           <mxGeometry x="1100" y="230" width="360" height="500" as="geometry"/>
         </mxCell>
-        <mxCell id="band" value="" style="rounded=1;absoluteArcSize=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#D5DBE8;container=1;pointerEvents=0;" vertex="1" parent="1">
+        <mxCell id="band" value="" style="rounded=1;absoluteArcSize=1;arcSize=24;container=1;pointerEvents=0;html=1;whiteSpace=wrap;fillColor=none;strokeColor=#D4D3CF;strokeWidth=1;shadow=0;" vertex="1" parent="1">
           <mxGeometry x="80" y="760" width="1380" height="120" as="geometry"/>
         </mxCell>
-        <UserObject id="input" label="&lt;b&gt;%node%&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;color:#5F6675&quot;&gt;%sub%&lt;/font&gt;" placeholders="1" tags="core entry" node="User Input" sub="source task">
-          <mxCell style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#D5DBE8;strokeWidth=1.25;fontColor=#111111;fontSize=14;spacing=12;arcSize=18;" vertex="1" parent="hero">
+        <UserObject id="input" label="&lt;span style=&quot;font-weight:600&quot;&gt;%node%&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:12.5px;color:#5F5E5B&quot;&gt;%sub%&lt;/span&gt;" placeholders="1" tags="core entry" node="User Input" sub="source task">
+          <mxCell style="rounded=1;absoluteArcSize=1;arcSize=16;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#8E8B86;strokeWidth=1.25;fontColor=#2C2C2B;fontFamily=Pretendard, Pretendard Variable, Apple SD Gothic Neo, Noto Sans KR, Helvetica Neue, Arial, sans-serif;fontSize=14;spacing=0;spacingLeft=12;spacingRight=12;spacingTop=8;spacingBottom=8;shadow=0;" vertex="1" parent="hero">
             <mxGeometry x="40" y="180" width="150" height="86" as="geometry"/>
           </mxCell>
         </UserObject>
-        <UserObject id="planner" label="&lt;b&gt;%node%&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;color:#4C5A83&quot;&gt;%sub%&lt;/font&gt;" placeholders="1" tags="core active" node="Planner" sub="task framing + routing">
-          <mxCell style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EEF2F8;strokeColor=#6E8BFF;strokeWidth=1.6;fontColor=#111111;fontSize=15;spacing=12;arcSize=18;" vertex="1" parent="hero">
+        <UserObject id="planner" label="&lt;span style=&quot;font-weight:600&quot;&gt;%node%&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:12.5px;color:#5F5E5B&quot;&gt;%sub%&lt;/span&gt;" placeholders="1" tags="core active" node="Planner" sub="task framing + routing">
+          <mxCell style="rounded=1;absoluteArcSize=1;arcSize=16;whiteSpace=wrap;html=1;fillColor=#E5F1FF;strokeColor=#2769B7;strokeWidth=2.25;fontColor=#2C2C2B;fontFamily=Pretendard, Pretendard Variable, Apple SD Gothic Neo, Noto Sans KR, Helvetica Neue, Arial, sans-serif;fontSize=14;spacing=0;spacingLeft=12;spacingRight=12;spacingTop=8;spacingBottom=8;shadow=0;" vertex="1" parent="hero">
             <mxGeometry x="240" y="160" width="180" height="106" as="geometry"/>
           </mxCell>
         </UserObject>
-        <UserObject id="router" label="&lt;b&gt;%node%&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;color:#5F6675&quot;&gt;%sub%&lt;/font&gt;" placeholders="1" tags="core" node="Tool Router" sub="MCP, web, local">
-          <mxCell style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#D5DBE8;strokeWidth=1.25;fontColor=#111111;fontSize=14;spacing=12;arcSize=18;" vertex="1" parent="hero">
+        <UserObject id="router" label="&lt;span style=&quot;font-weight:600&quot;&gt;%node%&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:12.5px;color:#5F5E5B&quot;&gt;%sub%&lt;/span&gt;" placeholders="1" tags="core" node="Tool Router" sub="MCP, web, local">
+          <mxCell style="rounded=1;absoluteArcSize=1;arcSize=16;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#8E8B86;strokeWidth=1.25;fontColor=#2C2C2B;fontFamily=Pretendard, Pretendard Variable, Apple SD Gothic Neo, Noto Sans KR, Helvetica Neue, Arial, sans-serif;fontSize=14;spacing=0;spacingLeft=12;spacingRight=12;spacingTop=8;spacingBottom=8;shadow=0;" vertex="1" parent="hero">
             <mxGeometry x="470" y="180" width="180" height="86" as="geometry"/>
           </mxCell>
         </UserObject>
-        <UserObject id="verifier" label="&lt;b&gt;%node%&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;color:#5F6675&quot;&gt;%sub%&lt;/font&gt;" placeholders="1" tags="core" node="Verifier" sub="evidence + checks">
-          <mxCell style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#D5DBE8;strokeWidth=1.25;fontColor=#111111;fontSize=14;spacing=12;arcSize=18;" vertex="1" parent="hero">
+        <UserObject id="verifier" label="&lt;span style=&quot;font-weight:600&quot;&gt;%node%&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:12.5px;color:#5F5E5B&quot;&gt;%sub%&lt;/span&gt;" placeholders="1" tags="core" node="Verifier" sub="evidence + checks">
+          <mxCell style="rounded=1;absoluteArcSize=1;arcSize=16;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#8E8B86;strokeWidth=1.25;fontColor=#2C2C2B;fontFamily=Pretendard, Pretendard Variable, Apple SD Gothic Neo, Noto Sans KR, Helvetica Neue, Arial, sans-serif;fontSize=14;spacing=0;spacingLeft=12;spacingRight=12;spacingTop=8;spacingBottom=8;shadow=0;" vertex="1" parent="hero">
             <mxGeometry x="710" y="180" width="170" height="86" as="geometry"/>
           </mxCell>
         </UserObject>
-        <UserObject id="output" label="&lt;b&gt;%node%&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;color:#6F4C3D&quot;&gt;%sub%&lt;/font&gt;" placeholders="1" tags="core result" node="Output" sub="deliverable">
-          <mxCell style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF9F1;strokeColor=#B97352;strokeWidth=1.45;fontColor=#3A2C26;fontSize=14;spacing=12;arcSize=18;" vertex="1" parent="hero">
+        <UserObject id="output" label="&lt;span style=&quot;font-weight:600&quot;&gt;%node%&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:12.5px;color:#5F5E5B&quot;&gt;%sub%&lt;/span&gt;" placeholders="1" tags="core result" node="Output" sub="deliverable">
+          <mxCell style="rounded=1;absoluteArcSize=1;arcSize=16;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#8E8B86;strokeWidth=1.25;fontColor=#2C2C2B;fontFamily=Pretendard, Pretendard Variable, Apple SD Gothic Neo, Noto Sans KR, Helvetica Neue, Arial, sans-serif;fontSize=14;spacing=0;spacingLeft=12;spacingRight=12;spacingTop=8;spacingBottom=8;shadow=0;" vertex="1" parent="hero">
             <mxGeometry x="760" y="70" width="150" height="76" as="geometry"/>
           </mxCell>
         </UserObject>
-        <UserObject id="stack" label="&lt;b&gt;%title%&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;color:#5F6675&quot;&gt;%items%&lt;/font&gt;" placeholders="1" tags="support tools" title="Execution stack" items="MCP&lt;br&gt;Web&lt;br&gt;Scripts">
-          <mxCell style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F8FAFD;strokeColor=#D5DBE8;strokeWidth=1;fontColor=#111111;fontSize=12;spacing=10;arcSize=18;" vertex="1" parent="hero">
+        <UserObject id="stack" label="&lt;span style=&quot;font-weight:600&quot;&gt;%title%&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:12.5px;color:#5F5E5B&quot;&gt;%items%&lt;/span&gt;" placeholders="1" tags="support tools" title="Execution stack" items="MCP&lt;br&gt;Web&lt;br&gt;Scripts">
+          <mxCell style="rounded=1;absoluteArcSize=1;arcSize=16;whiteSpace=wrap;html=1;fillColor=#F4F3F1;strokeColor=#D4D3CF;strokeWidth=1.25;fontColor=#5F5E5B;fontFamily=Pretendard, Pretendard Variable, Apple SD Gothic Neo, Noto Sans KR, Helvetica Neue, Arial, sans-serif;fontSize=14;spacing=0;spacingLeft=12;spacingRight=12;spacingTop=8;spacingBottom=8;shadow=0;" vertex="1" parent="hero">
             <mxGeometry x="500" y="55" width="190" height="96" as="geometry"/>
           </mxCell>
         </UserObject>
-        <UserObject id="g1" label="&lt;b&gt;%title%&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;color:#5F6675&quot;&gt;%body%&lt;/font&gt;" placeholders="1" tags="guardrail" title="Input safety" body="prompt injection&lt;br&gt;PII filter">
-          <mxCell style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#D5DBE8;strokeWidth=1.1;fontColor=#111111;fontSize=13;spacing=12;arcSize=18;" vertex="1" parent="rail">
+        <UserObject id="g1" label="&lt;span style=&quot;font-weight:600&quot;&gt;%title%&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:12.5px;color:#5F5E5B&quot;&gt;%body%&lt;/span&gt;" placeholders="1" tags="guardrail" title="Input safety" body="prompt injection&lt;br&gt;PII filter">
+          <mxCell style="rounded=1;absoluteArcSize=1;arcSize=16;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#8E8B86;strokeWidth=1.25;fontColor=#2C2C2B;fontFamily=Pretendard, Pretendard Variable, Apple SD Gothic Neo, Noto Sans KR, Helvetica Neue, Arial, sans-serif;fontSize=14;spacing=0;spacingLeft=12;spacingRight=12;spacingTop=8;spacingBottom=8;shadow=0;" vertex="1" parent="rail">
             <mxGeometry x="30" y="60" width="290" height="94" as="geometry"/>
           </mxCell>
         </UserObject>
-        <UserObject id="g2" label="&lt;b&gt;%title%&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;color:#5F6675&quot;&gt;%body%&lt;/font&gt;" placeholders="1" tags="guardrail" title="Execution policy" body="approval threshold&lt;br&gt;tool risk map">
-          <mxCell style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#D5DBE8;strokeWidth=1.1;fontColor=#111111;fontSize=13;spacing=12;arcSize=18;" vertex="1" parent="rail">
+        <UserObject id="g2" label="&lt;span style=&quot;font-weight:600&quot;&gt;%title%&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:12.5px;color:#5F5E5B&quot;&gt;%body%&lt;/span&gt;" placeholders="1" tags="guardrail" title="Execution policy" body="approval threshold&lt;br&gt;tool risk map">
+          <mxCell style="rounded=1;absoluteArcSize=1;arcSize=16;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#8E8B86;strokeWidth=1.25;fontColor=#2C2C2B;fontFamily=Pretendard, Pretendard Variable, Apple SD Gothic Neo, Noto Sans KR, Helvetica Neue, Arial, sans-serif;fontSize=14;spacing=0;spacingLeft=12;spacingRight=12;spacingTop=8;spacingBottom=8;shadow=0;" vertex="1" parent="rail">
             <mxGeometry x="30" y="180" width="290" height="94" as="geometry"/>
           </mxCell>
         </UserObject>
-        <UserObject id="g3" label="&lt;b&gt;%title%&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;color:#5F6675&quot;&gt;%body%&lt;/font&gt;" placeholders="1" tags="guardrail" title="Quality checks" body="trace review&lt;br&gt;stop conditions">
-          <mxCell style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#D5DBE8;strokeWidth=1.1;fontColor=#111111;fontSize=13;spacing=12;arcSize=18;" vertex="1" parent="rail">
+        <UserObject id="g3" label="&lt;span style=&quot;font-weight:600&quot;&gt;%title%&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:12.5px;color:#5F5E5B&quot;&gt;%body%&lt;/span&gt;" placeholders="1" tags="guardrail" title="Quality checks" body="trace review&lt;br&gt;stop conditions">
+          <mxCell style="rounded=1;absoluteArcSize=1;arcSize=16;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#8E8B86;strokeWidth=1.25;fontColor=#2C2C2B;fontFamily=Pretendard, Pretendard Variable, Apple SD Gothic Neo, Noto Sans KR, Helvetica Neue, Arial, sans-serif;fontSize=14;spacing=0;spacingLeft=12;spacingRight=12;spacingTop=8;spacingBottom=8;shadow=0;" vertex="1" parent="rail">
             <mxGeometry x="30" y="300" width="290" height="94" as="geometry"/>
           </mxCell>
         </UserObject>
         <UserObject id="m1" label="%pillText%" placeholders="1" pillText="dominant flow">
-          <mxCell style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E7ECF8;strokeColor=none;fontColor=#3853A4;fontSize=11;fontStyle=1;arcSize=18;" vertex="1" parent="band">
+          <mxCell style="rounded=1;absoluteArcSize=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#F4F3F1;strokeColor=none;fontColor=#5F5E5B;fontFamily=Pretendard, Pretendard Variable, Apple SD Gothic Neo, Noto Sans KR, Helvetica Neue, Arial, sans-serif;fontSize=12.5;spacing=8;shadow=0;" vertex="1" parent="band">
             <mxGeometry x="40" y="36" width="150" height="42" as="geometry"/>
           </mxCell>
         </UserObject>
         <UserObject id="m2" label="%pillText%" placeholders="1" pillText="isolated guardrails">
-          <mxCell style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8F4F1;strokeColor=none;fontColor=#2F6F64;fontSize=11;fontStyle=1;arcSize=18;" vertex="1" parent="band">
+          <mxCell style="rounded=1;absoluteArcSize=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#F4F3F1;strokeColor=none;fontColor=#5F5E5B;fontFamily=Pretendard, Pretendard Variable, Apple SD Gothic Neo, Noto Sans KR, Helvetica Neue, Arial, sans-serif;fontSize=12.5;spacing=8;shadow=0;" vertex="1" parent="band">
             <mxGeometry x="210" y="36" width="170" height="42" as="geometry"/>
           </mxCell>
         </UserObject>
         <UserObject id="m3" label="%pillText%" placeholders="1" pillText="caption outside nodes">
-          <mxCell style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F0E6DD;strokeColor=none;fontColor=#7A513D;fontSize=11;fontStyle=1;arcSize=18;" vertex="1" parent="band">
+          <mxCell style="rounded=1;absoluteArcSize=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#F4F3F1;strokeColor=none;fontColor=#5F5E5B;fontFamily=Pretendard, Pretendard Variable, Apple SD Gothic Neo, Noto Sans KR, Helvetica Neue, Arial, sans-serif;fontSize=12.5;spacing=8;shadow=0;" vertex="1" parent="band">
             <mxGeometry x="400" y="36" width="180" height="42" as="geometry"/>
           </mxCell>
         </UserObject>
         <UserObject id="bandcopy" label="%copy%" placeholders="1" copy="Treat this as a reusable product figure scaffold: one active path, one supporting rail, and one evidence strip. Replace labels, not geometry, first.">
-          <mxCell style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=12;fontColor=#666257;whiteSpace=wrap;" vertex="1" parent="band">
+          <mxCell style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;whiteSpace=wrap;fontFamily=Pretendard, Pretendard Variable, Apple SD Gothic Neo, Noto Sans KR, Helvetica Neue, Arial, sans-serif;fontSize=12;fontColor=#5F5E5B;" vertex="1" parent="band">
             <mxGeometry x="620" y="28" width="700" height="54" as="geometry"/>
           </mxCell>
         </UserObject>
-        <mxCell id="e1" value="plan" style="edgeStyle=orthogonalEdgeStyle;rounded=1;jettySize=auto;html=1;strokeColor=#6E8BFF;strokeWidth=2.25;endArrow=block;endFill=1;fontSize=10;fontColor=#3853A4;labelBackgroundColor=#F8FAFD;" edge="1" parent="hero" source="input" target="planner">
+        <mxCell id="e1" value="plan" style="edgeStyle=orthogonalEdgeStyle;rounded=1;jettySize=auto;orthogonalLoop=1;html=1;strokeColor=#2C2C2B;strokeWidth=1.5;endArrow=open;endFill=0;endSize=9.25;startArrow=none;fontFamily=Pretendard, Pretendard Variable, Apple SD Gothic Neo, Noto Sans KR, Helvetica Neue, Arial, sans-serif;fontSize=12.5;fontColor=#5F5E5B;labelBackgroundColor=#F4F3F1;" edge="1" parent="hero" source="input" target="planner">
           <mxGeometry relative="1" as="geometry"/>
         </mxCell>
-        <mxCell id="e2" value="route" style="edgeStyle=orthogonalEdgeStyle;rounded=1;jettySize=auto;html=1;strokeColor=#6E8BFF;strokeWidth=2.25;endArrow=block;endFill=1;fontSize=10;fontColor=#3853A4;labelBackgroundColor=#F8FAFD;" edge="1" parent="hero" source="planner" target="router">
+        <mxCell id="e2" value="route" style="edgeStyle=orthogonalEdgeStyle;rounded=1;jettySize=auto;orthogonalLoop=1;html=1;strokeColor=#2C2C2B;strokeWidth=1.5;endArrow=open;endFill=0;endSize=9.25;startArrow=none;fontFamily=Pretendard, Pretendard Variable, Apple SD Gothic Neo, Noto Sans KR, Helvetica Neue, Arial, sans-serif;fontSize=12.5;fontColor=#5F5E5B;labelBackgroundColor=#F4F3F1;" edge="1" parent="hero" source="planner" target="router">
           <mxGeometry relative="1" as="geometry"/>
         </mxCell>
-        <mxCell id="e3" value="verify" style="edgeStyle=orthogonalEdgeStyle;rounded=1;jettySize=auto;html=1;strokeColor=#6E8BFF;strokeWidth=2.25;endArrow=block;endFill=1;fontSize=10;fontColor=#3853A4;labelBackgroundColor=#F8FAFD;" edge="1" parent="hero" source="router" target="verifier">
+        <mxCell id="e3" value="verify" style="edgeStyle=orthogonalEdgeStyle;rounded=1;jettySize=auto;orthogonalLoop=1;html=1;strokeColor=#2C2C2B;strokeWidth=1.5;endArrow=open;endFill=0;endSize=9.25;startArrow=none;fontFamily=Pretendard, Pretendard Variable, Apple SD Gothic Neo, Noto Sans KR, Helvetica Neue, Arial, sans-serif;fontSize=12.5;fontColor=#5F5E5B;labelBackgroundColor=#F4F3F1;" edge="1" parent="hero" source="router" target="verifier">
           <mxGeometry relative="1" as="geometry"/>
         </mxCell>
-        <mxCell id="e4" value="ship" style="edgeStyle=orthogonalEdgeStyle;rounded=1;jettySize=auto;html=1;strokeColor=#6E8BFF;strokeWidth=2.25;endArrow=block;endFill=1;fontSize=10;fontColor=#3853A4;labelBackgroundColor=#F8FAFD;" edge="1" parent="hero" source="verifier" target="output">
+        <mxCell id="e4" value="ship" style="edgeStyle=orthogonalEdgeStyle;rounded=1;jettySize=auto;orthogonalLoop=1;html=1;strokeColor=#2C2C2B;strokeWidth=1.5;endArrow=open;endFill=0;endSize=9.25;startArrow=none;fontFamily=Pretendard, Pretendard Variable, Apple SD Gothic Neo, Noto Sans KR, Helvetica Neue, Arial, sans-serif;fontSize=12.5;fontColor=#5F5E5B;labelBackgroundColor=#F4F3F1;" edge="1" parent="hero" source="verifier" target="output">
           <mxGeometry relative="1" as="geometry"/>
         </mxCell>
-        <mxCell id="e5" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;jettySize=auto;html=1;strokeColor=#C5CCDA;strokeWidth=1.25;dashed=1;dashPattern=6 4;endArrow=open;endFill=0;exitX=0.5;exitY=1;entryX=1;entryY=0.5;" edge="1" parent="1" source="planner" target="g2">
+        <mxCell id="e5" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;jettySize=auto;orthogonalLoop=1;html=1;strokeColor=#D4D3CF;strokeWidth=1;endArrow=open;endFill=0;endSize=7.5;startArrow=none;exitX=0.5;exitY=1;entryX=1;entryY=0.5;fontFamily=Pretendard, Pretendard Variable, Apple SD Gothic Neo, Noto Sans KR, Helvetica Neue, Arial, sans-serif;fontSize=12.5;fontColor=#5F5E5B;labelBackgroundColor=#FFFFFF;" edge="1" parent="1" source="planner" target="g2">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="410" y="690"/>
@@ -105,7 +105,7 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="e6" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;jettySize=auto;html=1;strokeColor=#C5CCDA;strokeWidth=1.25;dashed=1;dashPattern=6 4;endArrow=open;endFill=0;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="verifier" target="g3">
+        <mxCell id="e6" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;jettySize=auto;orthogonalLoop=1;html=1;strokeColor=#D4D3CF;strokeWidth=1;endArrow=open;endFill=0;endSize=7.5;startArrow=none;exitX=1;exitY=0.5;entryX=0;entryY=0.5;fontFamily=Pretendard, Pretendard Variable, Apple SD Gothic Neo, Noto Sans KR, Helvetica Neue, Arial, sans-serif;fontSize=12.5;fontColor=#5F5E5B;labelBackgroundColor=#FFFFFF;" edge="1" parent="1" source="verifier" target="g3">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="1080" y="453"/>
@@ -114,7 +114,7 @@
           </mxGeometry>
         </mxCell>
         <UserObject id="pnote" label="%copy%" placeholders="1" copy="Optional annotation layer: turn on when you want review comments or editorial guidance visible." tags="annotation">
-          <mxCell style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF9F1;strokeColor=#B97352;strokeWidth=1.15;fontColor=#3A2C26;fontSize=11;spacing=10;arcSize=16;" vertex="1" parent="2">
+          <mxCell style="rounded=1;absoluteArcSize=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#F4F3F1;strokeColor=none;fontColor=#5F5E5B;fontFamily=Pretendard, Pretendard Variable, Apple SD Gothic Neo, Noto Sans KR, Helvetica Neue, Arial, sans-serif;fontSize=12;spacing=0;spacingLeft=12;spacingRight=12;spacingTop=8;spacingBottom=8;shadow=0;" vertex="1" parent="2">
             <mxGeometry x="1130" y="170" width="270" height="46" as="geometry"/>
           </mxCell>
         </UserObject>
@@ -122,96 +122,96 @@
     </mxGraphModel>
   </diagram>
   <diagram id="editorial-report-template" name="Editorial Report Template">
-    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1000" math="0" shadow="0" adaptiveColors="auto">
+    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1000" math="0" shadow="0" adaptiveColors="auto" background="#FFFFFF">
       <root>
         <mxCell id="0"/>
         <mxCell id="1" parent="0"/>
         <mxCell id="2" value="Annotations" parent="0" visible="0"/>
-        <UserObject id="etitle" label="&lt;font face=&quot;Georgia&quot; style=&quot;font-size:32px;font-weight:700&quot;&gt;%title%&lt;/font&gt;&lt;br&gt;&lt;font style=&quot;font-size:15px;color:#5E554D&quot;&gt;%thesis%&lt;/font&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px;color:#7A746A&quot;&gt;%meta%&lt;/font&gt;" placeholders="1" title="Model Briefing Snapshot" thesis="A report-like composition: narrative chain on the left, benchmark evidence on the right, and the takeaway separated from the raw labels." meta="brand-safe template  |  editorial-report  |  edit placeholders">
-          <mxCell style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;" vertex="1" parent="1">
+        <UserObject id="etitle" label="&lt;span style=&quot;font-size:15px;font-weight:600&quot;&gt;%title%&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:12.5px;color:#5F5E5B&quot;&gt;%thesis%&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:12px;color:#5F5E5B&quot;&gt;%meta%&lt;/span&gt;" placeholders="1" title="Model Briefing Snapshot" thesis="A report-like composition: narrative chain on the left, benchmark evidence on the right, and the takeaway separated from the raw labels." meta="brand-safe template  |  editorial-report  |  edit placeholders">
+          <mxCell style="text;html=1;align=left;verticalAlign=top;strokeColor=none;fillColor=none;whiteSpace=wrap;fontFamily=Pretendard, Pretendard Variable, Apple SD Gothic Neo, Noto Sans KR, Helvetica Neue, Arial, sans-serif;fontSize=12;fontColor=#2C2C2B;" vertex="1" parent="1">
             <mxGeometry x="100" y="70" width="980" height="120" as="geometry"/>
           </mxCell>
         </UserObject>
-        <mxCell id="story" value="Narrative Chain" style="swimlane;startSize=34;rounded=1;absoluteArcSize=1;arcSize=12;html=1;whiteSpace=wrap;spacing=10;fillColor=#FFF9F1;strokeColor=#D9CDBE;swimlaneFillColor=#F4EBDD;fontColor=#7A513D;fontStyle=1;container=1;collapsible=0;" vertex="1" parent="1">
+        <mxCell id="story" value="&lt;span style=&quot;font-weight:600&quot;&gt;Narrative Chain&lt;/span&gt;" style="swimlane;startSize=34;rounded=1;absoluteArcSize=1;arcSize=24;html=1;whiteSpace=wrap;container=1;collapsible=0;fillColor=#F4F3F1;swimlaneFillColor=#F4F3F1;strokeColor=none;swimlaneLine=0;fontColor=#5F5E5B;fontFamily=Pretendard, Pretendard Variable, Apple SD Gothic Neo, Noto Sans KR, Helvetica Neue, Arial, sans-serif;fontSize=12;align=left;spacing=0;spacingLeft=16;spacingRight=16;spacingTop=8;spacingBottom=8;shadow=0;" vertex="1" parent="1">
           <mxGeometry x="90" y="240" width="650" height="540" as="geometry"/>
         </mxCell>
-        <mxCell id="bench" value="Benchmark Readout" style="swimlane;startSize=34;rounded=1;absoluteArcSize=1;arcSize=12;html=1;whiteSpace=wrap;spacing=10;fillColor=#FFF9F1;strokeColor=#D9CDBE;swimlaneFillColor=#F4EBDD;fontColor=#7A513D;fontStyle=1;container=1;collapsible=0;" vertex="1" parent="1">
+        <mxCell id="bench" value="&lt;span style=&quot;font-weight:600&quot;&gt;Benchmark Readout&lt;/span&gt;" style="swimlane;startSize=34;rounded=1;absoluteArcSize=1;arcSize=24;html=1;whiteSpace=wrap;container=1;collapsible=0;fillColor=#F4F3F1;swimlaneFillColor=#F4F3F1;strokeColor=none;swimlaneLine=0;fontColor=#5F5E5B;fontFamily=Pretendard, Pretendard Variable, Apple SD Gothic Neo, Noto Sans KR, Helvetica Neue, Arial, sans-serif;fontSize=12;align=left;spacing=0;spacingLeft=16;spacingRight=16;spacingTop=8;spacingBottom=8;shadow=0;" vertex="1" parent="1">
           <mxGeometry x="790" y="240" width="720" height="540" as="geometry"/>
         </mxCell>
-        <mxCell id="footer" value="" style="rounded=1;absoluteArcSize=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#FFF9F1;strokeColor=#D9CDBE;container=1;pointerEvents=0;" vertex="1" parent="1">
+        <mxCell id="footer" value="" style="rounded=1;absoluteArcSize=1;arcSize=24;container=1;pointerEvents=0;html=1;whiteSpace=wrap;fillColor=none;strokeColor=#D4D3CF;strokeWidth=1;shadow=0;" vertex="1" parent="1">
           <mxGeometry x="90" y="810" width="1420" height="100" as="geometry"/>
         </mxCell>
-        <UserObject id="s1" label="&lt;b&gt;%headline%&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;color:#5E554D&quot;&gt;%body%&lt;/font&gt;" placeholders="1" tags="narrative" headline="Capability" body="What the system does well">
-          <mxCell style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF9F1;strokeColor=#D9CDBE;strokeWidth=1.25;fontColor=#1E1E19;fontSize=14;spacing=12;arcSize=18;" vertex="1" parent="story">
+        <UserObject id="s1" label="&lt;span style=&quot;font-weight:600&quot;&gt;%headline%&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:12.5px;color:#5F5E5B&quot;&gt;%body%&lt;/span&gt;" placeholders="1" tags="narrative" headline="Capability" body="What the system does well">
+          <mxCell style="rounded=1;absoluteArcSize=1;arcSize=16;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#8E8B86;strokeWidth=1.25;fontColor=#2C2C2B;fontFamily=Pretendard, Pretendard Variable, Apple SD Gothic Neo, Noto Sans KR, Helvetica Neue, Arial, sans-serif;fontSize=14;spacing=0;spacingLeft=12;spacingRight=12;spacingTop=8;spacingBottom=8;shadow=0;" vertex="1" parent="story">
             <mxGeometry x="40" y="90" width="220" height="100" as="geometry"/>
           </mxCell>
         </UserObject>
-        <UserObject id="s2" label="&lt;b&gt;%headline%&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;color:#5E554D&quot;&gt;%body%&lt;/font&gt;" placeholders="1" tags="narrative active" headline="Constraint" body="Where it becomes fragile">
-          <mxCell style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EFE4D7;strokeColor=#B97352;strokeWidth=1.35;fontColor=#3A2C26;fontSize=14;spacing=12;arcSize=18;" vertex="1" parent="story">
+        <UserObject id="s2" label="&lt;span style=&quot;font-weight:600&quot;&gt;%headline%&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:12.5px;color:#5F5E5B&quot;&gt;%body%&lt;/span&gt;" placeholders="1" tags="narrative active" headline="Constraint" body="Where it becomes fragile">
+          <mxCell style="rounded=1;absoluteArcSize=1;arcSize=16;whiteSpace=wrap;html=1;fillColor=#E5F1FF;strokeColor=#2769B7;strokeWidth=2.25;fontColor=#2C2C2B;fontFamily=Pretendard, Pretendard Variable, Apple SD Gothic Neo, Noto Sans KR, Helvetica Neue, Arial, sans-serif;fontSize=14;spacing=0;spacingLeft=12;spacingRight=12;spacingTop=8;spacingBottom=8;shadow=0;" vertex="1" parent="story">
             <mxGeometry x="320" y="140" width="240" height="100" as="geometry"/>
           </mxCell>
         </UserObject>
-        <UserObject id="s3" label="&lt;b&gt;%headline%&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;color:#5E554D&quot;&gt;%body%&lt;/font&gt;" placeholders="1" tags="narrative" headline="Operational use" body="How to deploy it safely">
-          <mxCell style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF9F1;strokeColor=#D9CDBE;strokeWidth=1.25;fontColor=#1E1E19;fontSize=14;spacing=12;arcSize=18;" vertex="1" parent="story">
+        <UserObject id="s3" label="&lt;span style=&quot;font-weight:600&quot;&gt;%headline%&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:12.5px;color:#5F5E5B&quot;&gt;%body%&lt;/span&gt;" placeholders="1" tags="narrative" headline="Operational use" body="How to deploy it safely">
+          <mxCell style="rounded=1;absoluteArcSize=1;arcSize=16;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#8E8B86;strokeWidth=1.25;fontColor=#2C2C2B;fontFamily=Pretendard, Pretendard Variable, Apple SD Gothic Neo, Noto Sans KR, Helvetica Neue, Arial, sans-serif;fontSize=14;spacing=0;spacingLeft=12;spacingRight=12;spacingTop=8;spacingBottom=8;shadow=0;" vertex="1" parent="story">
             <mxGeometry x="40" y="290" width="220" height="100" as="geometry"/>
           </mxCell>
         </UserObject>
-        <UserObject id="s4" label="&lt;b&gt;%headline%&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;color:#5E554D&quot;&gt;%body%&lt;/font&gt;" placeholders="1" tags="narrative result" headline="Decision" body="What to do next">
-          <mxCell style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F0E6DD;strokeColor=#B97352;strokeWidth=1.45;fontColor=#3A2C26;fontSize=14;spacing=12;arcSize=18;" vertex="1" parent="story">
+        <UserObject id="s4" label="&lt;span style=&quot;font-weight:600&quot;&gt;%headline%&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:12.5px;color:#5F5E5B&quot;&gt;%body%&lt;/span&gt;" placeholders="1" tags="narrative result" headline="Decision" body="What to do next">
+          <mxCell style="rounded=1;absoluteArcSize=1;arcSize=16;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#8E8B86;strokeWidth=1.25;fontColor=#2C2C2B;fontFamily=Pretendard, Pretendard Variable, Apple SD Gothic Neo, Noto Sans KR, Helvetica Neue, Arial, sans-serif;fontSize=14;spacing=0;spacingLeft=12;spacingRight=12;spacingTop=8;spacingBottom=8;shadow=0;" vertex="1" parent="story">
             <mxGeometry x="320" y="340" width="240" height="100" as="geometry"/>
           </mxCell>
         </UserObject>
-        <mxCell id="se1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;jettySize=auto;html=1;strokeColor=#B97352;strokeWidth=1.8;endArrow=block;endFill=1;" edge="1" parent="story" source="s1" target="s2">
+        <mxCell id="se1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;jettySize=auto;orthogonalLoop=1;html=1;strokeColor=#2C2C2B;strokeWidth=1.5;endArrow=open;endFill=0;endSize=9.25;startArrow=none;fontFamily=Pretendard, Pretendard Variable, Apple SD Gothic Neo, Noto Sans KR, Helvetica Neue, Arial, sans-serif;fontSize=12.5;fontColor=#5F5E5B;labelBackgroundColor=#F4F3F1;" edge="1" parent="story" source="s1" target="s2">
           <mxGeometry relative="1" as="geometry"/>
         </mxCell>
-        <mxCell id="se2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;jettySize=auto;html=1;strokeColor=#B97352;strokeWidth=1.8;endArrow=block;endFill=1;" edge="1" parent="story" source="s2" target="s3">
+        <mxCell id="se2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;jettySize=auto;orthogonalLoop=1;html=1;strokeColor=#2C2C2B;strokeWidth=1.5;endArrow=open;endFill=0;endSize=9.25;startArrow=none;fontFamily=Pretendard, Pretendard Variable, Apple SD Gothic Neo, Noto Sans KR, Helvetica Neue, Arial, sans-serif;fontSize=12.5;fontColor=#5F5E5B;labelBackgroundColor=#F4F3F1;" edge="1" parent="story" source="s2" target="s3">
           <mxGeometry relative="1" as="geometry"/>
         </mxCell>
-        <mxCell id="se3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;jettySize=auto;html=1;strokeColor=#B97352;strokeWidth=1.8;endArrow=block;endFill=1;" edge="1" parent="story" source="s3" target="s4">
+        <mxCell id="se3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;jettySize=auto;orthogonalLoop=1;html=1;strokeColor=#2C2C2B;strokeWidth=1.5;endArrow=open;endFill=0;endSize=9.25;startArrow=none;fontFamily=Pretendard, Pretendard Variable, Apple SD Gothic Neo, Noto Sans KR, Helvetica Neue, Arial, sans-serif;fontSize=12.5;fontColor=#5F5E5B;labelBackgroundColor=#F4F3F1;" edge="1" parent="story" source="s3" target="s4">
           <mxGeometry relative="1" as="geometry"/>
         </mxCell>
-        <UserObject id="b1" label="&lt;b&gt;%metric%&lt;/b&gt;&lt;br&gt;%a% vs %b%&lt;br&gt;&lt;font style=&quot;color:#5E554D&quot;&gt;%note%&lt;/font&gt;" placeholders="1" tags="benchmark" metric="Reasoning" a="84" b="79" note="largest spread on multi-step tasks">
-          <mxCell style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF9F1;strokeColor=#D9CDBE;strokeWidth=1.1;fontColor=#1E1E19;fontSize=12;spacing=10;arcSize=16;" vertex="1" parent="bench">
+        <UserObject id="b1" label="&lt;span style=&quot;font-weight:600&quot;&gt;%metric%&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:12.5px&quot;&gt;%a% vs %b%&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:12.5px;color:#5F5E5B&quot;&gt;%note%&lt;/span&gt;" placeholders="1" tags="benchmark" metric="Reasoning" a="84" b="79" note="largest spread on multi-step tasks">
+          <mxCell style="rounded=1;absoluteArcSize=1;arcSize=16;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#8E8B86;strokeWidth=1.25;fontColor=#2C2C2B;fontFamily=Pretendard, Pretendard Variable, Apple SD Gothic Neo, Noto Sans KR, Helvetica Neue, Arial, sans-serif;fontSize=14;spacing=0;spacingLeft=12;spacingRight=12;spacingTop=8;spacingBottom=8;shadow=0;" vertex="1" parent="bench">
             <mxGeometry x="40" y="70" width="620" height="76" as="geometry"/>
           </mxCell>
         </UserObject>
-        <UserObject id="b2" label="&lt;b&gt;%metric%&lt;/b&gt;&lt;br&gt;%a% vs %b%&lt;br&gt;&lt;font style=&quot;color:#5E554D&quot;&gt;%note%&lt;/font&gt;" placeholders="1" tags="benchmark" metric="Tool use" a="81" b="83" note="operational parity is tighter">
-          <mxCell style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF9F1;strokeColor=#D9CDBE;strokeWidth=1.1;fontColor=#1E1E19;fontSize=12;spacing=10;arcSize=16;" vertex="1" parent="bench">
+        <UserObject id="b2" label="&lt;span style=&quot;font-weight:600&quot;&gt;%metric%&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:12.5px&quot;&gt;%a% vs %b%&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:12.5px;color:#5F5E5B&quot;&gt;%note%&lt;/span&gt;" placeholders="1" tags="benchmark" metric="Tool use" a="81" b="83" note="operational parity is tighter">
+          <mxCell style="rounded=1;absoluteArcSize=1;arcSize=16;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#8E8B86;strokeWidth=1.25;fontColor=#2C2C2B;fontFamily=Pretendard, Pretendard Variable, Apple SD Gothic Neo, Noto Sans KR, Helvetica Neue, Arial, sans-serif;fontSize=14;spacing=0;spacingLeft=12;spacingRight=12;spacingTop=8;spacingBottom=8;shadow=0;" vertex="1" parent="bench">
             <mxGeometry x="40" y="160" width="620" height="76" as="geometry"/>
           </mxCell>
         </UserObject>
-        <UserObject id="b3" label="&lt;b&gt;%metric%&lt;/b&gt;&lt;br&gt;%a% vs %b%&lt;br&gt;&lt;font style=&quot;color:#5E554D&quot;&gt;%note%&lt;/font&gt;" placeholders="1" tags="benchmark" metric="Reliability" a="76" b="82" note="safer default path for long workflows">
-          <mxCell style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF9F1;strokeColor=#D9CDBE;strokeWidth=1.1;fontColor=#1E1E19;fontSize=12;spacing=10;arcSize=16;" vertex="1" parent="bench">
+        <UserObject id="b3" label="&lt;span style=&quot;font-weight:600&quot;&gt;%metric%&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:12.5px&quot;&gt;%a% vs %b%&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:12.5px;color:#5F5E5B&quot;&gt;%note%&lt;/span&gt;" placeholders="1" tags="benchmark" metric="Reliability" a="76" b="82" note="safer default path for long workflows">
+          <mxCell style="rounded=1;absoluteArcSize=1;arcSize=16;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#8E8B86;strokeWidth=1.25;fontColor=#2C2C2B;fontFamily=Pretendard, Pretendard Variable, Apple SD Gothic Neo, Noto Sans KR, Helvetica Neue, Arial, sans-serif;fontSize=14;spacing=0;spacingLeft=12;spacingRight=12;spacingTop=8;spacingBottom=8;shadow=0;" vertex="1" parent="bench">
             <mxGeometry x="40" y="250" width="620" height="76" as="geometry"/>
           </mxCell>
         </UserObject>
-        <UserObject id="barA" label="&lt;b&gt;%barText%&lt;/b&gt;" placeholders="1" tags="benchmark chart" barText="Model A: stronger synthesis">
-          <mxCell style="rounded=1;whiteSpace=wrap;html=1;fillColor=#B97352;strokeColor=none;fontColor=#FFFFFF;fontSize=11;fontStyle=1;align=left;spacingLeft=12;arcSize=16;" vertex="1" parent="bench">
+        <UserObject id="barA" label="&lt;span style=&quot;font-weight:600&quot;&gt;%barText%&lt;/span&gt;" placeholders="1" tags="benchmark chart" barText="Model A: stronger synthesis">
+          <mxCell style="rounded=1;absoluteArcSize=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#5F5E5B;strokeColor=none;fontColor=#FFFFFF;fontFamily=Pretendard, Pretendard Variable, Apple SD Gothic Neo, Noto Sans KR, Helvetica Neue, Arial, sans-serif;fontSize=12.5;align=left;spacing=0;spacingLeft=12;spacingRight=8;spacingTop=8;spacingBottom=8;shadow=0;" vertex="1" parent="bench">
             <mxGeometry x="40" y="390" width="286" height="26" as="geometry"/>
           </mxCell>
         </UserObject>
-        <UserObject id="barB" label="&lt;b&gt;%barText%&lt;/b&gt;" placeholders="1" tags="benchmark chart" barText="Model B: steadier operations">
-          <mxCell style="rounded=1;whiteSpace=wrap;html=1;fillColor=#7A8A77;strokeColor=none;fontColor=#FFFFFF;fontSize=11;fontStyle=1;align=left;spacingLeft=12;arcSize=16;" vertex="1" parent="bench">
+        <UserObject id="barB" label="&lt;span style=&quot;font-weight:600&quot;&gt;%barText%&lt;/span&gt;" placeholders="1" tags="benchmark chart" barText="Model B: steadier operations">
+          <mxCell style="rounded=1;absoluteArcSize=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#5F5E5B;strokeColor=none;fontColor=#FFFFFF;fontFamily=Pretendard, Pretendard Variable, Apple SD Gothic Neo, Noto Sans KR, Helvetica Neue, Arial, sans-serif;fontSize=12.5;align=left;spacing=0;spacingLeft=12;spacingRight=8;spacingTop=8;spacingBottom=8;shadow=0;" vertex="1" parent="bench">
             <mxGeometry x="40" y="435" width="320" height="26" as="geometry"/>
           </mxCell>
         </UserObject>
-        <UserObject id="takeaway" label="&lt;b&gt;%title%&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;color:#5E554D&quot;&gt;%body%&lt;/font&gt;" placeholders="1" tags="takeaway" title="Takeaway" body="Keep the conclusion separate from the raw metrics. Readers should be able to absorb the argument before parsing the evidence.">
-          <mxCell style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F0E6DD;strokeColor=#B97352;strokeWidth=1.25;fontColor=#3A2C26;fontSize=13;spacing=12;arcSize=16;" vertex="1" parent="bench">
+        <UserObject id="takeaway" label="&lt;span style=&quot;font-weight:600&quot;&gt;%title%&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:12.5px;color:#5F5E5B&quot;&gt;%body%&lt;/span&gt;" placeholders="1" tags="takeaway" title="Takeaway" body="Keep the conclusion separate from the raw metrics. Readers should be able to absorb the argument before parsing the evidence.">
+          <mxCell style="rounded=1;absoluteArcSize=1;arcSize=16;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#8E8B86;strokeWidth=1.25;fontColor=#2C2C2B;fontFamily=Pretendard, Pretendard Variable, Apple SD Gothic Neo, Noto Sans KR, Helvetica Neue, Arial, sans-serif;fontSize=14;spacing=0;spacingLeft=12;spacingRight=12;spacingTop=8;spacingBottom=8;shadow=0;" vertex="1" parent="bench">
             <mxGeometry x="390" y="365" width="270" height="120" as="geometry"/>
           </mxCell>
         </UserObject>
         <UserObject id="fcopy" label="%copy%" placeholders="1" copy="This scaffold separates argument, evidence, and source strip. Replace the narrative cards first, then the benchmark blocks, then the footer text.">
-          <mxCell style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=12;fontColor=#666257;whiteSpace=wrap;" vertex="1" parent="footer">
+          <mxCell style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;whiteSpace=wrap;fontFamily=Pretendard, Pretendard Variable, Apple SD Gothic Neo, Noto Sans KR, Helvetica Neue, Arial, sans-serif;fontSize=12;fontColor=#5F5E5B;" vertex="1" parent="footer">
             <mxGeometry x="30" y="28" width="990" height="40" as="geometry"/>
           </mxCell>
         </UserObject>
         <UserObject id="fmeta" label="%copy%" placeholders="1" copy="Source strip: placeholder metrics only  |  brand-safe derivative layout">
-          <mxCell style="text;html=1;strokeColor=none;fillColor=none;align=right;verticalAlign=middle;fontSize=10;fontColor=#7A746A;whiteSpace=wrap;" vertex="1" parent="footer">
+          <mxCell style="text;html=1;align=right;verticalAlign=middle;strokeColor=none;fillColor=none;whiteSpace=wrap;fontFamily=Pretendard, Pretendard Variable, Apple SD Gothic Neo, Noto Sans KR, Helvetica Neue, Arial, sans-serif;fontSize=12;fontColor=#5F5E5B;" vertex="1" parent="footer">
             <mxGeometry x="1040" y="42" width="340" height="18" as="geometry"/>
           </mxCell>
         </UserObject>
         <UserObject id="enote" label="%copy%" placeholders="1" copy="Optional annotation layer: turn on to show source caveats, methodology, or review feedback." tags="annotation">
-          <mxCell style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF9F1;strokeColor=#B97352;strokeWidth=1.15;fontColor=#3A2C26;fontSize=11;spacing=10;arcSize=16;" vertex="1" parent="2">
+          <mxCell style="rounded=1;absoluteArcSize=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#F4F3F1;strokeColor=none;fontColor=#5F5E5B;fontFamily=Pretendard, Pretendard Variable, Apple SD Gothic Neo, Noto Sans KR, Helvetica Neue, Arial, sans-serif;fontSize=12;spacing=0;spacingLeft=12;spacingRight=12;spacingTop=8;spacingBottom=8;shadow=0;" vertex="1" parent="2">
             <mxGeometry x="1160" y="190" width="280" height="46" as="geometry"/>
           </mxCell>
         </UserObject>

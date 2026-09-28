@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 414" data-figure="technical-figure">
+  <!-- Laid out by scripts/layout.mjs (elkjs, direction UP). Change classes here; change structure in the graph and re-run. -->
+  <g data-id="routed">
+    <rect class="container" x="303.5" y="237" width="332" height="87.5"/>
+    <text class="t2" x="411.5" y="262">routed experts</text>
+  </g>
+  <g data-id="add">
+    <circle class="op" data-op="plus" cx="98.5" cy="93" r="9"/>
+  </g>
+  <g data-id="x-out">
+    <rect class="chip" x="84.5" y="16" width="28" height="24"/>
+    <text class="t2" x="98.5" y="28" text-anchor="middle" dominant-baseline="central" data-tex="x'">x'</text>
+  </g>
+  <g data-id="x-in">
+    <rect class="chip" x="86.5" y="373.5" width="24" height="24"/>
+    <text class="t2" x="98.5" y="385.5" text-anchor="middle" dominant-baseline="central" data-tex="x">x</text>
+  </g>
+  <g data-id="shared">
+    <rect class="box" x="119.5" y="254.5" width="64" height="52"/>
+    <text class="t" x="151.5" y="271" text-anchor="middle" dominant-baseline="central" data-tex="E_s">E_s</text>
+    <text class="t2" x="151.5" y="290" text-anchor="middle" dominant-baseline="central">shared</text>
+  </g>
+  <g data-id="router">
+    <rect class="box" x="211.5" y="254.5" width="64" height="52"/>
+    <text class="t" x="243.5" y="271" text-anchor="middle" dominant-baseline="central">router</text>
+    <text class="t2" x="243.5" y="290" text-anchor="middle" dominant-baseline="central">top-2</text>
+  </g>
+  <g data-id="e1">
+    <rect class="box ghost" x="319.5" y="272.5" width="44" height="36"/>
+    <text class="t ghost" x="341.5" y="290.5" text-anchor="middle" dominant-baseline="central" data-tex="E_1">E_1</text>
+  </g>
+  <g data-id="e2">
+    <rect class="box" x="383.5" y="272.5" width="44" height="36"/>
+    <text class="t" x="405.5" y="290.5" text-anchor="middle" dominant-baseline="central" data-tex="E_2">E_2</text>
+  </g>
+  <g data-id="e3">
+    <rect class="box ghost" x="447.5" y="272.5" width="44" height="36"/>
+    <text class="t ghost" x="469.5" y="290.5" text-anchor="middle" dominant-baseline="central" data-tex="E_3">E_3</text>
+  </g>
+  <g data-id="e4">
+    <rect class="box" x="511.5" y="272.5" width="44" height="36"/>
+    <text class="t" x="533.5" y="290.5" text-anchor="middle" dominant-baseline="central" data-tex="E_4">E_4</text>
+  </g>
+  <g data-id="e5">
+    <rect class="box ghost" x="575.5" y="272.5" width="44" height="36"/>
+    <text class="t ghost" x="597.5" y="290.5" text-anchor="middle" dominant-baseline="central" data-tex="E_5">E_5</text>
+  </g>
+  <g data-id="combine">
+    <rect class="box" x="250.5" y="146" width="148" height="36"/>
+    <text class="t" x="324.5" y="164" text-anchor="middle" dominant-baseline="central" data-tex="E_s(x) + \textstyle\sum_i g_i\,E_i(x)">weighted sum</text>
+  </g>
+  <path class="spine" data-id="stream-in" d="M98.5 373.5L98.5 102"/>
+  <path class="spine" data-id="stream-out" d="M98.5 84L98.5 40" data-arrow="end"/>
+  <path class="edge" data-id="read-shared" d="M110.5 381.5L191.5 381.5Q197.5 381.5 197.5 375.5L197.5 359.5Q197.5 353.5 191.5 353.5L157.5 353.5Q151.5 353.5 151.5 347.5L151.5 306.5" data-arrow="end"/>
+  <path class="edge" data-id="read-router" d="M110.5 381.5L191.5 381.5Q197.5 381.5 197.5 375.5L197.5 359.5Q197.5 353.5 203.5 353.5L237.5 353.5Q243.5 353.5 243.5 347.5L243.5 306.5" data-arrow="end"/>
+  <path class="edge ghost" data-id="read-e1" d="M110.5 389.5L463.5 389.5Q469.5 389.5 469.5 383.5L469.5 359.5Q469.5 353.5 463.5 353.5L347.5 353.5Q341.5 353.5 341.5 347.5L341.5 308.5" data-arrow="end"/>
+  <path class="edge ghost" data-id="read-e2" d="M110.5 389.5L463.5 389.5Q469.5 389.5 469.5 383.5L469.5 359.5Q469.5 353.5 463.5 353.5L411.5 353.5Q405.5 353.5 405.5 347.5L405.5 308.5" data-arrow="end"/>
+  <path class="edge ghost" data-id="read-e3" d="M110.5 389.5L463.5 389.5Q469.5 389.5 469.5 383.5L469.5 308.5" data-arrow="end"/>
+  <path class="edge ghost" data-id="read-e4" d="M110.5 389.5L463.5 389.5Q469.5 389.5 469.5 383.5L469.5 359.5Q469.5 353.5 475.5 353.5L527.5 353.5Q533.5 353.5 533.5 347.5L533.5 308.5" data-arrow="end"/>
+  <path class="edge ghost" data-id="read-e5" d="M110.5 389.5L463.5 389.5Q469.5 389.5 469.5 383.5L469.5 359.5Q469.5 353.5 475.5 353.5L591.5 353.5Q597.5 353.5 597.5 347.5L597.5 308.5" data-arrow="end"/>
+  <path class="edge" data-id="out-shared" d="M151.5 254.5L151.5 208Q151.5 202 157.5 202L274 202Q280 202 280 196L280 182" data-arrow="end"/>
+  <path class="edge control" data-id="gates" d="M243.5 254.5L243.5 218Q243.5 212 249.5 212L303.5 212Q309.5 212 309.5 206L309.5 182" data-arrow="end"/>
+  <path class="edge emph blue" data-id="out-e2" d="M405.5 272.5L405.5 218Q405.5 212 399.5 212L345.5 212Q339.5 212 339.5 206L339.5 182" data-arrow="end"/>
+  <path class="edge emph blue" data-id="out-e4" d="M533.5 272.5L533.5 208Q533.5 202 527.5 202L375 202Q369 202 369 196L369 182" data-arrow="end"/>
+  <path class="edge emph blue" data-id="write" d="M324.5 146L324.5 99Q324.5 93 318.5 93L107.5 93" data-arrow="end"/>
+  <circle class="dot" cx="197.5" cy="353.5" r="2.4"/>
+  <circle class="dot ghost" cx="469.5" cy="353.5" r="2.4"/>
+  <circle class="dot ghost" cx="405.5" cy="353.5" r="2.4"/>
+  <circle class="dot ghost" cx="533.5" cy="353.5" r="2.4"/>
+</svg>

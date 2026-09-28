@@ -1,0 +1,71 @@
+{
+  "direction": "DOWN",
+  "nodes": [
+    {
+      "id": "you",
+      "title": "You ask at the counter"
+    },
+    {
+      "id": "clerk",
+      "title": "Counter clerk"
+    },
+    {
+      "id": "note",
+      "title": "Sticky note of answers",
+      "classes": [
+        "box",
+        "blue",
+        "focus"
+      ]
+    },
+    {
+      "id": "storeroom",
+      "title": "Storeroom"
+    },
+    {
+      "id": "answer",
+      "title": "Your answer"
+    }
+  ],
+  "edges": [
+    {
+      "id": "ask",
+      "from": "you",
+      "to": "clerk",
+      "label": "you ask"
+    },
+    {
+      "id": "check",
+      "from": "clerk",
+      "to": "note",
+      "label": "checks the note first",
+      "classes": [
+        "emph",
+        "blue"
+      ]
+    },
+    {
+      "id": "hit",
+      "from": "note",
+      "to": "answer",
+      "label": "already noted: at once",
+      "classes": [
+        "emph",
+        "blue"
+      ]
+    },
+    {
+      "id": "miss",
+      "from": "clerk",
+      "to": "storeroom",
+      "label": "not noted: walks to fetch it"
+    },
+    {
+      "id": "fetch",
+      "from": "storeroom",
+      "to": "answer",
+      "label": "brought back, and written on the note"
+    }
+  ],
+  "groups": []
+}

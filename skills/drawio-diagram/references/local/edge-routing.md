@@ -60,7 +60,7 @@ The fixed point must face the other terminal. `exitX=0` (left side) toward a tar
 
 - **Left-to-right step:** align the two boxes on the same center-Y, then `exitX=1;exitY=0.5;entryX=0;entryY=0.5`. The edge renders as one straight horizontal line - the most readable connector that exists. Prefer moving a box a few pixels to achieve this over accepting a two-bend elbow.
 - **Request/response pair:** give each direction its own corridor so they never overlap: request `exitX=1;exitY=0.25;entryX=0;entryY=0.25`, response `exitX=0;exitY=0.75;entryX=1;entryY=0.75`. Two floating edges between the same shapes render on top of each other (validator warns).
-- **Fan-out (1→N):** exit the source at `Y=0.25/0.5/0.75` (one per branch), or exit once from `X=0.5;Y=1` and branch with waypoints in the corridor below.
+- **Fan-out (1→N):** exit the source at `Y=0.25/0.5/0.75` (one per branch), or exit once from `X=0.5;Y=1` and branch with waypoints in the corridor below. A shared trunk splits at a junction dot (recipe in `references/local/figure-style.md`); a crossing without a dot is not a connection.
 - **Skip-a-neighbor edge:** the corridor is occupied, so route above or below the row: exit top/bottom, two waypoints in the horizontal corridor, enter top/bottom of the target.
 
 ```xml

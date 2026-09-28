@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 120" data-figure="technical-figure">
+  <!-- Laid out by scripts/layout.mjs (elkjs, direction RIGHT). Change classes here; change structure in the graph and re-run. -->
+  <g data-id="base">
+    <rect class="box" x="34.5" y="16" width="88" height="52"/>
+    <text class="t" x="78.5" y="32.5" text-anchor="middle" dominant-baseline="central">base</text>
+    <text class="t2" x="78.5" y="51.5" text-anchor="middle" dominant-baseline="central">checkpoint</text>
+  </g>
+  <g data-id="sft">
+    <rect class="box" x="312.5" y="16" width="88" height="52"/>
+    <text class="t" x="356.5" y="32.5" text-anchor="middle" dominant-baseline="central">SFT</text>
+    <text class="t2" x="356.5" y="51.5" text-anchor="middle" dominant-baseline="central">checkpoint</text>
+  </g>
+  <g data-id="released">
+    <rect class="box" x="597" y="16" width="88" height="52"/>
+    <text class="t" x="641" y="32.5" text-anchor="middle" dominant-baseline="central">released</text>
+    <text class="t2" x="641" y="51.5" text-anchor="middle" dominant-baseline="central">checkpoint</text>
+  </g>
+  <g data-id="demos">
+    <rect class="chip" x="176.5" y="80" width="104" height="24"/>
+    <text class="t2" x="228.5" y="92" text-anchor="middle" dominant-baseline="central">demonstrations</text>
+  </g>
+  <g data-id="pairs">
+    <rect class="chip" x="457" y="80" width="108" height="24"/>
+    <text class="t2" x="511" y="92" text-anchor="middle" dominant-baseline="central">preference pairs</text>
+  </g>
+  <g>
+    <path class="edge emph vermillion" data-id="op-sft" d="M122.5 42L312.5 42" data-arrow="end"/>
+    <text class="tl" x="217.5" y="32.5" text-anchor="middle">supervised fine-tuning</text>
+  </g>
+  <g>
+    <path class="edge emph vermillion" data-id="op-pref" d="M400.5 42L597 42" data-arrow="end"/>
+    <text class="tl" x="499" y="32.5" text-anchor="middle">preference optimization</text>
+  </g>
+  <path class="edge ghost" data-id="data-sft" d="M280.5 92L350.5 92Q356.5 92 356.5 86L356.5 68" data-arrow="end"/>
+  <path class="edge ghost" data-id="data-pref" d="M565 92L635 92Q641 92 641 86L641 68" data-arrow="end"/>
+</svg>

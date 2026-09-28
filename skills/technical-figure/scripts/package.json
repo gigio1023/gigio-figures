@@ -1,0 +1,20 @@
+{
+  "name": "technical-figure-scripts",
+  "private": true,
+  "type": "module",
+  "description": "Pinned dependencies for the technical-figure scripts. setup.sh installs them into the user cache, not here.",
+  "engines": {
+    "node": ">=20"
+  },
+  "config": {
+    "fonttools": "fonttools[woff]==4.66.0"
+  },
+  "dependencies": {
+    "elkjs": "0.12.0",
+    "mathjax-full": "3.2.2",
+    "playwright-core": "1.62.1"
+  },
+  "overrides": {
+    "@xmldom/xmldom": "0.9.12"
+  }
+}

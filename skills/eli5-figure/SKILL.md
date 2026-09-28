@@ -1,25 +1,27 @@
 ---
 name: eli5-figure
 description: >
-  Draw one deliberately simple figure, on explicit request only ("ELI5", "쉽게 그려줘", "비전문가용", "explain like I'm five", or the skill named): a single everyday analogy, at most five concepts, reduced from the exact technical-diagram figure, with the literal mapping and the analogy's limits kept in the surrounding prose rather than in the SVG. NOT the default for any diagram request; figures for domain readers use technical-diagram, native .drawio files use drawio-diagram, measured data uses data-chart.
+  Draw one deliberately simple figure, on explicit request only ("ELI5", "쉽게 그려줘", "비전문가용", "explain like I'm five", or the skill named): a single everyday analogy, at most five concepts, reduced from the exact technical-figure figure, with the literal mapping and the analogy's limits kept in the surrounding prose rather than in the figure. NOT the default for any diagram request; figures and charts for domain readers use technical-figure, native .drawio files use drawio-diagram.
 ---
 
 # ELI5 Figure
 
-Draw one figure that a smart adult outside the field understands in ten seconds, without making it say anything false. This is the deliberately simple register; the exact register is `technical-diagram`, and this skill reduces that exact structure rather than drawing from the source material directly. Nothing is written above or below the figure: the analogy sentence, the literal mapping, and the limits of the analogy live in the surrounding prose or in the response.
+Draw one figure that a smart adult outside the field understands in ten seconds, without making it say anything false. This is the deliberately simple register; the exact register is `technical-figure`, and this skill reduces that exact structure rather than drawing from the source material directly. Nothing is written above or below the figure: the analogy sentence, the literal mapping, and the limits of the analogy live in the surrounding prose or in the response.
 
 ## Quick path
 
-1. Have the exact structure first. If a `technical-diagram` figure or an equivalent inventory of exact nodes and labeled edges exists, start from it; otherwise write that inventory down before simplifying. Reducing from the exact structure is what keeps the simple figure true.
+1. Have the exact structure first. If a `technical-figure` figure or an equivalent inventory of exact nodes and labeled edges exists, start from it; otherwise write that inventory down before simplifying. Reducing from the exact structure is what keeps the simple figure true.
 2. Form the reader brief and the reduction record in the contract below. Choose one analogy and hold it.
-3. Read `references/eli5-principles.md`. Author on the same routes as `technical-diagram`: D2 with `assets/eli5-theme.d2` (the editorial theme in the sans voice) copied beside the source, or direct SVG from `assets/direct-svg-template.svg` with the `entity` and `edge` classes switched to the sans stack from `assets/editorial-tokens.json`. Format with `d2 fmt <file>.d2`, then render and gate:
+3. Read `references/eli5-principles.md`. Author on the same pipeline as `technical-figure`, vendored here: a small graph for `scripts/layout.mjs` (see `assets/eli5-example.json`), or a hand-authored SVG that follows `references/svg-contract.md`. Run `bash scripts/setup.sh --check` once per machine (without `--check` to install the pinned packages and fonts when network use is acceptable), then lay out and render:
 
    ```bash
-   bash scripts/render_d2.sh <file>.d2 <file>.svg
-   python3 scripts/validate_svg.py --target-width 720 --tokens assets/editorial-tokens.json <file>.svg
+   node scripts/layout.mjs <file>.json -o <file>.svg
+   node scripts/render.mjs <file>.svg
    ```
 
-4. Inspect the render, not only the source (`D2_PNG_PROOF=1` on D2 v0.9.0 or newer, or `qlmanage -t -s 1440 -o <dir> <file>.svg` on macOS). Apply `references/review.md`. Deliver the figure, and put the analogy sentence, the literal mapping, the analogy's limit, and the reduction record in the prose beside it or in the response.
+   `render.mjs` writes light and dark PNGs, a portable SVG, and a lint report; lint errors must be zero.
+
+4. Open the PNG in the delivered theme and apply `references/review.md`. Deliver the figure, and put the analogy sentence, the literal mapping, the analogy's limit, and the reduction record in the prose beside it or in the response.
 
 ## Reader brief and reduction record
 
@@ -27,7 +29,7 @@ Draw one figure that a smart adult outside the field understands in ten seconds,
 reader: <who, outside the field; default: a smart adult with no background in this domain>
 question: <the one thing they must grasp>
 analogy: <one everyday situation the reader has lived through, chosen before drawing>
-exact_source: <the technical-diagram figure or inventory this reduces>
+exact_source: <the technical-figure figure or inventory this reduces>
 kept: [exact names the reader will meet again, shown as a second line]
 merged: [{from: [exact nodes], to: <one simple node>}]
 hidden: [nodes and edges left out, each with the reason it does not change the reader's answer]
@@ -41,13 +43,13 @@ The reduction record is provenance, not figure content. It goes in the response 
 
 - One analogy, chosen first, held throughout. Two analogies in one figure are two figures.
 - At most five concepts, one path, at most one branch. If the exact structure has two mechanisms, draw one and name the other in prose.
-- Plain words in the boxes, in the sans voice. Keep an exact name only when the reader will meet it again (a product they use, a file they will be asked to open); it is then the second line.
+- Plain words in the boxes. Keep an exact name only when the reader will meet it again (a product they use, a file they will be asked to open); it is then the second line.
 - Every arrow says what moves or what happens. No unlabeled arrows; this reader has no schema to fill them.
 - No magic box. A node whose action the reader cannot picture ("processing", "logic", "the system") is not allowed; say what it does in the analogy's terms.
 - No counts, timestamps, or hedges in the figure either. `a copy is mailed out` is the mechanism; `delivery not seen` is a caveat for the prose.
 - Simplify language, never facts. A merged node may hide detail; it may not assert what the exact figure contradicts. Where the analogy would imply a false relation, draw the real relation at that point and state the break in prose.
 - Nothing above or below the figure: no caption, analogy sentence, mapping table, footer, "in reality" panel, or legend inside the SVG. Those belong to the document.
-- The editorial visual language is unchanged: white canvas, near-black ink, one accent, soft corners, thin open arrowheads. No icons, clip art, emoji, or drawings of people; the analogy is carried by words and structure.
+- The shared visual language is unchanged: the figure-style tokens in both themes, one focal hue on the part the reader must grasp, neutral ink for the rest. No icons, clip art, emoji, or drawings of people; the analogy is carried by words and structure.
 
 ## Verification
 
@@ -60,7 +62,7 @@ Before finishing, confirm in this order:
 
 ## Output
 
-Lead with the artifact. Then give, as prose: the analogy in one sentence, the literal mapping (simple label to exact name), where the analogy breaks, and the reduction record. Report the route, the delivery width, the validation result with the smallest rendered label size, and whether the render was inspected. Keep the source beside the render.
+Lead with the artifact. Then give, as prose: the analogy in one sentence, the literal mapping (simple label to exact name), where the analogy breaks, and the reduction record. Report the delivery width and theme, the lint summary, and whether the render was inspected. Keep the source beside the render.
 
 ## Reference router
 
@@ -68,11 +70,13 @@ Lead with the artifact. Then give, as prose: the analogy in one sentence, the li
 | --- | --- |
 | ELI5 rules, their sources, anti-patterns, and the worked example | `references/eli5-principles.md` |
 | Truth, reader, render, and negative-space audit | `references/review.md` |
-| Shared content and appearance invariants | `references/editorial-principles.md` |
-| D2 syntax, layout engines, delivery width, and direct SVG recipe | the D2 authoring and direct SVG references inside the installed `technical-diagram` skill; the theme, tokens, template, and scripts vendored here are the same files |
-| Render with the legibility gate (`D2_LAYOUT`, `DELIVERY_WIDTH`, `D2_PNG_PROOF`) | execute `scripts/render_d2.sh` |
-| Standalone SVG check | execute `scripts/validate_svg.py` |
-| Worked example with its reduction record | `assets/eli5-example.d2` and the example section of `references/eli5-principles.md` |
+| Shared content and appearance invariants | `references/figure-principles.md` |
+| SVG classes, math, arrowheads, render outputs | `references/svg-contract.md` |
+| Layout from a small graph | execute `scripts/layout.mjs` |
+| Render in both themes with the lint | execute `scripts/render.mjs` |
+| Worked example with its reduction record | `assets/eli5-example.json` and the example section of `references/eli5-principles.md` |
+
+The planning, grammar, and review references live in the installed `technical-figure` skill; the pipeline and tokens vendored here are the same files.
 
 ## Gotchas
 
@@ -80,5 +84,4 @@ Lead with the artifact. Then give, as prose: the analogy in one sentence, the li
 - "Simply", "just", "basically", "magic" in labels or prose talk down; delete them.
 - A vocabulary constraint (only common words) makes a figure cryptic. Constrain the number of concepts, not the words; "sticky note" beats "the box that remembers what you asked".
 - The analogy sentence wants to become a title above the figure and the mapping wants to become a footer. Both are prose.
-- The D2 theme here drops the mono font so plain-language labels read as prose; do not mix a mono technical label into a sans figure except as the second-line exact name.
-- D2 renders shape labels bold and connection labels italic unless told otherwise; the theme sets both off, and a hand-written class must repeat `bold: false` and `italic: false`.
+- Do not set a plain-language label in the mono voice; an exact name the reader will meet again is the only mono text, on its own second line.

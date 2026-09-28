@@ -4,10 +4,10 @@ Review the rendered artifact, not only the source, and fix render defects before
 
 ## Render audit
 
-- At the delivery width (720px unless stated), every label renders at 12px or more; `scripts/validate_svg.py --target-width` is the floor, not the judgment.
+- The lint from `scripts/render.mjs` reports zero errors at the delivery width (a 720u figure in a column of about 704 px unless stated); it is the floor, not the judgment.
 - No label is clipped, wraps awkwardly, or touches its border; no arrow crosses unrelated content; arrowheads land on borders, not on text.
 - The geometry is what the source intends: the one path reads in order and the single branch is visibly a branch.
-- One accent family, soft corners, thin open arrowheads, sans voice for the plain-language labels. No icons, emoji, or drawings of people.
+- One focal hue on the part the reader must grasp, neutral ink elsewhere, the shared tokens in both themes. No icons, emoji, or drawings of people.
 
 ## Truth audit
 

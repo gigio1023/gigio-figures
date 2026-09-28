@@ -1,0 +1,32 @@
+{
+  "id": "training-recipe",
+  "question": "Which steps and data turn the pretrained base into the released checkpoint?",
+  "claim": "The released checkpoint starts from the base checkpoint and passes through supervised fine-tuning and then preference optimization, each reading its own data.",
+  "form": "lineage graph, training time left to right, laid out by scripts/layout.mjs with direction RIGHT",
+  "geometry": "schematic",
+  "nodes": [
+    {"id": "base", "label": "base", "second": "checkpoint", "role": "context"},
+    {"id": "sft", "label": "SFT", "second": "checkpoint", "role": "context"},
+    {"id": "released", "label": "released", "second": "checkpoint", "role": "context"},
+    {"id": "demos", "label": "demonstrations", "kind": "chip", "role": "context", "ghost": true},
+    {"id": "pairs", "label": "preference pairs", "kind": "chip", "role": "context", "ghost": true}
+  ],
+  "edges": [
+    {"id": "op-sft", "from": "base", "to": "sft", "kind": "derivation", "label": "supervised fine-tuning", "emphasis": "vermillion"},
+    {"id": "op-pref", "from": "sft", "to": "released", "kind": "derivation", "label": "preference optimization", "emphasis": "vermillion"},
+    {"id": "data-sft", "from": "demos", "to": "sft", "kind": "data", "ghost": true},
+    {"id": "data-pref", "from": "pairs", "to": "released", "kind": "data", "ghost": true}
+  ],
+  "groups": [],
+  "focus": ["op-sft", "op-pref"],
+  "hue_map": {"vermillion": "weights changed by training"},
+  "forbidden_edges": [
+    {"from": "base", "to": "released", "why": "preference optimization starts from the SFT checkpoint, not the base"},
+    {"from": "demos", "to": "released", "why": "demonstrations are read only by supervised fine-tuning"}
+  ],
+  "canvas_vs_caption": {
+    "canvas": ["checkpoint names", "operation names on the edges", "data inputs"],
+    "caption": ["dataset sizes and sources", "training hyperparameters", "which preference-optimization method (for example DPO) is used", "evaluation or checkpoint selection before release"]
+  },
+  "caption": "The released checkpoint starts from the base checkpoint and passes through supervised fine-tuning and then preference optimization, each reading its own data. Nodes are checkpoints and edges are the training steps between them; vermillion marks the steps that change the weights, and data inputs are gray. Dataset sizes, the preference-optimization method, and any checkpoint selection before release are left to the text."
+}

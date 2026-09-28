@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 280" data-figure="technical-figure">
+  <!-- Clean: chip and ghost inside a container, focus without a hue, tensors, hued and run-time
+       operators, a hued control edge, a right-angle mark, selected and tinted cells, centered math. -->
+  <g data-id="adapters">
+    <rect class="container" x="24" y="24" width="328" height="112"/>
+    <text class="t2" x="40" y="48">adapter slot</text>
+  </g>
+  <g data-id="dtype">
+    <rect class="chip" x="40" y="72" width="56" height="24"/>
+    <text class="t2 mono" x="68" y="84" text-anchor="middle" dominant-baseline="central">bf16</text>
+  </g>
+  <g data-id="frozen">
+    <rect class="box ghost" x="112" y="66" width="104" height="36"/>
+    <text class="t" x="164" y="84" text-anchor="middle" dominant-baseline="central">frozen base</text>
+  </g>
+  <g data-id="lora">
+    <rect class="box focus" x="232" y="66" width="104" height="36"/>
+    <text class="t" x="284" y="84" text-anchor="middle" dominant-baseline="central">LoRA</text>
+  </g>
+
+  <g data-id="w">
+    <rect class="tensor" x="416" y="24" width="96" height="96"/>
+    <text class="t" x="464" y="72" text-anchor="middle" dominant-baseline="central" data-tex="W'_t">W'_t</text>
+  </g>
+  <g data-id="b">
+    <rect class="tensor vermillion focus" x="392" y="24" width="12" height="96"/>
+    <text class="t vermillion" x="398" y="136" text-anchor="middle" dominant-baseline="central" data-tex="B">B</text>
+  </g>
+  <path class="mark" data-id="corner" d="M512 108H500V120"/>
+
+  <g data-id="add"><circle class="op blue" data-op="plus" cx="576" cy="72" r="9"/></g>
+  <g data-id="gate"><circle class="op runtime" data-op="times" cx="656" cy="72" r="9"/></g>
+  <path class="edge" data-id="w-add" d="M512 72H567" data-arrow="end"/>
+  <g data-id="gate-add">
+    <path class="edge control vermillion" data-id="gate-add-path" d="M647 72H585" data-arrow="end"/>
+    <text class="tl vermillion" x="616" y="60" text-anchor="middle">gate</text>
+  </g>
+
+  <g data-id="cells">
+    <rect class="cell" x="40" y="200" width="24" height="24"/>
+    <rect class="cell on blue" x="64" y="200" width="24" height="24"/>
+    <rect class="cell" x="88" y="200" width="24" height="24"/>
+    <rect class="cell tint magenta" x="112" y="200" width="24" height="24"/>
+    <rect class="cell" x="136" y="200" width="24" height="24"/>
+    <text class="ta" x="176" y="212" dominant-baseline="central">selected and tinted cells</text>
+  </g>
+  <g data-id="eq">
+    <rect class="box" x="416" y="184" width="120" height="36"/>
+    <text class="t" x="476" y="202" text-anchor="middle" dominant-baseline="central" data-tex="W_{\text{out}}">W_out</text>
+  </g>
+  <g data-id="prime">
+    <rect class="box" x="560" y="184" width="120" height="36"/>
+    <text class="t" x="620" y="202" text-anchor="middle" dominant-baseline="central" data-tex="x'_{t+1}">x'_t+1</text>
+  </g>
+</svg>

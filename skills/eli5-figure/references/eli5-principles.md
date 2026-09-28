@@ -15,7 +15,7 @@ An ELI5 figure gives a reader outside the field a true first model of one mechan
 
 ## Why it is explicit-only
 
-For a reader who already holds the domain, the simple figure is redundancy. The expertise reversal effect (Kalyuga, Ayres, Chandler, and Sweller, 2003) reports that instructional support which helps novices, including explanatory text integrated into diagrams, becomes redundant for experienced readers and can lower their performance, because they must reconcile it with what they already know. In the diagram experiments they review, novices learned best from diagram plus text and experienced learners from the diagram alone. The default readers of this pack are peers, so simplification is a decision the user makes, never the model's default. The exact figure is `technical-diagram`'s; this skill reduces it.
+For a reader who already holds the domain, the simple figure is redundancy. The expertise reversal effect (Kalyuga, Ayres, Chandler, and Sweller, 2003) reports that instructional support which helps novices, including explanatory text integrated into diagrams, becomes redundant for experienced readers and can lower their performance, because they must reconcile it with what they already know. In the diagram experiments they review, novices learned best from diagram plus text and experienced learners from the diagram alone. The default readers of this pack are peers, so simplification is a decision the user makes, never the model's default. The exact figure is `technical-figure`'s; this skill reduces it.
 
 ## Rules and where they come from
 
@@ -26,7 +26,7 @@ For a reader who already holds the domain, the simple figure is redundancy. The 
 5. **Verbs on arrows.** Explanations aimed at novices stress action and behavior, not only structure (Kang, Tversky, and Black, 2015). An unlabeled arrow assumes a schema this reader does not have.
 6. **Simplify language, never facts** (Cloudflare docs eli5). A merged node hides detail; it may not assert what the exact figure contradicts. The "80 percent accurate is fine" stance some ELI5 skills take is not adopted here, because this figure sits in documents that peers also read.
 7. **Ten-second test by a fresh reader.** The author cannot judge their own simplicity (Pinker's curse of knowledge: experts think in chunks and cannot reconstruct not knowing). Give the figure alone to a fresh-context reader or subagent and ask what happens and to whom.
-8. **Nothing above or below the figure.** The analogy sentence, the mapping, and the limits are prose. Same rule as `technical-diagram`.
+8. **Nothing above or below the figure.** The analogy sentence, the mapping, and the limits are prose. Same rule as `technical-figure`.
 9. **A path from simple to exact.** The reduction record names what was merged and hidden, so a reader can step from this figure to the exact one; the Wired "5 Levels" format works because each level declares itself and the viewer chooses where to enter.
 
 ## Anti-patterns
@@ -41,7 +41,7 @@ For a reader who already holds the domain, the simple figure is redundancy. The 
 
 ## Worked example
 
-`assets/eli5-example.d2` is the simple register of a cache-aside read path whose exact figure, in `technical-diagram`'s register, would be: `client -> API gateway -> order-service -> PostgreSQL`, with `order-service -> Redis` labeled `GET order:{id}`, a miss labeled `SELECT ... then SET with TTL 300s`, and the gateway's token check on the first edge.
+`assets/eli5-example.json` is the simple register of a cache-aside read path whose exact figure, in `technical-figure`'s register, would be: `client -> API gateway -> order-service -> PostgreSQL`, with `order-service -> Redis` labeled `GET order:{id}`, a miss labeled `SELECT ... then SET with TTL 300s`, and the gateway's token check on the first edge.
 
 Reduction record for the example:
 

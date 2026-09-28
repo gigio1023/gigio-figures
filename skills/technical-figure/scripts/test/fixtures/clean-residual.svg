@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 428" data-figure="technical-figure">
+  <!-- Residual stream: attention and MLP read from the spine and write back through ⊕. -->
+  <path class="spine" data-id="stream" d="M296 388V60" data-arrow="end"/>
+  <text class="ta" x="284" y="332" text-anchor="end">residual stream</text>
+  <text class="t" x="296" y="410" text-anchor="middle" data-tex="x^{(\ell)}">x(l)</text>
+  <text class="t" x="284" y="104" text-anchor="end" data-tex="x^{(\ell+1)}">x(l+1)</text>
+
+  <g data-id="next">
+    <rect class="box ghost" x="236" y="24" width="120" height="36"/>
+    <text class="t ghost" x="296" y="42" text-anchor="middle" dominant-baseline="central">next block</text>
+  </g>
+
+  <g data-id="attn">
+    <rect class="box blue focus" x="376" y="266" width="160" height="52"/>
+    <text class="t" x="456" y="282.5" text-anchor="middle" dominant-baseline="central">Attention</text>
+    <text class="t2 mono" x="456" y="301.5" text-anchor="middle" dominant-baseline="central">self_attn</text>
+  </g>
+  <g data-id="attn-read">
+    <circle class="dot spine" cx="296" cy="356"/>
+    <path class="edge" d="M296 356H450Q456 356 456 350V318" data-arrow="end"/>
+    <text class="tl" x="376" y="349" text-anchor="middle">읽기</text>
+  </g>
+  <g data-id="attn-write">
+    <path class="edge emph blue" d="M376 292H305" data-arrow="end"/>
+    <text class="tl blue" x="340" y="284" text-anchor="middle">쓰기</text>
+  </g>
+  <g data-id="add-attn">
+    <circle class="op" data-op="plus" cx="296" cy="292" r="9"/>
+  </g>
+
+  <g data-id="mlp">
+    <rect class="box" x="376" y="138" width="160" height="52"/>
+    <text class="t" x="456" y="154.5" text-anchor="middle" dominant-baseline="central">MLP</text>
+    <text class="t2" x="456" y="173.5" text-anchor="middle" dominant-baseline="central" data-tex="W_{\text{out}}\,\sigma(W_{\text{in}}\,x)">W_out s(W_in x)</text>
+  </g>
+  <g data-id="mlp-read">
+    <circle class="dot spine" cx="296" cy="228"/>
+    <path class="edge" d="M296 228H450Q456 228 456 222V190" data-arrow="end"/>
+  </g>
+  <path class="edge" data-id="mlp-write" d="M376 164H305" data-arrow="end"/>
+  <g data-id="add-mlp">
+    <circle class="op" data-op="plus" cx="296" cy="164" r="9"/>
+  </g>
+</svg>

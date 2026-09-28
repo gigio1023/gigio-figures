@@ -1,102 +1,78 @@
 # gigio-figures
 
-Portable figure skills for coding agents. They share one restrained editorial design system while keeping semantic authoring, native draw.io compatibility, and measured-data charts in separate workflows.
+Portable figure skills for coding agents. One skill plans and draws the figures of technical documents on one visual grammar; two others cover the native draw.io format and a deliberately simple register on request. All three share one design system.
 
 | Skill | Use it for | Default artifact |
 | --- | --- | --- |
-| [`technical-diagram`](skills/technical-diagram/SKILL.md) | Architecture, system maps, process flows, and box-and-arrow schematics | D2 + ELK → SVG, or direct SVG |
+| [`technical-figure`](skills/technical-figure/SKILL.md) | Figures for technical documents, posts, and papers: mechanism and architecture diagrams, pipelines, vector geometry, grids and tensor shapes, method comparisons, and charts of measured data; plans a document's figure set first | semantic SVG → light and dark PNG, portable SVG, lint report |
 | [`drawio-diagram`](skills/drawio-diagram/SKILL.md) | Explicit native `.drawio` requests and existing draw.io edits | editable mxGraph XML |
-| [`data-chart`](skills/data-chart/SKILL.md) | Real measurements, scales, series, and benchmark plots; chart-type selection, optional editorial preset | matplotlib → PNG + SVG |
-| [`eli5-figure`](skills/eli5-figure/SKILL.md) | A deliberately simple one-analogy figure for readers outside the field, on explicit request only | D2 + ELK → SVG, or direct SVG |
+| [`eli5-figure`](skills/eli5-figure/SKILL.md) | A deliberately simple one-analogy figure for readers outside the field, on explicit request only | same pipeline as `technical-figure` |
 
-The routing rule is content and artifact based:
+Routing is by artifact and register:
 
-- Generic technical structure uses `technical-diagram`.
+- A figure delivered as an image in a document, post, or paper uses `technical-figure`, whatever its form.
 - Native draw.io format or draw.io-specific metadata uses `drawio-diagram`.
-- Real numeric data on a meaningful scale uses `data-chart`.
-- An explicit request for a simple, non-expert figure ("ELI5", "쉽게") uses `eli5-figure`, which reduces the exact `technical-diagram` figure and records what it merged and hid.
+- An explicit request for a simple, non-expert figure ("ELI5", "쉽게") uses `eli5-figure`, which reduces the exact figure and records what it merged and hid.
 
-The default reader of every diagram skill is a peer in the domain who lacks only the project's context: exact names first, mechanism on the edges, the full topology the question needs, and nothing written above or below the figure that the document should carry. The figure compresses like a dashboard panel: quantities, timestamps, and evidence qualifiers are prose beside it, not labels in it. Simplification is never the default; it is the user's explicit choice.
+The default reader is a peer in the domain who lacks only the project's context: exact names first, mechanism on the edges, and the full structure the question needs. The canvas holds names and mechanism; counts, timestamps, and hedges go to the caption. Simplification is never the default; it is the user's explicit choice.
 
 ## Install
 
 Install through the Skills CLI. The `--agent` value selects the target harness; manual paths and restart behavior are documented for [Claude Code](.claude/INSTALL.md), [Codex](.codex/INSTALL.md), [Cursor](.cursor/INSTALL.md), and [Gemini CLI](.gemini/INSTALL.md).
 
 ```bash
-npx skills add gigio1023/gigio-figures@technical-diagram --agent claude-code
+npx skills add gigio1023/gigio-figures@technical-figure --agent claude-code
 npx skills add gigio1023/gigio-figures@drawio-diagram --agent claude-code
-npx skills add gigio1023/gigio-figures@data-chart --agent claude-code
 npx skills add gigio1023/gigio-figures@eli5-figure --agent claude-code
 ```
 
-Swap `--agent` for `codex`, `cursor`, or `gemini-cli`. Each skill is standalone; install only the routes you need.
+Swap `--agent` for `codex`, `cursor`, or `gemini-cli`. Each skill is standalone; install only the ones you need.
+
+`technical-figure` and `eli5-figure` need Node.js 20 or newer and a Chromium-family browser (Google Chrome, Chromium, Edge, or a Playwright browser build). Run `bash scripts/setup.sh` once from the installed skill directory; it installs pinned npm packages and OFL fonts into `~/.cache/technical-figure` (override with `TECHNICAL_FIGURE_CACHE`) and is the only step that uses the network. It never installs a browser. Charts additionally need `uv`.
 
 ## Usage
 
 Ask naturally. Explicit skill invocation is optional when the request clearly names the artifact or content.
 
 ```text
-Draw a compact architecture diagram for this ingestion pipeline.
+Redo the figures in this design doc so they share one visual language.
+Draw how attention and the MLP read from and write to the residual stream.
+Compare MHA, GQA, and MQA on one figure.
+Plot these benchmark scores with our model as the focal series.
 Create an editable .drawio version of this service map.
-Plot these benchmark scores as an editorial-style bar chart.
 ```
 
-## Shared editorial style
+## technical-figure
 
-![Editorial default style sample](skills/drawio-diagram/assets/editorial-default-template.drawio.png)
+![Six example figures drawn with technical-figure: a residual stream spine, a mixture-of-experts block, attention variants, vector projection, a low-rank update, and a training recipe](docs/figures/technical-figure-examples.png)
 
-The default language is white canvas, near-black ink, one accent family, soft corners, thin strokes, open arrowheads, and monospace technical labels paired with sans-serif commentary. Empty space may remain empty; titles, legends, captions, rails, badges, icons, and insets are never page filler.
+The examples in `skills/technical-figure/assets/examples/` were drawn by following the skill, with their figure plan, specs, and sources.
 
-`shared/editorial-style/` is the repository source of truth:
+The skill works in three layers.
 
-- [`tokens.json`](shared/editorial-style/tokens.json) stores canonical colors, font stacks, and geometry.
-- [`principles.md`](shared/editorial-style/principles.md) stores backend-neutral content and visual invariants.
-- [`provenance.md`](shared/editorial-style/provenance.md) records the measured source and identity boundary.
-- `adapters/` translates the design system to D2 and draw.io.
+1. **Plan.** For a document or a set of figures, it writes a figure plan: the claims that need a picture, a figure budget, a semantic map that gives each of three hues and each line style one meaning for the whole document, and a storyboard. Each figure then gets a FigureSpec: the reader's question, a one-sentence claim that becomes the caption's first sentence, the exact nodes and relations, one focal element, and what goes to the caption instead of the canvas.
+2. **Draw.** The form comes from the claim's shape (spine, zoom, sibling variants, delta highlight, lineage, grid, geometry, chart), and the grammar sets the emphasis budget, line styles, and comparison rules. Sources are semantic SVG with classes only; box-and-arrow figures can be laid out with elkjs, geometry and grids are computed, and charts use matplotlib with the same tokens.
+3. **Check.** `scripts/render.mjs` applies the theme, typesets TeX math as glyph paths, draws arrowheads, renders light and dark PNGs at 2x with the real fonts, writes a portable SVG, and runs `scripts/lint.mjs`, which measures real bounding boxes for overlaps, overflow, minimum type size, contrast, arrow collisions, Unicode math, and height. Review then checks the render against the spec item by item and, for a document, on a contact sheet.
 
-Each skill vendors the small subset it needs so individual installation remains self-contained; `eli5-figure` also vendors `technical-diagram`'s render wrapper, validator, and SVG template. Synchronize and verify those copies with:
+From `skills/technical-figure/`:
 
 ```bash
-python3 scripts/sync_editorial_style.py
-python3 scripts/sync_editorial_style.py --check
+bash scripts/setup.sh --check
+node scripts/render.mjs assets/examples/residual-stream.svg
+node scripts/layout.mjs assets/examples/moe-block.json -o /tmp/moe-block.svg
+node scripts/measure.mjs --class t "residual stream"
+node scripts/sheet.mjs assets/examples/*.light.png --columns 2 --width 704 --theme light -o /tmp/sheet.png
+node scripts/test/run.mjs
+uv run --with matplotlib python scripts/example_chart.py
 ```
-
-The language was measured from 65 post-February-2025 openai.com editorial SVGs, but it is an independent implementation of general design properties. It does not include the OpenAI logo, blossom, wordmark, or OpenAI Sans; output must not claim affiliation or endorsement.
-
-## technical-diagram
-
-Two routes share one look. The D2 route writes a small semantic source, imports the bundled editorial classes, lets a layout engine place nodes and routes (ELK by default, TALA with `D2_LAYOUT=tala`), and emits SVG with subsetted fonts embedded. The direct SVG route starts from `assets/direct-svg-template.svg` and is used for figures inlined into styled HTML documents, for existing SVG edits, for geometry D2 cannot express, and whenever no D2 renderer is installed. Both routes deliberately avoid decorative themes, icons, legends, and spacer nodes, and both are checked for legibility at the delivery width (720px by default): a label that would render below 12px after the host scales the figure fails the check.
-
-Requirements:
-
-- D2 is optional; the skill does not install it silently and uses the direct SVG route without it.
-- D2 v0.9.0 is the verified baseline; the whole path (wrapper, theme, TALA, Hangul font embedding) was exercised with it. `d2 fmt --check` and `d2 validate` need v0.7.0 or newer, and the PNG proof without a browser needs v0.9.0.
-
-From `skills/technical-diagram/`:
-
-```bash
-bash scripts/render_d2.sh assets/editorial-example.d2 /tmp/editorial-example.svg
-D2_PNG_PROOF=1 DELIVERY_WIDTH=1100 bash scripts/render_d2.sh assets/editorial-example.d2 /tmp/editorial-example.svg
-D2_LAYOUT=tala bash scripts/render_d2.sh assets/editorial-example.d2 /tmp/editorial-example-tala.svg
-python3 scripts/validate_svg.py --target-width 720 --tokens assets/editorial-tokens.json assets/direct-svg-template.svg
-python3 -m unittest discover -s scripts -p 'test_*.py'
-```
-
-Extra arguments after the output path go to `d2`, for example `--elk-nodeNodeBetweenLayers 40` to tighten a horizontal layout or `--font-mono /path/Pretendard-Regular.ttf` to embed a Hangul-capable font. The bundled example renders 1027px wide at ELK's defaults, so the first command above fails the 720px gate on purpose; the second passes at a delivery width wider than the render, and the third passes at 720px because TALA lays the same source out 647px wide.
 
 ## eli5-figure
 
-The simple register. It starts from the exact `technical-diagram` figure or an equivalent inventory, chooses one everyday analogy, keeps at most five concepts and one branch, and writes a reduction record (kept, merged, hidden, where the analogy breaks) that goes into the prose beside the figure, never into the SVG. It renders on the same D2 and direct SVG routes with `assets/eli5-theme.d2`, the editorial theme in the sans voice, and passes the same delivery-width gate. It activates only on an explicit request such as "ELI5" or "쉽게 그려줘"; for domain readers the simple figure is redundancy, which is why it is not the default.
-
-From `skills/eli5-figure/`:
-
-```bash
-bash scripts/render_d2.sh assets/eli5-example.d2 /tmp/eli5-example.svg
-```
+The simple register. It starts from the exact `technical-figure` figure or an equivalent inventory, chooses one everyday analogy, keeps at most five concepts and one branch, and writes a reduction record (kept, merged, hidden, where the analogy breaks) that goes into the prose beside the figure, never into the figure. It renders on the same pipeline and passes the same lint. It activates only on an explicit request such as "ELI5" or "쉽게 그려줘"; for domain readers the simple figure is redundancy.
 
 ## drawio-diagram
 
-This route is intentionally native-format specific. It prefers bare, uncompressed `mxGraphModel` XML and explicit automatic layout for new files. Manual terminal pins and waypoints are a fallback for routes that remain ambiguous after layout.
+This route is intentionally native-format specific. It prefers bare, uncompressed `mxGraphModel` XML and explicit automatic layout for new files. Manual terminal pins and waypoints are a fallback for routes that remain ambiguous after layout. Its style recipes translate the shared tokens into draw.io style strings.
 
 From `skills/drawio-diagram/`:
 
@@ -109,27 +85,30 @@ python3 -m unittest discover -s scripts -p 'test_*.py'
 
 The committed upstream `jgraph/drawio-mcp` digests provide offline factual lookup. Local workflow guidance wins when an older vendored agent instruction conflicts with the current skill.
 
-## data-chart
+## Shared figure style
 
-This route uses matplotlib for reproducible charts whose numbers, scales, and series must remain truthful. The style module reads the skill-local snapshot of the shared tokens. A title or legend is added only when the surrounding artifact and direct labels cannot communicate the same information.
+`shared/figure-style/` is the repository source of truth:
 
-From `skills/data-chart/scripts/`:
+- [`tokens.json`](shared/figure-style/tokens.json) stores font stacks, type sizes, light and dark palettes, strokes, arrowheads, radii, spacing, and limits.
+- [`principles.md`](shared/figure-style/principles.md) stores the backend-neutral content and visual rules.
+- [`provenance.md`](shared/figure-style/provenance.md) records the evidence behind the system.
+- `adapters/drawio-style.md` translates the tokens to draw.io style strings.
+
+Each skill vendors the subset it needs so individual installation stays self-contained; `eli5-figure` also vendors the `technical-figure` render pipeline. Synchronize and verify those copies with:
 
 ```bash
-uv run --with matplotlib python example_chart.py
+python3 scripts/sync_figure_style.py
+python3 scripts/sync_figure_style.py --check
 ```
-
-SVG keeps text as text (`svg.fonttype: none`); the PNG is the visual proof render.
 
 ## Repository layout
 
-- `shared/editorial-style/` — canonical style tokens, principles, provenance, and backend adapters
-- `skills/technical-diagram/` — D2 authoring, direct SVG route and template, renderer, validator
-- `skills/drawio-diagram/` — native XML guidance, references, assets, validators
-- `skills/data-chart/` — chart language and matplotlib implementation
-- `skills/eli5-figure/` — simple-register contract, ELI5 principles with sources, sans-voice D2 theme, vendored render tooling
-- `scripts/sync_editorial_style.py` — standalone-skill snapshot synchronization
-- `.claude/`, `.codex/`, `.cursor/`, `.gemini/` — harness installation guides
+- `shared/figure-style/`: canonical tokens, principles, provenance, and the draw.io adapter
+- `skills/technical-figure/`: planning, form catalog, grammar, routes, review, render and lint pipeline, chart module, examples
+- `skills/drawio-diagram/`: native XML guidance, references, assets, validators
+- `skills/eli5-figure/`: simple-register contract and principles, vendored pipeline
+- `scripts/sync_figure_style.py`: standalone-skill snapshot synchronization
+- `.claude/`, `.codex/`, `.cursor/`, `.gemini/`: harness installation guides
 
 ## Markdown authoring
 
@@ -139,4 +118,4 @@ The upstream vendoring script copies source bytes. After refreshing `skills/draw
 
 ## Attribution
 
-This repository vendors upstream files from `jgraph/drawio-mcp` under Apache-2.0 and layers local guidance on top. Exact mappings and the vendored revision are recorded in [`NOTICE`](NOTICE).
+This repository vendors upstream files from `jgraph/drawio-mcp` under Apache-2.0 and layers local guidance on top. Exact mappings and the vendored revision are recorded in [`NOTICE`](NOTICE). The bundled pipeline downloads Pretendard and JetBrains Mono under the SIL Open Font License 1.1 at setup time.
