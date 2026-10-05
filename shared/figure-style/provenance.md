@@ -12,3 +12,7 @@ The replacement draws on four kinds of evidence, all inspected directly in 2026-
 Typefaces are Pretendard and JetBrains Mono (both SIL OFL 1.1) with MathJax for math. Brand typefaces and brand assets of any publisher are not used, and figures made with this system must not claim affiliation with any publisher whose work informed it.
 
 The canonical runtime tokens live in `shared/figure-style/tokens.json`.
+
+## Capability audit, 2026-10
+
+The earlier rule set mixed content invariants with production defaults: it allowed meaningful quantities in the entry point but prohibited all counts and qualifiers in grammar and review, capped revisions at three, required one tool route, and instructed ordinary figure work to accumulate skill corrections. The maintenance revision keeps exact relationships, math, measurements, real-font geometry checks, accessible encodings, light defaults, dark legibility, and rendered review. It makes tool and style choices conditional on the artifact, applies one content rule across the three skills, replaces the revision cap with progress and budget decisions, and requires existing project authority or explicit skill maintenance for persistent corrections. These are instruction changes; they do not establish a measured gain in model performance.

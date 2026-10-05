@@ -1,6 +1,6 @@
 # Figure style for draw.io
 
-Read `references/local/figure-principles.md` first. The values live in `assets/figure-tokens.json`; the recipes below translate them into draw.io style strings, and `technical-figure` explains the grammar behind them. When editing an existing diagram, match its established style unless the user explicitly asks for a restyle.
+Read `references/local/figure-principles.md` first. The values live in `assets/figure-tokens.json`; the default recipes below translate them into draw.io style strings, and `technical-figure` explains the grammar behind them. When editing an existing diagram, match its established style unless the user explicitly asks for a restyle.
 
 `assets/figure-default-template.drawio` is a minimal working sample: ordinary components, one focal hued component, labeled data edges, and no title, legend, or footer.
 
@@ -48,7 +48,7 @@ Read `references/local/figure-principles.md` first. The values live in `assets/f
 | vermillion | stroke `#C55123`, fill `#FFEBE4`, text `#A63C0C` | hue 2 |
 | magenta | stroke `#C673A3`, fill `#FEEAF2`, text `#943569` | hue 3 |
 
-- One focal element or path per figure carries a hue and the 2.25 emphasis stroke; everything else stays neutral or ghosted in place. A second hue appears only when the contrast between two meanings is itself the claim.
+- One focal element or path per figure carries the 2.25 emphasis stroke and its mapped hue, or ink when no hue applies; everything else stays neutral or ghosted in place. A second hue appears only when the contrast between two meanings is itself the claim.
 - Each hue keeps one meaning for the whole document, and a meaning outside the document's semantic map gets position, a label, or a glyph instead of a hue. Colored area stays under about 5 percent of the figure, and color is never the only channel.
 - Text on a tint fill stays ink. Hue text colors are for short labels bound to that hue's meaning.
 
@@ -82,7 +82,7 @@ Variants replace keys in the ordinary recipe:
 | --- | --- |
 | Ghost: context kept in place for orientation | `fillColor=#F4F3F1;strokeColor=#D4D3CF;fontColor=#5F5E5B;` |
 | Hued: carries its hue's document meaning | `fillColor=#E5F1FF;strokeColor=#2769B7;` (blue), `fillColor=#FFEBE4;strokeColor=#C55123;` (vermillion), `fillColor=#FEEAF2;strokeColor=#C673A3;` (magenta) |
-| Focus: the figure's subject, always hued | hued keys plus `strokeWidth=2.25;` |
+| Focus: the figure's subject | `strokeWidth=2.25;` with the mapped hue or ink when no hue applies |
 | Exists only at run time | `dashed=1;dashPattern=5 4;fixDash=1;` |
 | Chip: tag, dtype, token | `arcSize=8;fillColor=#F4F3F1;strokeColor=none;fontSize=12.5;fontColor=#5F5E5B;spacingLeft=8;spacingRight=8;`; on a surface container use `fillColor=#FFFFFF;` |
 | Container: named module scope, repetition, or condition | `arcSize=24;container=1;collapsible=0;pointerEvents=0;fillColor=#F4F3F1;strokeColor=none;align=left;verticalAlign=top;spacingLeft=16;spacingRight=16;fontSize=12;fontColor=#5F5E5B;` |
@@ -94,7 +94,7 @@ Variants replace keys in the ordinary recipe:
 
 - Every container has a name at its top left, set in a 600 span. A `swimlane` container keeps a horizontal header (never `horizontal=0`, which sets the name vertically) and takes `swimlaneLine=0;fillColor=#F4F3F1;swimlaneFillColor=#F4F3F1;strokeColor=none;` so the header and body read as one surface.
 - Arrows end at nodes, not container borders. Do not wrap a single element in a container, and do not give one container both a border and a fill.
-- A legend holds at most three items and only for an encoding that cannot be labeled in place; build it from sample marks and 12u ink-2 text. A locator is a small ghosted copy of the overview with the region marked.
+- Use a short legend when direct labels would be ambiguous or crowded; build it from sample marks and 12u ink-2 text. A locator is a small ghosted copy of the overview with the region marked.
 
 ## Edge recipes
 
@@ -116,7 +116,7 @@ fontSize=12.5;fontColor=#5F5E5B;labelBackgroundColor=#FFFFFF;
 | Correspondence or zoom leader | `strokeColor=#5F5E5B;strokeWidth=1;dashed=1;dashPattern=1 2;fixDash=1;endArrow=none;` |
 
 - Edges (1.5, ink) stay darker than node outlines (1.25, line) so mechanism reads before boxes. The only widths are 1.0, 1.25, 1.5, and 2.25.
-- At most three relation kinds per figure. Dashes mean control on lines and run-time-only on outlines; dots mean correspondence. Show unimportance with the ghost recipe, never with a dash.
+- Start with a small set of relation encodings, usually three or fewer; add one only when the same question needs it and the render keeps it distinguishable. Dashes mean control on lines and run-time-only on outlines; dots mean correspondence. Show unimportance with the ghost recipe, never with a dash.
 - draw.io multiplies `dashPattern` by `strokeWidth` unless `fixDash=1` is set, so always set it.
 - Arrowheads: draw.io's `open` marker is `endSize + strokeWidth` long, and the token length is `4 + 4.5 × stroke`, so `endSize = 4 + 3.5 × stroke`: 7.5 on 1.0, 9.25 on 1.5, 12 on 2.25. The marker takes its edge's color. Its half width is 0.5 of its length against the token's 0.4, the closest draw.io marker. One arrowhead style per document.
 - Edge labels name what passes, the operation, or the condition. Place them on a straight segment about 6u from the line and 8u from an arrowhead (`verticalAlign=bottom` with an offset of `y=-6` on a horizontal segment), and set `labelBackgroundColor` to the fill behind the label: `#FFFFFF` on the page, `#F4F3F1` inside a container.

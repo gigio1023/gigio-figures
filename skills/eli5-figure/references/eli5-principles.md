@@ -25,9 +25,10 @@ For a reader who already holds the domain, the simple figure is redundancy. The 
 4. **Constrain concepts, not vocabulary.** Thing Explainer's thousand-word constraint produced drawings that critics found cryptic; the reader is helped by fewer ideas, not by circumlocution. Keep an exact name as a second line when the reader will meet it again.
 5. **Verbs on arrows.** Explanations aimed at novices stress action and behavior, not only structure (Kang, Tversky, and Black, 2015). An unlabeled arrow assumes a schema this reader does not have.
 6. **Simplify language, never facts** (Cloudflare docs eli5). A merged node hides detail; it may not assert what the exact figure contradicts. The "80 percent accurate is fine" stance some ELI5 skills take is not adopted here, because this figure sits in documents that peers also read.
-7. **Ten-second test by a fresh reader.** The author cannot judge their own simplicity (Pinker's curse of knowledge: experts think in chunks and cannot reconstruct not knowing). Give the figure alone to a fresh-context reader or subagent and ask what happens and to whom.
+7. **Ten-second test by a fresh reader.** The author cannot judge their own simplicity (Pinker's curse of knowledge: experts think in chunks and cannot reconstruct not knowing). When useful and available within the task's authority and budget, give the figure alone to a reader without the drafting context and ask what happens and to whom. Do not claim an independent reader check when only the author reviewed it.
 8. **Nothing above or below the figure.** The analogy sentence, the mapping, and the limits are prose. Same rule as `technical-figure`.
-9. **A path from simple to exact.** The reduction record names what was merged and hidden, so a reader can step from this figure to the exact one; the Wired "5 Levels" format works because each level declares itself and the viewer chooses where to enter.
+9. **Necessary quantities and conditions stay.** A count, duration, or state belongs on the canvas when the reader needs it to understand the mechanism or avoid a false conclusion. Put supporting context beside the figure; simplification does not remove a condition that changes the answer.
+10. **A path from simple to exact.** The reduction record names what was merged and hidden, so a reader can step from this figure to the exact one; the Wired "5 Levels" format works because each level declares itself and the viewer chooses where to enter.
 
 ## Anti-patterns
 
@@ -55,6 +56,8 @@ merged: [{from: [API gateway, order-service], to: Counter clerk}, {from: [Redis]
 hidden: [TTL expiry (answers "how long is it fast"), token check (answers "who may ask"), the write path (answers "how does the note get wrong")]
 analogy_breaks: a sticky note never goes stale by itself; the real note is thrown away after a set time, and the storeroom's contents can change while the clerk walks
 ```
+
+The example hides expiry because its question is why the second read is faster. If the question becomes how long the cached answer lasts, expiry is part of the mechanism: retain the 300-second duration, or an equivalent `5 minutes`, on the relevant action and update the reduction record. A qualifier such as `when the note is present` also stays when the figure would otherwise imply every read uses the note.
 
 ## Sources
 

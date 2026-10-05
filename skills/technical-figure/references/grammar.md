@@ -1,10 +1,10 @@
 # Visual grammar
 
-The grammar decides what each mark means. Tokens decide how the marks look; this file decides which mark to use. Most crude figures break one of the first three sections: everything drawn at the same weight, one color carrying many meanings, or one line style carrying many relations.
+The grammar decides what each mark means. Tokens decide how the marks look; this file decides which mark to use. These are the bundled design defaults; adapt palette, typography, and layout to an established document style while preserving consistent encodings, accessible contrast, and exact content. Most crude figures break one of the first three sections: everything drawn at the same weight, one color carrying many meanings, or one line style carrying many relations.
 
 ## Emphasis and layering
 
-- **Salience follows importance.** The heaviest visual weight (hue, emphasis stroke, size) goes to the claim's subject, one to three elements at most. The document's central object, such as a residual stream or a request path, must never be the weakest line in its own figure.
+- **Salience follows importance.** The heaviest visual weight (hue, emphasis stroke, size) goes to the claim's subject, usually one element or one related path. The document's central object, such as a residual stream or a request path, must never be the weakest line in its own figure.
 - **Three layers of weight.** Claim path: hue and 2.25u stroke. Context structure: ink at 1.5u edges and 1.25u gray outlines. Frame (containers, guides, axes, dividers): surface fills and 1.0u guide lines. Edges are darker than node outlines so mechanism reads before boxes.
 - **Ghost, do not delete.** Elements outside the claim keep their position in `ghost` style so the reader can orient; deleting them moves everything and breaks comparison with other figures.
 - **Smallest effective difference.** Make every distinction as light as it can be while still visible. Frames are lighter than content; a second accent is heavier than the context but lighter than the focus.
@@ -12,7 +12,7 @@ The grammar decides what each mark means. Tokens decide how the marks look; this
 
 ## Semantic map
 
-- Each hue has one meaning for the whole document: blue, vermillion, and magenta, assigned in the plan. The same hue colors the element, its edge, any symbol in the equations, and the matching word when the prose colors it.
+- Each hue has one meaning for the whole document. The bundled palette starts with blue, vermillion, and magenta, assigned in the plan. The same hue colors the element, its edge, any symbol in the equations, and the matching word when the prose colors it.
 - Neutral means "not the subject": ink for structure, gray for context, surface for frames.
 - A meaning not in the map does not get a hue. Use position, a label, or a glyph.
 - Charts in the document use the same map for the same entities.
@@ -20,7 +20,7 @@ The grammar decides what each mark means. Tokens decide how the marks look; this
 
 ## Relations and line styles
 
-At most three relation kinds per figure; more means the figure answers several questions and should be split.
+Start with a small set of relation encodings, usually three or fewer. Add an encoding only when the same question needs it and readers can distinguish it. Split when the relationships become hard to follow, not solely because a count is exceeded.
 
 | Relation | Sentence it reads as | Mark |
 |---|---|---|
@@ -63,7 +63,7 @@ Keep one shape per kind of thing for the document and define any shape that is n
 
 ## Text
 
-- Labels sit next to what they name, closer to it than to anything else. Prefer direct labels to legends; a legend holds at most three items and only for encodings that cannot be labeled in place.
+- Labels sit next to what they name, closer to it than to anything else. Prefer direct labels to legends; keep a legend short and use it for encodings that cannot be labeled clearly in place.
 - One family per hierarchy level. Node titles in the sans; identifiers that literally appear in code in mono, preferably as their own line. Never mix mono and Hangul in one string.
 - All text horizontal. Rotate the layout, not the words.
 - Math through `data-tex`, with the same symbols as the prose.
@@ -75,12 +75,24 @@ Keep one shape per kind of thing for the document and define any shape that is n
 - After the document's first full overview, repeat the overview only as a small ghosted locator with the region marked, not at full size.
 - An inset that shows an operation geometrically (a projection, a block-scale tile) is content, not decoration; place it beside the step it explains and never over another element.
 
-## Never in the canvas
+## Canvas content
+
+Keep numbers, dates, sample sizes, and qualifiers when they encode the mechanism, distinguish compared cases, or prevent a false reading. Preserve a status such as `proposed` or `unverified` when its omission would overstate the depicted state. Supporting context and provenance belong in the caption or prose.
+
+| Content | In the canvas when | In the caption or prose when |
+|---|---|---|
+| Count or dimension | It defines repetition, selection, tensor shape, or a measured value | It is background configuration unrelated to the question |
+| Date or duration | It locates an event on a timeline or sets a timeout or expiry | It records when the author checked a source |
+| Sample size or comparison condition | It distinguishes cases or is needed to read a value correctly | It applies to the whole figure and remains clear beside it |
+| Qualifier or state | Omitting it would imply a confirmed state or an unconditional edge | It is supporting explanation that does not change the depicted relation |
+
+The shipped examples illustrate this distinction: `projection` keeps exact vector values and unit ticks, `moe-block` keeps the top-k selection mechanism, and `low-rank-update` keeps dimension symbols and a rank bound. Their captions carry example configuration and provenance. None requires deleting a meaningful number.
+
+Omit from the default canvas:
 
 - A title or subtitle (the caption names the figure), a footer, a source line, a takeaway band.
-- Counts, sample sizes, timestamps, hedges, configuration lists; they go to the caption or a table.
 - Logos, mascots, emoji, clip art, or icons that do not encode a kind defined in a legend.
-- 3D, perspective, drop shadows, glow, gradients (a gradient may encode a sequential value in a chart), transparent backgrounds.
+- Decorative perspective, drop shadows, glow, and gradients. Spatial depth that represents actual geometry and gradients that encode values are content. Bake the background into raster exports.
 - Bullet lists inside boxes.
 - Decoration to fill space: empty space may stay empty.
 

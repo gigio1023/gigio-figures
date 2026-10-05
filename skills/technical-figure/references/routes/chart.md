@@ -1,6 +1,6 @@
 # Chart route
 
-Measured data drawn with matplotlib through `scripts/figure_mpl.py`: line charts, bars, dot plots, scatter, distributions, heatmaps, and small multiples. The module reads the same `assets/figure-tokens.json` as the SVG routes, so a chart sits beside a mechanism figure with the same fonts, text sizes, strokes, hues, and canvas width. It renders both themes itself and does not pass through `render.mjs`; the SVG lint does not apply, and the pre-render checks and the visual review below take its place.
+The bundled route draws measured data with matplotlib through `scripts/figure_mpl.py`: line charts, bars, dot plots, scatter, distributions, heatmaps, and small multiples. The module reads the same `assets/figure-tokens.json` as the SVG routes, so a chart sits beside a mechanism figure with the same fonts, text sizes, strokes, hues, and canvas width. It renders both themes itself and does not pass through `render.mjs`; the SVG lint does not apply, and the pre-render checks and the visual review below take its place.
 
 ## Chart or schematic
 
@@ -13,7 +13,7 @@ Decide by the content, not by the request's noun.
 | 3 to 8 bars of real measurements that may change | this route, so the chart regenerates from the data |
 | A decorative sketch of a trend inside a schematic | the schematic route, marked `schematic` in the FigureSpec |
 
-The FigureSpec still applies: the question, the claim, and the one focal series. Sample sizes, seeds, run conditions, and data sources go to the caption.
+The FigureSpec still applies: the question, the claim, and the comparison. Keep sample sizes, dates, and run conditions on the canvas when they distinguish cases or change how a value is read. Conditions applying clearly to the whole chart and data sources belong in the caption. An existing plotting stack may replace this module when it preserves the data, shared visual language, and verification below.
 
 ## Chart by question
 
@@ -41,11 +41,11 @@ Pick from the reader's question, not from the data's shape; "graph" arrives mean
 - Mean-only bars where the spread would change the conclusion.
 - Stacked areas that cross; the ordering becomes unreadable.
 
-## Design floor
+## Design defaults
 
 - **Honest scales.** Bars start at zero. A log axis carries dots, never bars, because it has no zero and bar length means nothing. One y scale per chart. Dots and lines may zoom to the data range; bars may not.
 - **One focal comparison.** The focal series carries its semantic hue and the emphasis stroke (2.25u); every other series is context in `line` gray at the edge stroke (1.5u) and drawn beneath it. Emphasis may come from the heavier stroke as well as the color, so it survives grayscale.
-- **Direct labels over legends.** Name each line at its end and each dot row at its axis; label values only at line ends or on the one emphasized point, never on every point. A legend is allowed only for an encoding that cannot be labeled in place, and holds at most three items.
+- **Direct labels over legends.** Name each line at its end and each dot row at its axis; label values only at line ends or on the one emphasized point, never on every point. Use a short legend when direct labels would be ambiguous or crowded.
 - **No chart junk.** No title in the canvas (the caption names the chart), no subtitle, takeaway band, source footer, badge, or inset to fill space. No four-sided frame, 3D, shadow, gradient, or background tint. Gridlines are off; a hairline `guide` grid on the value axis is allowed when reading values off that axis is the point, as in a dot plot.
 - **Horizontal text.** The y-axis title sits horizontally above the tick labels, never rotated; `axis_titles` places both titles.
 

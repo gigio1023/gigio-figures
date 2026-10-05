@@ -1,6 +1,6 @@
 # Figure principles
 
-These rules hold for every figure backend in this repository. `technical-figure` carries the full grammar, planning method, and review; this file is the shared core that the other skills vendor.
+The content and accessibility requirements hold for every figure backend in this repository. The visual language below is the default; an explicit request or established project style can replace its presentation choices. `technical-figure` carries the full grammar, planning method, and review; this file is the shared core that the other skills vendor.
 
 ## Reader and content
 
@@ -8,20 +8,20 @@ These rules hold for every figure backend in this repository. `technical-figure`
 - One figure answers one question with one claim. The claim becomes the caption's first sentence; the figure shows it as marks, not only as words.
 - Exact names first: label a component by the name it carries in code, configuration, or the running system; add a role on a second line only when the name does not say what it does.
 - Edges carry mechanism: what passes, the operation, or the condition. Delete edge labels that repeat the target's name or narrate time.
-- The canvas holds names and mechanism. Counts, sample sizes, timestamps, provenance, and hedges belong in the caption or prose unless the question is about them.
+- The canvas holds the answer and its necessary conditions. Keep numbers, dates, sample sizes, and qualifiers when they encode the mechanism, distinguish compared cases, or prevent a false reading. Equations, dimensions, thresholds, axis values, repetition counts, and state labels may stay. Put supporting context and provenance in the caption or prose; preserve qualifications needed to keep the claim accurate.
 - When a figure is hard to read: organize, then split into a series, then move to prose only what answers a different question. Never abstract names into roles, delete mechanism, or shrink type to make a figure fit.
 - In a document with several figures, plan them together: one semantic map for hues and line styles, one direction per kind of figure, one glyph per recurring object.
 
 ## Visual language
 
-- Emphasis budget: one focal element or path per figure carries a hue and the emphasis stroke; context stays neutral or ghosted in place; frames are lightest.
+- Emphasis budget: one focal element or path per figure carries the emphasis stroke and its mapped hue, or ink when no hue applies; context stays neutral or ghosted in place; frames are lightest.
 - A hue has one meaning for the whole document. Neutral means "not the subject".
-- One line style per relation, at most three relations per figure: solid for data or artifact flow, dashed for control, dotted without an arrowhead for correspondence.
+- Use distinct, consistent encodings for relations. Start with a small set, usually three or fewer: solid for data or artifact flow, dashed for control, dotted without an arrowhead for correspondence.
 - Draw the mechanism's structure: counts, direction, repetition, recurrence, and selection become marks and positions.
-- Comparisons share one scaffold; only differences carry emphasis.
+- Comparisons share one scaffold; differences carry emphasis. Preserve the conditions that make each comparison valid.
 - One typographic voice: a single sans family for labels in every script, monospace only for literal code identifiers, TeX-rendered math.
-- Backgrounds are baked, never transparent; light and dark renders come from the same source.
-- Never in the canvas: titles, footers, counts, hedges, logos, emoji, decorative icons, 3D, shadows, gradients, bullet lists inside boxes, or decoration to fill space. Zoom panels, small locators, legends of at most three items, and a gray annotation layer are allowed when they carry meaning.
+- Light is the default theme; deliver the theme required by the host or document. Bake backgrounds into raster exports and check light and dark legibility from the same source. Color is never the only channel; also use labels, positions, shapes, or line styles.
+- The caption carries titles, source lines, and supporting context. Omit decorative logos, emoji, shadows, and filler. Numeric or qualified labels follow the content rule above. Zoom panels, locators, short legends, and adjacent annotations stay when they explain the answer; a color ramp or spatial depth may encode data or geometry.
 
 ## Values
 

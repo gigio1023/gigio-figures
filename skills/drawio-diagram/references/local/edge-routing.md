@@ -17,7 +17,7 @@ Edges are the most common failure in generated diagrams: lines crossing componen
 
 **A saved edge style does not route around obstacles by itself.** The ordinary built-in router draws a straight or simple right-angle path with awareness of the two terminals, not unrelated shapes. An explicit authoring-time layout such as `orthogonalEdge` can calculate an obstacle-aware route, but no cleanup pass runs merely because the finished `.drawio` file is later opened.
 
-Consequence: the author owns the saved result. Apply `references/local/auto-layout.md` first. For a route that still fails, pick connection sides so the natural corridor is empty and add waypoints only when it is not. Never write edges naively expecting a later viewer fix. Official example diagrams confirm the manual fallback: measured across 133 plain-XML diagrams in `jgraph/drawio-diagrams`, roughly a quarter of edges pin terminals with `exitX/entryX` and 29% carry explicit waypoints.
+Consequence: the author owns the saved result. Use `references/local/auto-layout.md` when the topology suits it, or choose explicit placement when geometry carries meaning. Pick connection sides so the natural corridor is empty and add waypoints where needed. Never write edges naively expecting a later viewer fix. Official example diagrams show both routing approaches: measured across 133 plain-XML diagrams in `jgraph/drawio-diagrams`, roughly a quarter of edges pin terminals with `exitX/entryX` and 29% carry explicit waypoints.
 
 ## Every edge, always
 
