@@ -69,9 +69,9 @@ Free-standing text is exceptional. Give each block a named purpose tied to the r
 
 - No title on the canvas; the caption or the surrounding heading names the figure.
 - An annotation-layer note (12u, ink-2, beside its element, joined by a dotted leader when it cannot sit adjacent) may point to one specific feature that is part of the answer and cannot be labeled directly. It holds names and mechanism, never a second narrative.
-- A legend of at most three items is allowed only for an encoding that cannot be labeled in place; a zoom panel or a small ghosted locator is allowed when it details or places an element the answer needs.
+- Use a short legend when direct labels would be ambiguous or crowded; a zoom panel or a small ghosted locator is allowed when it details or places an element the answer needs.
 - A semantic node participates in the model and may receive only relationships the diagram actually asserts.
-- Versions, sources, excluded scope, implementation notes, and decorative text belong in surrounding prose or file metadata unless the question is about them.
+- Keep versions, numbers, and qualifiers visible when they encode the mechanism, distinguish compared cases, or prevent a false reading. Supporting sources, excluded scope, and implementation notes belong in surrounding prose or file metadata.
 
 Delete subtitles, keyword garlands, bottom strips, and explanatory footers that repeat the diagram or compensate for an unclear composition. Do not create a free-standing text region merely because there is room above, below, or beside the main path.
 

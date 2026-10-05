@@ -12,16 +12,16 @@ Draw one figure that a smart adult outside the field understands in ten seconds,
 
 1. Have the exact structure first. If a `technical-figure` figure or an equivalent inventory of exact nodes and labeled edges exists, start from it; otherwise write that inventory down before simplifying. Reducing from the exact structure is what keeps the simple figure true.
 2. Form the reader brief and the reduction record in the contract below. Choose one analogy and hold it.
-3. Read `references/eli5-principles.md`. Author on the same pipeline as `technical-figure`, vendored here: a small graph for `scripts/layout.mjs` (see `assets/eli5-example.json`), or a hand-authored SVG that follows `references/svg-contract.md`. Run `bash scripts/setup.sh --check` once per machine (without `--check` to install the pinned packages and fonts when network use is acceptable), then lay out and render:
+3. Read `references/eli5-principles.md`. The default authoring pipeline is vendored from `technical-figure`: a small graph for `scripts/layout.mjs` (see `assets/eli5-example.json`), or a hand-authored SVG that follows `references/svg-contract.md`. Check dependencies with `bash scripts/setup.sh --check`, reusing a current successful check. Run setup without `--check` only when dependency installation is authorized, then lay out and render:
 
    ```bash
    node scripts/layout.mjs <file>.json -o <file>.svg
    node scripts/render.mjs <file>.svg
    ```
 
-   `render.mjs` writes light and dark PNGs, a portable SVG, and a lint report; lint errors must be zero.
+   `render.mjs` writes light and dark PNGs, a portable SVG, and a lint report; lint errors must be zero. An existing project renderer or another suitable tool may be used with editable source and equivalent checks for text, geometry, contrast, and exact relationships. Preserve the document's established style; otherwise use the bundled tokens.
 
-4. Open the PNG in the delivered theme and apply `references/review.md`. Deliver the figure, and put the analogy sentence, the literal mapping, the analogy's limit, and the reduction record in the prose beside it or in the response.
+4. Inspect the render at delivery width in both themes and apply `references/review.md`. Light is the default; deliver the theme required by the host or document. Deliver the figure, and put the analogy sentence, the literal mapping, the analogy's limit, and the reduction record in the prose beside it or in the response.
 
 ## Reader brief and reduction record
 
@@ -46,10 +46,10 @@ The reduction record is provenance, not figure content. It goes in the response 
 - Plain words in the boxes. Keep an exact name only when the reader will meet it again (a product they use, a file they will be asked to open); it is then the second line.
 - Every arrow says what moves or what happens. No unlabeled arrows; this reader has no schema to fill them.
 - No magic box. A node whose action the reader cannot picture ("processing", "logic", "the system") is not allowed; say what it does in the analogy's terms.
-- No counts, timestamps, or hedges in the figure either. `a copy is mailed out` is the mechanism; `delivery not seen` is a caveat for the prose.
+- Keep numbers, dates, and qualifiers when they encode the mechanism or prevent a false reading. If expiry answers the reader's question, a label such as `discard after 5 minutes` belongs on the relevant action. Put supporting context in prose; preserve an unconfirmed state when omitting it would imply a completed action.
 - Simplify language, never facts. A merged node may hide detail; it may not assert what the exact figure contradicts. Where the analogy would imply a false relation, draw the real relation at that point and state the break in prose.
 - Nothing above or below the figure: no caption, analogy sentence, mapping table, footer, "in reality" panel, or legend inside the SVG. Those belong to the document.
-- The shared visual language is unchanged: the figure-style tokens in both themes, one focal hue on the part the reader must grasp, neutral ink for the rest. No icons, clip art, emoji, or drawings of people; the analogy is carried by words and structure.
+- The shared visual language is the default: the figure-style tokens in both themes, one focal hue on the part the reader must grasp, neutral ink for the rest. No icons, clip art, emoji, or drawings of people; the analogy is carried by words and structure.
 
 ## Verification
 
@@ -76,7 +76,7 @@ Lead with the artifact. Then give, as prose: the analogy in one sentence, the li
 | Render in both themes with the lint | execute `scripts/render.mjs` |
 | Worked example with its reduction record | `assets/eli5-example.json` and the example section of `references/eli5-principles.md` |
 
-The planning, grammar, and review references live in the installed `technical-figure` skill; the pipeline and tokens vendored here are the same files.
+The full planning and grammar references are available in `technical-figure` when installed. This package's vendored principles, review, pipeline, and tokens support standalone use.
 
 ## Gotchas
 

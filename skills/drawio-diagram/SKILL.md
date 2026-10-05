@@ -3,9 +3,8 @@ name: drawio-diagram
 description: >
   Use when the user explicitly wants a native .drawio artifact, asks to edit an
   existing draw.io file, needs draw.io metadata or pages, or requests draw.io
-  export to SVG, PNG, or PDF. Produces editable mxGraph XML with automatic
-  layout first, manual routing only when needed, and structural plus rendered
-  quality checks. NOT for generic technical diagrams, geometry, grids, or
+  export to SVG, PNG, or PDF. Produces editable mxGraph XML with suitable
+  automatic or explicit layout and structural plus rendered quality checks. NOT for generic technical diagrams, geometry, grids, or
   measured data charts (technical-figure).
 ---
 
@@ -18,7 +17,7 @@ Produce a valid, readable native `.drawio` file. Native XML is the source of tru
 1. Form the reader brief in the content contract below. Fix the reader and the one question; do not reduce the material to a sentence before you know what the peer must be able to verify.
 2. Derive the required nodes, edges, groups, and annotations from that brief. Every component and relation the peer needs to verify the answer is required; a fact that answers a different question stays outside the figure. Read `references/local/figure-principles.md` and `references/local/figure-style.md` unless the user supplied a different style or an existing file already establishes one.
 3. Read `references/local/upstream-drawio-rules.md`. Start with uncompressed bare `mxGraphModel` XML unless pages or file metadata require `<mxfile>`.
-4. Read `references/local/auto-layout.md` and apply the simplest suitable automatic layout. Preserve explicit semantic grouping.
+4. Choose a layout that preserves semantic grouping and the intended reading path. Automatic layout is the default for a new graph; use explicit placement when geometry or an existing design carries meaning. `references/local/auto-layout.md` describes the bundled route.
 5. Run both validators from the skill root:
 
    ```bash
@@ -26,7 +25,7 @@ Produce a valid, readable native `.drawio` file. Native XML is the source of tru
    python3 scripts/validate_drawio_layout.py <file>.drawio
    ```
 
-6. For every new diagram or substantial visual edit, export and inspect SVG or PNG when an exporter is available, in the dark theme as well when readers will see it dark. Apply `references/local/review-loop.md`: fix render defects first, then remove any text the document should carry. If automatic layout leaves a collision or ambiguous route, read `references/local/edge-routing.md`, fix only those routes, and validate again.
+6. For every new diagram or substantial visual edit, export and inspect SVG or PNG when an exporter is available, in the dark theme as well when readers will see it dark. Apply `references/local/review-loop.md`: fix render defects first, then remove any text the document should carry. If a route is ambiguous or collides with content, use `references/local/edge-routing.md`, fix the affected routes, and validate again.
 
 ## Reader and content contract
 
@@ -40,8 +39,8 @@ surrounding_context: <what the document or conversation already explains>
 required_nodes: [exact names; a role on a second line only where the name does not say what it does]
 required_edges: [{from, to, what passes or what triggers it}]
 required_groups: [real boundaries only]
-required_annotations: [{text, purpose}]   # empty is normal; allowed only when meaningful: gray annotation-layer notes, a legend of at most three items, a zoom panel, a locator; never a title, caption, footer, badge, or icon
-deferred_to_prose: [facts that answer a different question; every count, timestamp, and qualifier]
+required_annotations: [{text, purpose}]   # empty is normal; allowed only when meaningful: gray annotation-layer notes, a short legend, a zoom panel, a locator; never a title, caption, footer, badge, or icon
+deferred_to_prose: [supporting context and provenance; keep quantities and conditions needed to interpret the answer on the canvas]
 ```
 
 The reader is a peer: knowledge is not their bottleneck, this project's structure is. Assume the field's vocabulary and supply the exact names, mechanisms, and relationships they could not reconstruct without the figure. A deliberately simplified figure is a separate register that only an explicit request selects.
@@ -50,7 +49,7 @@ Three content rules do most of the work; `references/local/figure-principles.md`
 
 - **Exact names first.** Label a component by the name it carries in code, configuration, or the running system; add a role on a second line only when the name does not say what it does. Never a role in place of a name. Paths, endpoints, fields, and hook points are content when the peer needs them to verify or act on the answer.
 - **Edges carry mechanism.** Only semantic nodes receive connectors. Label a connector with what passes, what triggers it, or its condition whenever the two node names leave the relation ambiguous, and keep the label to the mechanism.
-- **Compress like a dashboard panel, not a disclosure.** Quantities, timestamps, counts, evidence qualifiers, and provenance are prose beside the figure unless the question is about them.
+- **Preserve the answer and its conditions.** Keep numbers, dates, sample sizes, and qualifiers when they encode the mechanism, distinguish compared cases, or prevent a false reading. Put supporting context and provenance beside the figure. Thresholds, timeouts, dimensions, repetition counts, and state labels may stay.
 
 For a scoring or aggregation figure, read the scored unit and its roll-up into the reported metric from the source before drawing, then show that roll-up. Two conditions judged on one item are still one item, not two.
 
@@ -70,13 +69,13 @@ Read `references/local/text-and-labels.md` only when labels need multiline HTML,
 
 For a bounded edit to an existing file, retain cell IDs, pages, metadata, and unaffected geometry. Apply layout only to the changed region when needed; rebuilding the whole diagram is not a prerequisite for correcting one label or connection.
 
-Automatic layout is the default for new files:
+Automatic layout is the default for new files whose topology fits it:
 
 - a linear process: `horizontalFlow` or `verticalFlow`;
 - a hierarchy: `horizontalTree` or `verticalTree`;
 - nested or routed architecture: explicit ELK JSON, optionally followed by `orthogonalEdge`.
 
-Automatic layout is an explicit authoring step, not a viewer cleanup pass. The saved file must already contain an acceptable layout. Use fixed ports and waypoints only for remaining obstacles and for parallel or return corridors. Never add invisible spacer nodes or supporting bands to manipulate geometry.
+Automatic layout is an explicit authoring step, not a viewer cleanup pass. The saved file must already contain an acceptable layout. Use explicit coordinates, fixed ports, or waypoints when they preserve a meaningful layout or resolve obstacles, parallel paths, or return corridors. A failed automatic-layout attempt is not a prerequisite for these choices. Never add invisible spacer nodes or supporting bands to manipulate geometry.
 
 ## Verification
 
@@ -85,7 +84,7 @@ XML validation is blocking. Treat layout warnings as evidence to inspect and fix
 Before finishing, confirm:
 
 1. every label is readable at the intended delivery size and no component, label, or unrelated edge overlaps; the render is what the source intends;
-2. the required semantic inventory matches the diagram, exact names are present, no relationship was invented, and no count, timestamp, or qualifier sits on the canvas that the prose should carry;
+2. the required semantic inventory matches the diagram, exact names are present, no relationship was invented, and numbers and qualifiers needed to interpret the answer remain visible, while supporting context sits beside the figure;
 3. the peer can verify the answer from the figure; a page that says no more than its heading is not finished;
 4. the focal element or path reads first, context stays neutral or ghosted, and each line style carries one relation;
 5. every visible element earns its place; and
@@ -119,7 +118,7 @@ Lead with the artifact created or changed. Report both validator results, the la
 | Required XML structure and export rules | `references/local/upstream-drawio-rules.md` |
 | Automatic layout and current CLI routes | `references/local/auto-layout.md` |
 | Reader, density, and rendered visual audit | `references/local/review-loop.md` |
-| Manual ports, waypoints, and crossings after auto-layout | `references/local/edge-routing.md` |
+| Explicit ports, waypoints, and crossings | `references/local/edge-routing.md` |
 | Multiline, HTML, metadata, or edge labels | `references/local/text-and-labels.md` |
 | Deep official syntax lookup | `references/local/upstream-docs-map.md` |
 

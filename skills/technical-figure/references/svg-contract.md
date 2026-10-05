@@ -1,6 +1,6 @@
 # SVG authoring contract
 
-Every route writes the same kind of source: a semantic SVG that carries structure and classes but no colors, fonts, or arrowheads. `scripts/render.mjs` applies the theme from `assets/figure-tokens.json`, typesets math, draws arrowheads, rasterizes with real fonts, and runs `scripts/lint.mjs`. Keeping appearance out of the source is what lets one figure render in light and dark and lets the lint check token use.
+The bundled SVG routes use this source contract: a semantic SVG that carries structure and classes but no colors, fonts, or arrowheads. `scripts/render.mjs` applies the theme from `assets/figure-tokens.json`, typesets math, draws arrowheads, rasterizes with real fonts, and runs `scripts/lint.mjs`. Keeping appearance out of this source lets one figure render in light and dark and lets the lint check token use. The chart module and other authoring tools have their own source contracts; this file does not require converting them to this format.
 
 ## Root
 

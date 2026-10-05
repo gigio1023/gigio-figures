@@ -1,6 +1,6 @@
 # Automatic layout
 
-Use automatic layout before manual coordinates and waypoints on a new diagram. The layout is applied explicitly while authoring or exporting; draw.io does not silently repair routes when a saved file is later opened.
+Automatic layout is the default starting point for a new diagram whose topology fits a supported layout. Use explicit coordinates and routes when placement carries meaning, a reference layout must be preserved, or the automatic route is unsuitable; a failed trial is not required. The layout is applied explicitly while authoring or exporting; draw.io does not silently repair routes when a saved file is later opened.
 
 ## Presets
 
@@ -39,9 +39,9 @@ Use explicit JSON for a nested architecture or when the preset leaves poor route
 
 Pass the compact JSON array as the wrapper's final argument. `orthogonalEdge` is the obstacle-aware route in the [JSON layout specification](https://www.drawio.com/docs/reference/json-layout-specification/): it keeps every vertex in place and reroutes connectors around them. Write it as a JSON entry: the specification and the vendored upstream plugin skill also describe a `--layout libavoid` shorthand, but on draw.io Desktop 31.4.5 that shorthand hangs until killed, as an unknown layout name does, instead of failing. For containers, a `childLayout` can arrange children before the parent layout is applied. Preserve containment and rerun both validators after layout.
 
-## Fallback gate
+## Explicit routing
 
-Open `edge-routing.md` only when the saved layout still has one of these:
+Use `edge-routing.md` when a known layout requirement or the rendered result calls for explicit ports or corridors, including when:
 
 - an edge crosses a component or label;
 - request and response paths overlap;
@@ -49,4 +49,4 @@ Open `edge-routing.md` only when the saved layout still has one of these:
 - a return path has no dedicated corridor; or
 - automatic layout obscures a required semantic group.
 
-Fix the smallest failing route. Do not replace an acceptable automatic layout with hand-tuned coordinates merely to imitate a screenshot.
+For a bounded correction, fix the affected route and retain working geometry. For a requested redesign or reference match, adjust the composition as needed while preserving the semantic inventory.

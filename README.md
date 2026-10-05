@@ -1,6 +1,6 @@
 # gigio-figures
 
-Portable figure skills for coding agents. One skill plans and draws the figures of technical documents on one visual grammar; two others cover the native draw.io format and a deliberately simple register on request. All three share one design system.
+Portable figure skills for coding agents. One skill plans and draws the figures of technical documents on one visual grammar; two others cover the native draw.io format and a deliberately simple register on request. All three share a default design system and preserve an established document style when one is supplied.
 
 | Skill | Use it for | Default artifact |
 | --- | --- | --- |
@@ -14,7 +14,7 @@ Routing is by artifact and register:
 - Native draw.io format or draw.io-specific metadata uses `drawio-diagram`.
 - An explicit request for a simple, non-expert figure ("ELI5", "쉽게") uses `eli5-figure`, which reduces the exact figure and records what it merged and hid.
 
-The default reader is a peer in the domain who lacks only the project's context: exact names first, mechanism on the edges, and the full structure the question needs. The canvas holds names and mechanism; counts, timestamps, and hedges go to the caption. Simplification is never the default; it is the user's explicit choice.
+The default reader is a peer in the domain who lacks only the project's context: exact names first, mechanism on the edges, and the full structure the question needs. The canvas holds the answer and its necessary conditions. Numbers, dates, and qualifiers stay when they encode the mechanism, distinguish compared cases, or prevent a false reading; supporting context and provenance go beside the figure. Simplification is never the default; it is the user's explicit choice.
 
 ## Install
 
@@ -59,9 +59,9 @@ Every figure below was drawn by following the skills, rendered by the bundled pi
 
 The skill works in three layers.
 
-1. **Plan.** For a document or a set of figures, it writes a figure plan: the claims that need a picture, a figure budget, a semantic map that gives each of three hues and each line style one meaning for the whole document, and a storyboard. Each figure then gets a FigureSpec: the reader's question, a one-sentence claim that becomes the caption's first sentence, the exact nodes and relations, one focal element, and what goes to the caption instead of the canvas.
-2. **Draw.** The form comes from the claim's shape (spine, zoom, sibling variants, delta highlight, lineage, grid, geometry, chart), and the grammar sets the emphasis budget, line styles, and comparison rules. Sources are semantic SVG with classes only; box-and-arrow figures can be laid out with elkjs, geometry and grids are computed, and charts use matplotlib with the same tokens.
-3. **Check.** `scripts/render.mjs` applies the theme, typesets TeX math as glyph paths, draws arrowheads, renders light and dark PNGs at 2x with the real fonts, writes a portable SVG, and runs `scripts/lint.mjs`, which measures real bounding boxes for overlaps, overflow, minimum type size, contrast, arrow collisions, Unicode math, and height. Review then checks the render against the spec item by item and, for a document, on a contact sheet.
+1. **Plan.** For a document or a set of figures, it writes a figure plan: the claims that need a picture, a figure budget, a semantic map that gives each hue and line style one meaning for the whole document, and a storyboard. Each figure then gets a FigureSpec: the reader's question, a one-sentence claim that becomes the caption's first sentence, the exact nodes and relations, one focal element, and what goes to the caption instead of the canvas.
+2. **Draw.** The form comes from the claim's shape (spine, zoom, sibling variants, delta highlight, lineage, grid, geometry, chart), and the grammar sets the emphasis budget, line styles, and comparison rules. The bundled SVG route uses semantic classes; box-and-arrow figures can be laid out with elkjs, geometry and grids are computed, and charts render through matplotlib with the same tokens. Other suitable tools can preserve the project's format and style with equivalent content, text, geometry, and accessibility checks.
+3. **Check.** `scripts/render.mjs` applies the theme, typesets TeX math as glyph paths, draws arrowheads, renders light and dark PNGs at 2x with the real fonts, writes a portable SVG, and runs `scripts/lint.mjs`, which measures real bounding boxes for overlaps, overflow, minimum type size, contrast, arrow collisions, Unicode math, and height. The chart route has its own rendering and data checks. Review checks each render against the spec and, for a document, on a contact sheet. Revision ends when required checks pass; repeated defects trigger diagnosis and an approach change within the task budget.
 
 From `skills/technical-figure/`:
 
@@ -77,11 +77,11 @@ uv run --with matplotlib python scripts/example_chart.py
 
 ## eli5-figure
 
-The simple register. It starts from the exact `technical-figure` figure or an equivalent inventory, chooses one everyday analogy, keeps at most five concepts and one branch, and writes a reduction record (kept, merged, hidden, where the analogy breaks) that goes into the prose beside the figure, never into the figure. It renders on the same pipeline and passes the same lint. It activates only on an explicit request such as "ELI5" or "쉽게 그려줘"; for domain readers the simple figure is redundancy.
+The simple register. It starts from the exact `technical-figure` figure or an equivalent inventory, chooses one everyday analogy, keeps at most five concepts and one branch, and writes a reduction record (kept, merged, hidden, where the analogy breaks) that goes into the prose beside the figure, never into the figure. It defaults to the same pipeline and lint, or uses an established project renderer with equivalent checks. It activates only on an explicit request such as "ELI5" or "쉽게 그려줘"; for domain readers the simple figure is redundancy.
 
 ## drawio-diagram
 
-This route is intentionally native-format specific. It prefers bare, uncompressed `mxGraphModel` XML and explicit automatic layout for new files. Manual terminal pins and waypoints are a fallback for routes that remain ambiguous after layout. Its style recipes translate the shared tokens into draw.io style strings.
+This route is intentionally native-format specific. It prefers bare, uncompressed `mxGraphModel` XML and automatic layout for new graphs whose topology fits it. Explicit placement, terminal pins, and waypoints can preserve meaningful geometry or resolve ambiguous routes without requiring a failed automatic-layout trial. Its style recipes translate the shared tokens into draw.io style strings.
 
 From `skills/drawio-diagram/`:
 

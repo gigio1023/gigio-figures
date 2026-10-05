@@ -1,6 +1,6 @@
 # Visual tokens
 
-`assets/figure-tokens.json` is the authority for every value; the renderer, the lint, and the chart module read it. This file explains the choices so they can be adapted without breaking what they protect. In a repository that vendors this skill, change `shared/figure-style/tokens.json` and resynchronize rather than editing a copy.
+`assets/figure-tokens.json` is the authority for the bundled pipeline's design values; the renderer, the lint, and the chart module read it. This file explains the choices so they can be adapted without breaking what they protect. For authorized maintenance of this design system, change `shared/figure-style/tokens.json` and resynchronize rather than editing a vendored copy. An ordinary figure task can use an established project style through its authoring route without modifying the installed skill.
 
 ## Unit and canvas
 

@@ -10,7 +10,7 @@ Box-and-arrow figures: architectures, pipelines, module internals, residual-stre
 | A spine with side branches, zoom panels, grids, or any composition whose meaning depends on exact placement | hand-authored SVG with computed coordinates |
 | A layout from `layout.mjs` is right except for one region | layout first, then edit only that region in the SVG |
 
-Language models place coordinates poorly when many edges must avoid each other and well when a small grid is computed arithmetically. Do not hand-place a dense graph, and do not force a spine or a zoom composition through an automatic layout.
+Automatic layout is a useful starting point for dense graphs; computed placement suits spines, grids, and zoom compositions. Choose by topology and the observed render. Preserve a working layout when editing, and change route when the current one obscures required relationships.
 
 ## Automatic layout
 
@@ -54,12 +54,12 @@ Refine after layout by editing classes (focus, ghost, hue) in the SVG rather tha
 When a layout misbehaves, check these first; they cause most failed trials:
 
 - **Width over 720u.** `layout.mjs` stops unless `--wide` is given. Change direction, put fewer peers in a row, shorten labels without dropping names, or split the figure; `spacing` tightens node and layer gaps as a last step.
-- **Order changed inside a group.** The layout warns when a group's members move out of input order. Edges leaving the group from members in the middle and labels on those edges are the usual cause; route those edges from the group's sides or drop the label.
+- **Order changed inside a group.** The layout warns when a group's members move out of input order. Edges leaving the group from members in the middle and labels on those edges are the usual cause; route those edges from the group's sides or reposition the label without losing its meaning.
 - **Edge labels in UP or DOWN layouts** occupy a layer of their own and can push nodes into another row. Prefer short labels, a TeX label on the edge, or naming the payload in the target's second line.
 - **Several inputs into one operator side** stack their arrow tips. Give them different `toSide` values.
 - **A shape `layout.mjs` cannot express** (a spine with side reads, a locator, text-only nodes, edges meeting edges): author that figure by hand instead of forcing the graph.
 
-Trials of layout input before the first full review are not revision rounds.
+Treat layout trials as diagnostic work: when the same defect repeats, change the relevant constraints or authoring route rather than retrying unchanged input.
 
 ## Hand-authored SVG
 
