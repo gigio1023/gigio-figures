@@ -37,7 +37,7 @@ Shapes:
 | `band` | background band marking a region of an axis | surface fill, no outline |
 | `spine` | `path` or `line` for a stream the figure is about (residual stream, bus) | ink, 2.25u |
 | `edge` | `path` or `line` for data or artifact flow | ink, 1.5u |
-| `edge control` | selection, gating, parameter influence | ink, 1.5u, dashed |
+| `edge control` | selection, gating, parameter influence; in a sequence diagram, the return message | ink, 1.5u, dashed |
 | `edge` with a hue class | a relation bound to that hue's meaning, at its own weight (`edge control vermillion` stays 1.5u dashed) | hue |
 | `edge emph` | the claim path; usually with a hue class | 2.25u |
 | `edge ghost` | context flow | guide, 1.0u |
@@ -45,6 +45,7 @@ Shapes:
 | `guide` | axis, divider, layer rule | guide, 1.0u |
 | `mark` | right-angle mark, tick | ink-2, 1.0u, solid |
 | `dot` | `circle` junction where a line really splits or merges; add its line's `spine`, `emph` and hue, or `ghost` | same color as its line, radius 1.6 times its stroke |
+| `dot` on a closed `path` | filled mark drawn from source geometry: the filled head of a synchronous call, the initial-state disc; takes its edge's hue or `ghost` | same color as its line, filled, no stroke; the renderer keeps the path's geometry |
 
 Text (`<text>` elements; one class from the first group, optional modifiers):
 
@@ -81,6 +82,18 @@ Add `data-arrow="end"`, `data-arrow="start"`, or `data-arrow="both"` to an `edge
 ## Identity for review
 
 Give every element that the FigureSpec names a `data-id` equal to its spec id: nodes on the `<g>`, edges on the path. The ledger review and the lint's missing-element check use these ids.
+
+## Change and scale markers
+
+Three optional attributes let review check an architecture delta and a to-scale figure against their data. The renderer leaves them in place and the lint does not read them.
+
+| Attribute | On | Value | Review checks |
+|---|---|---|---|
+| `data-delta` | the `<g>` of a node or the path of an edge that differs between two versions | `added`, `removed`, `changed`, `moved`, or `rewired`; `changed moved` when both apply | every marked element has a change-ledger entry and every entry has a marked element; unmarked elements sit at the same local coordinates in both panels |
+| `data-scale` | the `<g>` whose geometry is drawn to scale from numbers | `<axis> <origin> <u per unit> <unit>`, such as `x 136 5.5 ms` | the axis ticks follow the declared mapping |
+| `data-span` | each interval mark inside a `data-scale` group | `<start> <end>` in the group's unit, such as `14 24` | `x = origin + k × start` and `width = k × (end − start)` within 0.5u |
+
+In a before-and-after figure the same element appears in both panels, so give the copies panel-prefixed ids (`a-orders`, `b-orders`) to keep each `data-id` unique. Data coordinates inside a `data-scale` group are exempt from the 4u grid; labels, ticks, and lane rows stay on it.
 
 ## Render outputs
 

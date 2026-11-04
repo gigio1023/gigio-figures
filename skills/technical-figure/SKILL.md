@@ -11,7 +11,7 @@ Produce figures a domain peer can verify and that look deliberate: one claim per
 ## Quick path
 
 1. **Scope.** A document, a section with several figures, or a request to redo a document's figures starts with the figure plan in `references/planning.md`: claim inventory, figure budget, semantic map, and a thumbnail storyboard. A single standalone figure starts at step 2 and still borrows the document's semantic map when one exists.
-2. **FigureSpec.** Record the spec, using `assets/templates/figure-spec.json` or the project's equivalent: the reader's question, the claim in one sentence (it becomes the caption's first sentence), the exact names and relations the peer needs, the one focal element, and what goes to the caption instead of the canvas.
+2. **FigureSpec.** When the request leaves the components, the main path, or the figure's single point open, first confirm the figure brief in `references/planning.md`. Record the spec, using `assets/templates/figure-spec.json` or the project's equivalent: the reader's question, the claim in one sentence (it becomes the caption's first sentence), the exact names and relations the peer needs, the one focal element, and what goes to the caption instead of the canvas.
 3. **Form.** Choose the form from the claim's shape with `references/form-catalog.md`, not from the request's noun. Compare alternative framings when the form is uncertain or a first render fails the claim test. Select the strongest supported framing within the task; ask only when the choice depends on a consequential missing preference.
 4. **Grammar and tokens.** Use `references/grammar.md` and `assets/figure-tokens.json` as the default visual language, explained in `references/visual-tokens.md`. Preserve an established document grammar when present; keep encodings consistent and legible.
 5. **Author.** Choose a route below. For the bundled SVG renderer, follow `references/svg-contract.md`: classes and `data-*` attributes carry semantics; the renderer supplies colors, fonts, and arrowheads. Other routes keep their editable source and use their own rendering contract.
@@ -80,8 +80,8 @@ The pipeline needs Node.js 20 or newer and a Chromium-family browser (Google Chr
 
 | Need | Read or run |
 | --- | --- |
-| Figure plan for a document, FigureSpec, acceptance tests, caption split | `references/planning.md` |
-| Which form fits a claim; archetypes for ML and systems figures | `references/form-catalog.md` |
+| Figure plan for a document, figure brief, FigureSpec, acceptance tests, caption split | `references/planning.md` |
+| Which form fits a claim; archetypes for ML and systems figures, architecture delta, to-scale timeline, worked example | `references/form-catalog.md` |
 | Emphasis, hue map, line styles, containers, comparison, annotation, banned elements | `references/grammar.md` |
 | Font, size, color, stroke, radius, spacing, theme values and why | `references/visual-tokens.md`, `assets/figure-tokens.json` |
 | SVG classes, math, arrowheads, render outputs | `references/svg-contract.md` |
