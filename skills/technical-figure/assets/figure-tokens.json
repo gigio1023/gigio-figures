@@ -57,9 +57,9 @@
       "hues": {
         "blue": {"stroke": "#2769B7", "fill": "#E5F1FF", "text": "#1E5BA1"},
         "vermillion": {"stroke": "#C55123", "fill": "#FFEBE4", "text": "#A63C0C"},
-        "magenta": {"stroke": "#C673A3", "fill": "#FEEAF2", "text": "#943569"}
+        "magenta": {"stroke": "#9E4F7E", "fill": "#FEEAF2", "text": "#943569"}
       },
-      "categorical": ["#0072B2", "#D55E00", "#009E73", "#CC79A7", "#E69F00", "#56B4E9", "#2C2C2B"]
+      "categorical": ["#0072B2", "#C94F00", "#CC79A7", "#C68800", "#3D9CDC", "#2D986E", "#2C2C2B"]
     },
     "dark": {
       "bg": "#191919",
@@ -71,9 +71,9 @@
       "hues": {
         "blue": {"stroke": "#75AEF5", "fill": "#1C2F46", "text": "#92C1FD"},
         "vermillion": {"stroke": "#ED845B", "fill": "#432519", "text": "#F9A782"},
-        "magenta": {"stroke": "#B26191", "fill": "#412331", "text": "#F1ACCC"}
+        "magenta": {"stroke": "#D37FAF", "fill": "#412331", "text": "#F1ACCC"}
       },
-      "categorical": ["#56B4E9", "#ED845B", "#3FBF93", "#E08FC0", "#E69F00", "#9CCBF0", "#F0EFED"]
+      "categorical": ["#56B4E9", "#ED845B", "#D785B4", "#F0A91E", "#9FCEF3", "#57D39E", "#F0EFED"]
     }
   },
   "stroke": {

@@ -46,7 +46,7 @@ Read `references/local/figure-principles.md` first. The values live in `assets/f
 | guide | `#D4D3CF` | ghost outlines, outline containers, zoom frames, ghost edges |
 | blue | stroke `#2769B7`, fill `#E5F1FF`, text `#1E5BA1` | hue 1 |
 | vermillion | stroke `#C55123`, fill `#FFEBE4`, text `#A63C0C` | hue 2 |
-| magenta | stroke `#C673A3`, fill `#FEEAF2`, text `#943569` | hue 3 |
+| magenta | stroke `#9E4F7E`, fill `#FEEAF2`, text `#943569` | hue 3 |
 
 - One focal element or path per figure carries the 2.25 emphasis stroke and its mapped hue, or ink when no hue applies; everything else stays neutral or ghosted in place. A second hue appears only when the contrast between two meanings is itself the claim.
 - Each hue keeps one meaning for the whole document, and a meaning outside the document's semantic map gets position, a label, or a glyph instead of a hue. Colored area stays under about 5 percent of the figure, and color is never the only channel.
@@ -81,7 +81,7 @@ Variants replace keys in the ordinary recipe:
 | Role | Keys |
 | --- | --- |
 | Ghost: context kept in place for orientation | `fillColor=#F4F3F1;strokeColor=#D4D3CF;fontColor=#5F5E5B;` |
-| Hued: carries its hue's document meaning | `fillColor=#E5F1FF;strokeColor=#2769B7;` (blue), `fillColor=#FFEBE4;strokeColor=#C55123;` (vermillion), `fillColor=#FEEAF2;strokeColor=#C673A3;` (magenta) |
+| Hued: carries its hue's document meaning | `fillColor=#E5F1FF;strokeColor=#2769B7;` (blue), `fillColor=#FFEBE4;strokeColor=#C55123;` (vermillion), `fillColor=#FEEAF2;strokeColor=#9E4F7E;` (magenta) |
 | Focus: the figure's subject | `strokeWidth=2.25;` with the mapped hue or ink when no hue applies |
 | Exists only at run time | `dashed=1;dashPattern=5 4;fixDash=1;` |
 | Chip: tag, dtype, token | `arcSize=8;fillColor=#F4F3F1;strokeColor=none;fontSize=12.5;fontColor=#5F5E5B;spacingLeft=8;spacingRight=8;`; on a surface container use `fillColor=#FFFFFF;` |
@@ -136,7 +136,7 @@ With `adaptiveColors="auto"`, draw.io derives every dark color itself: it invert
 | guide | `#D4D3CF` | `#393835` | `#5F5E59` |
 | blue stroke, fill, text | `#2769B7`, `#E5F1FF`, `#1E5BA1` | `#69A2E5`, `#17212D`, `#78ACE8` | `#75AEF5`, `#1C2F46`, `#92C1FD` |
 | vermillion stroke, fill, text | `#C55123`, `#FFEBE4`, `#A63C0C` | `#E6835B`, `#2E1D17`, `#F59970` | `#ED845B`, `#432519`, `#F9A782` |
-| magenta stroke, fill, text | `#C673A3`, `#FEEAF2`, `#943569` | `#AD668F`, `#2D1C23`, `#E997C4` | `#B26191`, `#412331`, `#F1ACCC` |
+| magenta stroke, fill, text | `#9E4F7E`, `#FEEAF2`, `#943569` | `#CA86AE`, `#2D1C23`, `#E997C4` | `#D37FAF`, `#412331`, `#F1ACCC` |
 
 - Preserved: hue identity, lightness order, text contrast (ink about 11:1 and ink-2 about 6.8:1 on the dark background), the separation of a hue's stroke from its tint, and label backgrounds, which invert with the fill behind them.
 - Not preserved: the exact dark tokens. The background is `#121212`, ink is dimmer, and tint fills are darker. Guide drops to about 1.6:1 against the background, below the APCA Lc 15 floor, so ghost outlines, outline containers, zoom frames, and ghost edges nearly vanish.
