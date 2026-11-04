@@ -192,9 +192,9 @@ Rerender after any label or layout correction, and after a data fix rerender eve
 ## Accessibility
 
 - Color is never the only channel: the focal series is also heavier, every series is labeled in place, and a second system gets a different dash or marker.
-- Blue and vermillion are the pair that stays apart under color-vision deficiency; magenta differs in lightness from both, but nearly merges with the context gray for protan and deutan readers, so a magenta series at context weight needs a dash or marker.
-- Text meets 4.5:1 against what is under it and meaningful lines 3:1. The text neutrals, `line`, and the hue strokes satisfy this on the baked background; the light categorical slots `#E69F00` and `#56B4E9` do not, so give them a second channel or keep them off thin lines.
-- Check any custom palette, and any change to the token palettes, with `python3 scripts/palette_audit.py --colors ... --bg ...`. It reports OKLab separation of adjacent pairs (lines in order, stacks) and of all pairs (scatter, small multiples) under normal, simulated protan, and simulated deutan vision, and each color's contrast against the background. A pair below its floor needs a second channel or must not sit side by side. `visual-tokens.md` records the token palettes' results.
+- Blue and vermillion are the pair that stays farthest apart under color-vision deficiency. Magenta differs from the context gray in lightness, darker in light and lighter in dark, so every hue stroke stays apart from `line` for protan and deutan readers too.
+- Text meets 4.5:1 against what is under it and meaningful lines 3:1. The text neutrals, `line`, the hue strokes, and every categorical slot satisfy this on the baked background.
+- Check any custom palette, and any change to the token palettes, with `python3 scripts/palette_audit.py --colors ... --bg ...`. It reports OKLab separation of adjacent pairs (lines in order, stacks) and of all pairs (scatter, small multiples) under normal, simulated protan, and simulated deutan vision, and each color's contrast against the background. A pair below its floor needs a second channel or must not sit side by side. `visual-tokens.md` states the floors and records the token palettes' results.
 
 ## Gotchas
 

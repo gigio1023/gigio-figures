@@ -21,7 +21,8 @@ Method, from the published sources:
   and Fernandes (2009) at severity 1.0, which model protanopia and
   deuteranopia, applied to linear RGB and clipped to the gamut.
 
-Floors are working values that flags can change:
+The floors are the skill's defaults for every token palette, documented in
+`references/visual-tokens.md`; flags change them only for a custom check:
 
 - Normal vision, dE 10: five times the OKLab just-noticeable difference of 0.02
   that CSS Color 4 uses for gamut mapping. Thin lines and small dots need
