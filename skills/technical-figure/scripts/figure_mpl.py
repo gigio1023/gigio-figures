@@ -43,6 +43,7 @@ from fontTools.ttLib.tables import otTables
 from matplotlib import font_manager
 from matplotlib.axes import Axes
 from matplotlib.backend_bases import RendererBase
+from matplotlib.collections import LineCollection, PolyCollection
 from matplotlib.colors import LinearSegmentedColormap
 from matplotlib.figure import Figure
 from matplotlib.text import Annotation, Text
@@ -97,6 +98,7 @@ MAX_HEIGHT_U: Final[float] = (
 )
 
 STROKE: Final[dict[str, float]] = {k: v for k, v in TOKENS["stroke"].items() if k.endswith("_u") and k != "allowed_u"}
+BAND_ALPHA: Final[float] = 0.2  # interval bands, inside the 0.15 to 0.25 overlap range of the chart route
 
 # Chart text roles mapped onto the shared type roles, so a tick label is the
 # same size as an SVG annotation and a direct label the same as an edge label.
@@ -356,6 +358,97 @@ def focal(name: HueName) -> dict[str, Any]:
 def context() -> dict[str, Any]:
     """Line or marker kwargs for a context series: `line` gray at the edge width."""
     return {"color": neutral("line"), "linewidth": STROKE["edge_u"] * PT_PER_U, "zorder": 2}
+
+
+def _require_definition(definition: str) -> None:
+    if not definition.strip():
+        raise ValueError("an interval needs its definition: the interval, its level, n, and what one replicate is")
+
+
+def band(
+    ax: Axes,
+    x: Sequence[float],
+    lows: Sequence[float],
+    highs: Sequence[float],
+    *,
+    definition: str,
+    hue_name: HueName | None = None,
+) -> PolyCollection:
+    """Fill an interval band behind a line in the series color at BAND_ALPHA, with no edge, beneath every line.
+
+    `definition` names the interval, its level, n, and the replicate unit, such
+    as "±1 SD over 5 seeds"; it becomes the band's artist label for a legend or
+    caption. An empty definition raises ValueError, because an undefined band
+    is a defect. Draw the series' own line with `focal` or `context` on top.
+    """
+    _require_definition(definition)
+    color: str = hue(hue_name) if hue_name else neutral("line")
+    zorder: float = 1.1 if hue_name else 1  # a focal band stays above context bands where they overlap
+    return ax.fill_between(x, lows, highs, color=color, alpha=BAND_ALPHA, linewidth=0, zorder=zorder, label=definition)
+
+
+def interval_dots(
+    ax: Axes,
+    positions: Sequence[float],
+    estimates: Sequence[float],
+    intervals: Sequence[tuple[float, float]],
+    *,
+    definition: str,
+    hue_name: HueName | None = None,
+    axis: Axis = "x",
+    replicates: Sequence[Sequence[float]] | None = None,
+    replicate_offset: float = 0.25,
+) -> LineCollection:
+    """Draw point estimates as dots on interval lines, with the raw replicate values beside them when given.
+
+    `axis` is the value axis: "x" for a dot plot with categories on y (as set
+    up by `category_axis`), "y" for categories on x. `intervals[i]` is the
+    (low, high) pair for `estimates[i]` at `positions[i]`, in data units. The
+    focal hue draws the lines at the emphasis width, context at the edge width.
+
+    `definition` names the interval, its level, n, and the replicate unit, such
+    as "95% CI over 5 seeds"; it becomes the interval lines' artist label, and
+    an empty definition raises ValueError. `replicates[i]` holds the raw values
+    at `positions[i]`, drawn as small open circles on a strip offset by
+    `replicate_offset` category units, so small-n data stays visible without
+    random jitter. Returns the interval lines.
+    """
+    _require_definition(definition)
+    color: str = hue(hue_name) if hue_name else neutral("line")
+    width_u: float = STROKE["emphasis_u"] if hue_name else STROKE["edge_u"]
+    lows: list[float] = [low for low, _ in intervals]
+    highs: list[float] = [high for _, high in intervals]
+    line_style: dict[str, Any] = {
+        "colors": color,
+        "linewidth": width_u * PT_PER_U,
+        "capstyle": "round",
+        "zorder": 3,
+        "label": definition,
+    }
+    lines: LineCollection = (
+        ax.hlines(positions, lows, highs, **line_style)
+        if axis == "x"
+        else ax.vlines(positions, lows, highs, **line_style)
+    )
+    dots_x: Sequence[float] = estimates if axis == "x" else positions
+    dots_y: Sequence[float] = positions if axis == "x" else estimates
+    ax.plot(dots_x, dots_y, "o", color=color, zorder=4)
+    if replicates is not None:
+        unit: float = TOKENS["spacing_u"]["unit"] * PT_PER_U
+        for position, values in zip(positions, replicates, strict=True):
+            offsets: list[float] = [position + replicate_offset] * len(values)
+            ax.plot(
+                values if axis == "x" else offsets,
+                offsets if axis == "x" else values,
+                "o",
+                markersize=1.25 * unit,
+                markerfacecolor=neutral("bg"),
+                markeredgecolor=color,
+                markeredgewidth=STROKE["guide_u"] * PT_PER_U,
+                linestyle="none",
+                zorder=2.5,
+            )
+    return lines
 
 
 def text_style(role: TextRole = "label", *, hue_name: HueName | None = None, mono: bool = False) -> dict[str, Any]:

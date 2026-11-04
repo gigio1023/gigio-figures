@@ -52,6 +52,16 @@ Neutrals carry the structure; three hues carry meaning.
 - No alpha tints. When overlap itself must show, use a 0.15 to 0.25 alpha fill with an opaque stroke.
 - Contrast: text 4.5:1 against what is actually under it, lines that carry meaning 3:1, guides at least APCA Lc 15.
 
+## Palette audit, 2026-11
+
+`scripts/palette_audit.py` measured the token palettes on 2026-11-04. Distances are OKLab ΔE×100, with protan and deutan vision simulated at full severity (Machado et al. 2009); its working floors are 10 for normal vision and 8 under simulation, and 3:1 for mark contrast. The token values are unchanged by this note; a palette change is the maintainer's decision.
+
+- **Light categorical.** `#E69F00` (2.25:1) and `#56B4E9` (2.31:1) fall below 3:1 on white, against the line rule above; `#CC79A7` passes at 3.06:1. Under deutan, `#009E73` and `#CC79A7` are 7.6 apart, and they are neighbors in list order, so lines or stacks in order put the closest pair side by side. Every other pair clears its floor; the normal-vision minimum is 15.6 (`#D55E00` and `#E69F00`) and the protan minimum 9.6.
+- **Dark categorical.** Every mark passes contrast at 6.7:1 or more, but separation is weaker than in light. Under normal vision `#ED845B` and `#E69F00` are 9.7 apart and `#56B4E9` and `#9CCBF0` 9.9. Under deutan `#3FBF93` and `#E08FC0`, neighbors, are 5.4 apart, `#ED845B` and `#E69F00` 6.3, and `#E08FC0` and `#9CCBF0` 7.9; under protan the minimum is 7.0 (`#56B4E9` and `#E08FC0`).
+- **Semantic hues.** Blue and vermillion are the farthest pair under every vision (light: 29.2 normal, 22.0 protan, 26.8 deutan), and magenta stays at least 10.6 from both. Magenta and the context gray `line` nearly merge under simulation: 3.9 deutan and 6.0 protan in light, 3.8 and 6.2 in dark. A focal magenta series still stands out by its 2.25u stroke, but a magenta series at context weight beside gray context relies on color alone for those readers.
+
+Rerun `python3 scripts/palette_audit.py` after any token change; `--colors` with `--bg` audits a custom palette, and `--all-pairs` lists every distance.
+
 ## Stroke, arrowheads, dashes
 
 | Role | Width |
