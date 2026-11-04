@@ -42,25 +42,43 @@ Neutrals carry the structure; three hues carry meaning.
 | guide | `#D4D3CF` | `#5F5E59` | dividers, axes, frames |
 | blue | `#2769B7` | `#75AEF5` | hue 1 |
 | vermillion | `#C55123` | `#ED845B` | hue 2 |
-| magenta | `#C673A3` | `#B26191` | hue 3 |
+| magenta | `#9E4F7E` | `#D37FAF` | hue 3 |
 
 - Each hue has a stroke, a tint fill, and a text color per theme in the JSON. Text on a tint fill stays ink; hue-colored text is for short labels only.
-- Blue and vermillion are the most separable pair under simulated color-vision deficiency; magenta differs in lightness so it stays apart from both. Red against green and blue against teal nearly merge for some readers, which is why they are not in the set.
+- Blue and vermillion are the most separable pair under simulated color-vision deficiency. Magenta stands apart from the context gray `line` in lightness, darker than it in light and lighter in dark, and from blue and vermillion in hue. Red against green and blue against teal nearly merge for some readers, which is why they are not in the set.
 - Colored area stays below about 5 percent of the figure. Measured published figures sit between about 1 and 3.5 percent; a figure above that reads as decoration.
-- Categorical series in charts use the theme's `categorical` list in order (Okabe-Ito based, adjusted for dark). More than seven categories means grouping or splitting, not more colors.
+- Categorical series in charts use the theme's `categorical` list in order: blue, vermillion, reddish purple, orange, sky blue, bluish green, then ink. The hues are Okabe-Ito's with lightness adjusted per theme, and each slot holds the same hue in both themes, so a series keeps its color identity when the theme changes. More than seven categories means grouping or splitting, not more colors.
 - Sequential values use one hue's lightness ramp; darker is larger in light theme and lighter is larger in dark theme.
 - No alpha tints. When overlap itself must show, use a 0.15 to 0.25 alpha fill with an opaque stroke.
 - Contrast: text 4.5:1 against what is actually under it, lines that carry meaning 3:1, guides at least APCA Lc 15.
 
-## Palette audit, 2026-11
+## Palette separation
 
-`scripts/palette_audit.py` measured the token palettes on 2026-11-04. Distances are OKLab ΔE×100, with protan and deutan vision simulated at full severity (Machado et al. 2009); its working floors are 10 for normal vision and 8 under simulation, and 3:1 for mark contrast. The token values are unchanged by this note; a palette change is the maintainer's decision.
+Every token palette meets three floors. `scripts/palette_audit.py` uses them as its defaults and exits 1 when a palette misses one.
 
-- **Light categorical.** `#E69F00` (2.25:1) and `#56B4E9` (2.31:1) fall below 3:1 on white, against the line rule above; `#CC79A7` passes at 3.06:1. Under deutan, `#009E73` and `#CC79A7` are 7.6 apart, and they are neighbors in list order, so lines or stacks in order put the closest pair side by side. Every other pair clears its floor; the normal-vision minimum is 15.6 (`#D55E00` and `#E69F00`) and the protan minimum 9.6.
-- **Dark categorical.** Every mark passes contrast at 6.7:1 or more, but separation is weaker than in light. Under normal vision `#ED845B` and `#E69F00` are 9.7 apart and `#56B4E9` and `#9CCBF0` 9.9. Under deutan `#3FBF93` and `#E08FC0`, neighbors, are 5.4 apart, `#ED845B` and `#E69F00` 6.3, and `#E08FC0` and `#9CCBF0` 7.9; under protan the minimum is 7.0 (`#56B4E9` and `#E08FC0`).
-- **Semantic hues.** Blue and vermillion are the farthest pair under every vision (light: 29.2 normal, 22.0 protan, 26.8 deutan), and magenta stays at least 10.6 from both. Magenta and the context gray `line` nearly merge under simulation: 3.9 deutan and 6.0 protan in light, 3.8 and 6.2 in dark. A focal magenta series still stands out by its 2.25u stroke, but a magenta series at context weight beside gray context relies on color alone for those readers.
+- **Normal vision: OKLab ΔE×100 of at least 10 for every pair.** CSS Color 4 treats an OKLab difference of 0.02 as just noticeable when it maps colors into a gamut; 10 is five of those steps, because thin lines and small dots need several times the difference that large patches need.
+- **Simulated protan and deutan vision: ΔE×100 of at least 8 for every pair.** The simulation is Machado, Oliveira, and Fernandes (2009) at full severity, the worst case; anomalous trichromats, the larger share of readers with color-vision deficiency, see more difference than it shows.
+- **Mark contrast: 3:1 against the theme background** for every hue stroke, categorical slot, and `line`, the `graphic_contrast_min` token from WCAG 2.2 SC 1.4.11.
 
-Rerun `python3 scripts/palette_audit.py` after any token change; `--colors` with `--bg` audits a custom palette, and `--all-pairs` lists every distance.
+The floors hold for all pairs, since scatter and small multiples can put any two colors side by side; the categorical order then places the best-separated pairs next to each other for lines in order and stacked bars. The context gray stays recessive: in both themes every hue stroke has more contrast against the background than `line`, so a context series never reads louder than a hued one.
+
+The 2026-11-04 change brought the palettes to these floors with lightness steps before hue changes:
+
+- **Magenta.** It had nearly the lightness of `line`, so under deutan the two were 3.9 apart in light and 3.8 in dark. The stroke moved in lightness only, away from the gray: `#C673A3` to `#9E4F7E` in light, `#B26191` to `#D37FAF` in dark. Its fill and text colors are unchanged.
+- **Light categorical.** `#E69F00` (2.25:1) and `#56B4E9` (2.31:1) were below 3:1 on white; they are now `#C68800` and `#3D9CDC` at 3.0:1. An orange dark enough for 3:1 falls within deutan reach of `#D55E00` unless it turns brown, so vermillion darkened slightly to `#C94F00`. `#009E73` and `#CC79A7`, neighbors 7.6 apart under deutan, are no longer adjacent; `#009E73` became `#2D986E`, and `#CC79A7` is unchanged.
+- **Dark categorical.** Seven pairs were below a floor, down to 9.7 under normal vision, 7.0 under protan, and 5.4 under deutan; lightness steps cleared them: `#3FBF93` to `#57D39E`, `#E08FC0` to `#D785B4`, `#E69F00` to `#F0A91E`, `#9CCBF0` to `#9FCEF3`.
+- **Order.** Reddish purple moved to the third slot and bluish green to the sixth, the order whose weakest adjacent pair is strongest across both themes.
+
+Minimum ΔE×100 as of 2026-11-04, all pairs and, for the ordered lists, adjacent pairs:
+
+| Palette | Normal | Protan | Deutan | Lowest contrast |
+|---|---|---|---|---|
+| light semantic | 14.0 | 9.3 | 10.1 | 3.39:1, `line` |
+| dark semantic | 12.6 | 9.8 | 10.3 | 4.11:1, `line` |
+| light categorical | 12.9; adjacent 16.7 | 8.4; adjacent 16.1 | 8.7; adjacent 15.6 | 3.01:1 |
+| dark categorical | 10.7; adjacent 12.4 | 8.7; adjacent 11.8 | 8.3; adjacent 10.8 | 6.62:1 |
+
+Blue and vermillion remain the farthest semantic pair under every vision (light: 29.2 normal, 22.0 protan, 26.8 deutan). Rerun `python3 scripts/palette_audit.py` after any token change; `--colors` with `--bg` audits a custom palette, and `--all-pairs` lists every distance.
 
 ## Stroke, arrowheads, dashes
 
@@ -90,4 +108,4 @@ Rerun `python3 scripts/palette_audit.py` after any token change; `--colors` with
 
 ## Sources
 
-Values were set from direct measurement and render tests during a 2026-09 study: Notion's CSS color tokens in both themes, published figure palettes and chroma areas (Anthropic, Transformer Circuits, Google DeepMind, DeepSeek, Qwen, MiMo, Meta), font metrics read from the font files, WCAG 2.2 SC 1.4.3 and 1.4.11, APCA, Okabe-Ito, Paul Tol, IBM Carbon, Material 3, Primer, and Atlassian spacing guidance, TikZ's arrow-tip length rule, and 2x renders of candidate stacks at a 708 px display width.
+Values were set from direct measurement and render tests during a 2026-09 study: Notion's CSS color tokens in both themes, published figure palettes and chroma areas (Anthropic, Transformer Circuits, Google DeepMind, DeepSeek, Qwen, MiMo, Meta), font metrics read from the font files, WCAG 2.2 SC 1.4.3 and 1.4.11, APCA, Okabe-Ito, Paul Tol, IBM Carbon, Material 3, Primer, and Atlassian spacing guidance, TikZ's arrow-tip length rule, and 2x renders of candidate stacks at a 708 px display width. The separation floors follow CSS Color 4's OKLab gamut-mapping JND of 0.02, Ottosson's OKLab (2020), the color-vision-deficiency simulation of Machado, Oliveira, and Fernandes (2009), and Stone, Szafir, and Setlur (2014) on the larger differences that thin marks need.
