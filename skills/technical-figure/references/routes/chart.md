@@ -15,13 +15,19 @@ Decide by the content, not by the request's noun.
 
 The FigureSpec still applies: the question, the claim, and the comparison. Keep sample sizes, dates, and run conditions on the canvas when they distinguish cases or change how a value is read. Conditions applying clearly to the whole chart and data sources belong in the caption. An existing plotting stack may replace this module when it preserves the data, shared visual language, and verification below.
 
+## Before drawing
+
+- **Enough data.** A trend needs roughly 8 to 12 points along its ordered axis, and a relationship in a scatter roughly 12 to 20. Fewer than about 8 values usually read better as a table, or as a dot plot when the comparison between them is the point.
+- **Compared to what.** Every chart carries the reference its values are read against: a baseline method, the prior version, a threshold or target, chance level, or a human reference label. Draw it as context (a gray series, a labeled hairline at the threshold) or build it into the measure, as in a difference from baseline. Without a reference the chart cannot answer a comparison question; ask for one, or say what the values alone support.
+- **One sentence.** When one sentence states the whole result, such as one number or two numbers and their difference, write the sentence and skip the chart.
+
 ## Chart by question
 
 Pick from the reader's question, not from the data's shape; "graph" arrives meaning five different charts. Reconsider once while plotting: when the chart fights the data, the question was misread.
 
 | The reader asks | Use | Notes |
 | --- | --- | --- |
-| How does a measure change over time or along an ordered scale? | Line | Five points or fewer may read better as bars or dots; missing periods stay gaps, never zero |
+| How does a measure change over time or along an ordered scale? | Line | Below about 8 points, a table or dots; missing periods stay gaps, never zero |
 | Which of a few items is bigger, and by how much? | Bar, sorted | Order by value unless the category order carries meaning; value labels when bars are few |
 | Which of many items is bigger? | Horizontal bar or dot plot | Room for long category labels; consider top N plus one "others" row |
 | Two measures per item? | Dot plot, grouped bars, or two charts | One y scale; a dual axis is two charts |
@@ -48,6 +54,19 @@ Pick from the reader's question, not from the data's shape; "graph" arrives mean
 - **Direct labels over legends.** Name each line at its end and each dot row at its axis; label values only at line ends or on the one emphasized point, never on every point. Use a short legend when direct labels would be ambiguous or crowded.
 - **No chart junk.** No title in the canvas (the caption names the chart), no subtitle, takeaway band, source footer, badge, or inset to fill space. No four-sided frame, 3D, shadow, gradient, or background tint. Gridlines are off; a hairline `guide` grid on the value axis is allowed when reading values off that axis is the point, as in a dot plot.
 - **Horizontal text.** The y-axis title sits horizontally above the tick labels, never rotated; `axis_titles` places both titles.
+- **Distinct non-values.** Missing, zero, censored, and excluded values each look different. A missing value is a gap with no mark; a zero is a mark at zero; a censored value (a timeout, a run stopped at its step budget, a score at the scale's ceiling) is an open marker at the bound with a short label; an excluded value, removed by a stated rule, is absent and counted in the caption. Drawing any of them as zero or as an ordinary point changes the data.
+
+## Uncertainty in measured results
+
+A measured ML result is an estimate: a score over sampled items, a loss over seeds, a judge's rate over prompts. Show the spread that would change the reading, and say what it is.
+
+- **Name the interval and n.** State which interval is drawn: SD (the spread of replicates), SE (the precision of a mean), a CI with its level (95% CI), or a percentile interval (the 5th to 95th percentile of runs). Give n and what one replicate is: a training seed, a prompt, an evaluation item, a judge sample. An interval over items and one over seeds measure different variation and are not interchangeable. The definition goes in the caption when it holds for the whole chart and on the canvas when it differs between series; an undefined whisker or band is a defect.
+- **Compare through the interval of the difference.** Never judge significance from whether two intervals overlap: two 95% CIs can overlap while the difference is reliable, non-overlapping SE bars can still hide an unreliable one, and for paired data (the same items or seeds under both methods) overlap says almost nothing. For a claim that A beats B, plot A − B with its own interval, paired when the data allows, against a zero reference line.
+- **Dots with intervals, not bars with whiskers.** A point estimate on an interval line is read by position against the scale; a bar adds an area from zero that the eye reads as the data, and its whisker hides the distribution. With few replicates, under about 10, draw the raw values beside the summary at fixed offsets, never random jitter.
+- **Bands behind lines.** Along an ordered axis, draw the interval as a band behind the opaque line, in the series color at 0.15 to 0.25 alpha, and define it like any interval. A context series' band stays gray, and is left out when it would hide the focal band.
+- **Pooled runs stay visible.** When a line aggregates several runs, such as the mean of five seeds, draw each run as a thin line (1.0u, the series color) beneath the aggregate, so a divergent seed or a spread that grows with steps stays visible.
+
+`fm.interval_dots` draws dots on interval lines with optional raw replicates, and `fm.band` draws a band; both refuse an empty definition. `scripts/example_uncertainty.py` renders both: accuracy per checkpoint with Wilson-interval bands over 500 items, and the per-task gain over a baseline as dots with a 95% t-interval over five seeds, the raw seeds beside them, and a zero reference.
 
 ## Color and the semantic map
 
@@ -60,6 +79,9 @@ The document's semantic map from `planning.md` assigns each hue one meaning, and
 | A second mapped meaning whose contrast with the focus is the claim | `fm.context() \| {"color": fm.hue(second)}`: hue stroke at 1.5u, lighter than the focus | `hue_name=second` |
 | A categorical comparison with no focal series | `fm.categorical()` in order, 1.5u; more than seven categories means grouping or splitting | ink-2, or the series color when it passes 4.5:1 |
 | Sequential values (heatmap) | `cmap=fm.sequential(hue)`: darker is larger in light, lighter is larger in dark | `ink` near the ramp's fill end, `bg` near its stroke end; check 4.5:1 |
+| Signed values around a midpoint (change from a baseline) | `LinearSegmentedColormap.from_list` over one hue's stroke, `bg`, and another hue's stroke, with `norm=TwoSlopeNorm(vcenter=midpoint)` | `ink` near the center, `bg` near either end; check 4.5:1 |
+
+A diverging map centers on a midpoint that means something: zero change, the baseline's score, chance level. Never center it on the data's mean or the middle of its range, which moves the neutral color with the data. Its two ends take two mapped hues whose meanings fit the two directions, blue and vermillion by default because they stay apart under color-vision deficiency.
 
 Un-styled series default to context gray, so a hue always appears by choice. Colored area stays small, a focal line or a row of dots, not filled regions. Where overlap itself must show (dense scatter), use a 0.15 to 0.25 alpha fill with an opaque stroke; otherwise no alpha.
 
@@ -97,6 +119,8 @@ A 720u canvas is a figure 720pt wide, so 1u is 1pt and token sizes pass to matpl
 | `axis_titles(ax, x=None, y=None)` | x title at the right end below the axis; y title horizontal above the tick labels, or above the panel title in small multiples (set it on the first panel only) |
 | `category_axis(ax, labels, axis="y", hues=None, mono=False)` | Categories as direct labels at 0 to n-1, a mapped one in its hue, no spine or tick marks |
 | `value_grid(ax, axis)` | Hairline guide grid on the value axis; drops that axis's spine and tick marks |
+| `interval_dots(ax, positions, estimates, intervals, definition=..., hue_name=None, axis="x", replicates=None)` | Dots on interval lines, raw replicate values as open circles on a strip beside each dot |
+| `band(ax, x, lows, highs, definition=..., hue_name=None)` | Interval band behind a line at 0.2 alpha, beneath every line |
 | `save(fig, stem, theme)`, `render(draw, stem)` | Write the themed PNG and SVG |
 
 A chart script:
@@ -129,7 +153,10 @@ fm.render(draw, "loss")
 bash scripts/setup.sh --check                                    # fonts present; once per machine
 PYTHONPATH=<skill>/scripts uv run --with matplotlib python chart.py
 cd scripts && uv run --with matplotlib python example_chart.py /tmp/example-charts
+cd scripts && uv run --with matplotlib python example_uncertainty.py /tmp/example-charts
 cd scripts && uv run --with matplotlib python -m unittest        # module tests
+python3 scripts/palette_audit.py                                 # token palettes, both themes
+python3 scripts/palette_audit.py --colors "#0072B2" "#D55E00" --bg "#FFFFFF"   # a custom palette
 ```
 
 No system matplotlib is assumed; add other dependencies the same way (`--with pandas`). Without the cached fonts the module warns once and falls back to the token stacks' system fonts; text widths then differ and Hangul may be missing on machines without a Korean font, so install the fonts before delivering.
@@ -148,6 +175,9 @@ Catch failures as assertions in the script before the first render, and check th
 - Units are consistent within a series. When one subject appears in several configurations, the measurement basis (effort or mode, per attempt or per full run) is stated in the caption.
 - A log axis carries no bars; grouped bars past about three groups per category become a dot plot.
 - Every hued series maps to an entry in the document's semantic map.
+- Every interval, band, and whisker has its definition, n, and replicate unit, and each interval contains its estimate.
+- The reference is present: a baseline series, a threshold line, or a measure defined relative to one.
+- Censored and excluded values are counted and drawn as such, never as zeros.
 
 ## Verification
 
@@ -162,8 +192,9 @@ Rerender after any label or layout correction, and after a data fix rerender eve
 ## Accessibility
 
 - Color is never the only channel: the focal series is also heavier, every series is labeled in place, and a second system gets a different dash or marker.
-- Blue and vermillion are the pair that stays apart under color-vision deficiency; magenta differs in lightness from both.
-- Text meets 4.5:1 against what is under it and meaningful lines 3:1; the theme tokens already satisfy this on the baked background.
+- Blue and vermillion are the pair that stays apart under color-vision deficiency; magenta differs in lightness from both, but nearly merges with the context gray for protan and deutan readers, so a magenta series at context weight needs a dash or marker.
+- Text meets 4.5:1 against what is under it and meaningful lines 3:1. The text neutrals, `line`, and the hue strokes satisfy this on the baked background; the light categorical slots `#E69F00` and `#56B4E9` do not, so give them a second channel or keep them off thin lines.
+- Check any custom palette, and any change to the token palettes, with `python3 scripts/palette_audit.py --colors ... --bg ...`. It reports OKLab separation of adjacent pairs (lines in order, stacks) and of all pairs (scatter, small multiples) under normal, simulated protan, and simulated deutan vision, and each color's contrast against the background. A pair below its floor needs a second channel or must not sit side by side. `visual-tokens.md` records the token palettes' results.
 
 ## Gotchas
 
@@ -174,3 +205,10 @@ Rerender after any label or layout correction, and after a data fix rerender eve
 - A log cost or price axis has no zero, so bar length carries no meaning: plot dots.
 - Compare configurations as small multiples on one shared scale (`fm.figure(..., ncols=3, sharey=True)`); a gap smaller than the source's own spread is not a result.
 - Matplotlib centers y tick labels on their ascender box, which sets lowercase category names visibly below their dots. `category_axis` centers them on the full box and fixes the ticks so per-label styles hold; numeric ticks keep the default.
+
+## Sources
+
+- Claus O. Wilke, *Fundamentals of Data Visualization* (O'Reilly, 2019), chapter 16, "Visualizing uncertainty": how SD, SE, and confidence intervals differ, saying which one an error bar shows, and confidence bands around curves. https://clauswilke.com/dataviz/visualizing-uncertainty.html
+- Nicolas P. Rougier, Michael Droettboom, and Philip E. Bourne, "Ten Simple Rules for Better Figures," *PLoS Computational Biology* 10(9): e1003833, 2014: know the message, the audience, and the medium before choosing a chart. https://doi.org/10.1371/journal.pcbi.1003833
+- Datawrapper, "Show confidence intervals and value markers in Datawrapper bar charts": range overlays can mean a 95% or 80% interval, a full range, or a standard deviation, so the chart must say which. https://www.datawrapper.de/blog/confidence-intervals-value-markers-bar-charts
+- Gustavo M. Machado, Manuel M. Oliveira, and Leandro A. F. Fernandes, "A Physiologically-based Model for Simulation of Color Vision Deficiency," *IEEE TVCG* 15(6), 2009, and Björn Ottosson, "A perceptual color space for image processing" (2020): the simulation and the color space behind `scripts/palette_audit.py`.
