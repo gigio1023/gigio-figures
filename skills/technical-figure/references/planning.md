@@ -43,6 +43,23 @@ Steps:
 6. **Storyboard.** Place every planned figure as a thumbnail in reading order and name what each adds. Each transition changes one thing: zoom in, add one element, show the parallel case, or introduce a new platform. Parallel cases (three methods, two models) use the same layout.
 7. **Exemplar choice.** When the set has an internal reference figure, choose the most mechanism-rich one, not the simplest.
 
+## Figure brief
+
+A figure whose content the request leaves open gets a short brief that the user confirms before anything is drawn. A wrong brief costs one message; a wrong figure costs a redraw, and the user judges "is this the right figure?" faster from a brief than from a FigureSpec.
+
+**When.** The content is open when the material does not settle which components are new, which path is the main one, or what single point the figure argues: "draw our system" over a design doc with several candidate paths, or notes that never say what the work contributes. Skip the brief and its confirmation round when the request already names the components and the point, when an existing figure is being redone, or when the document plan already fixes the claim; go straight to the FigureSpec.
+
+**Contents.** Prose or short bullets in the user's language, with every label exactly as it will appear in the figure:
+
+1. **Components**: every element that will be drawn, in reading order and grouped by container, each with one clause on its job and a tag: `new` (what this work contributes), `existing` (reused unchanged), `external` (another team's or vendor's system), or `baseline` in a comparison.
+2. **Main path**: numbered steps, each `from → to: what moves`; then the secondary flows in a sentence, saying which are control, feedback, or optional.
+3. **The point**: the one claim the figure argues and where the eye lands first.
+4. **Assumptions**: three to five items inferred rather than read, each with its source, such as `Cache is existing: §3.2 says it reuses the serving cache`. These are the only questions; everything else takes a default.
+
+**Asking.** Send the brief once, with the assumptions as the questions; ask at most three, phrased as the guess plus its alternative. When every guess is well supported by the material, draw instead of waiting and deliver the figure with the assumption list so the user can correct it.
+
+**Into the spec.** Components become `nodes`, and their tags guide `role` and hue: new parts usually carry the focus or the hue the semantic map gives to "new". The main path becomes the `edges` along it and `focus`; the point becomes `claim`; confirmed assumptions become spec facts, and unconfirmed ones go to the delivery note. After confirmation, a change of content goes into the brief first, then the spec, then the drawing.
+
 ## FigureSpec
 
 Record the required content before authoring, using `<id>.spec.json` beside `<id>.svg` or an equivalent project inventory; `assets/templates/figure-spec.json` is the bundled template. The renderer cannot add what the spec lacks, the review checks the render against it, and `render.mjs --spec` reports any spec id that the figure does not carry as `data-id`.
@@ -91,3 +108,7 @@ A figure is done when all of these hold:
 | Caption, rest | supporting counts, conditions applying to the whole figure, sources, illustrative status, step text for numbered markers | a necessary local condition that cannot be matched to its mark |
 
 Label directly beside the element rather than in a legend. A distant label connects with a thin neutral leader. Numbered markers may link to procedural detail below the figure, but keep operation names and conditions visible when they are needed to follow the mechanism.
+
+## Sources
+
+- Sleepy-Avacado/FigGenie-paper-diagram-skill (MIT), https://github.com/Sleepy-Avacado/FigGenie-paper-diagram-skill, its brief template and spec guide: the brief confirmed before drawing, component tags, the numbered main path, assumptions with their sources, and drawing without a round trip when the guess is well supported.
